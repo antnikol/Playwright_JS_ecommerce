@@ -17,25 +17,22 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "18.x"
+          node-version: lts/*
 
-      - name: Install test dependencies
+      - name: Install dependencies
         run: |
+          sudo apt-get install -y allure
           npm install --save-dev allure-commandline allure-playwright playwright express
 
       # - name: Install dependencies
       #   run: |
       #     sudo apt-get update
       #     sudo apt-get upgrade -y
-      #     sudo apt-get install -y allure
-      #     npm install
-      #     npm install -g allure-commandline
-      #     npm install playwright allure-commandline allure-playwright --save-dev express
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
