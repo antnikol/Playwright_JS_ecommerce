@@ -33,6 +33,7 @@ jobs:
         run: |
           npm install playwright
           npm install allure-commandline --save-dev
+          npm install allure-playwright --save-dev
 
       - name: Install Allure Playwright reporter
         run: npm install allure-playwright --save-dev
@@ -68,7 +69,7 @@ jobs:
 
       - name: Run Playwright tests (including the one with mock server)
         run: |
-          npx playwright test --reporter=allure
+          npx playwright test --reporter=allure-playwright
 
       - name: Check Allure results
         run: |
