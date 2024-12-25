@@ -27,6 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install -y allure
+          npm install -g allure-commandline
           npm install --save-dev allure-commandline allure-playwright playwright express
 
       # - name: Install dependencies

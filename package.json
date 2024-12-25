@@ -18,6 +18,7 @@
     "@types/node": "^22.10.2",
     "allure-commandline": "^2.32.0",
     "allure-playwright": "^3.0.7",
+    "express": "^4.21.2",
     "playwright": "^1.49.1"
   }
 }
