@@ -132,11 +132,6 @@ jobs:
           git commit -m "Clean old Allure report"
           git push origin gh-pages
 
-      # - name: Configure Git user for authentication
-      #   run: |
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Clone gh-pages branch and update report
         run: |
           git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
