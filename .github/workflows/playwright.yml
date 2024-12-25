@@ -24,20 +24,19 @@ jobs:
         with:
           node-version: "18.x"
 
+      - name: Update package list
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade -y
+
       - name: Install dependencies
         run: |
           npm install
           npm install express
-          sudo apt update
-          sudo apt install -y libwoff2dec1.0.2 libvpx7 libevent-2.1-7 libopus0 \
-            libgstallocators-1.0-0 libgstapp-1.0-0 libgstpbutils-1.0-0 \
-            libgstaudio-1.0-0 libgstgl-1.0-0 libgsttag-1.0-0 libgstvideo-1.0-0 \
-            libgstcodecparsers-1.0-0 libgstfft-1.0-0 libflite1 libflite_usenglish1 \
-            libflite_cmu_grapheme_lang1 libflite_cmu_grapheme_lex1 libflite_cmu_indic_lang1 \
-            libflite_cmu_indic_lex1 libflite_cmulex1 libflite_cmu_time_awb1 \
-            libflite_cmu_us_awb1 libflite_cmu_us_kal16 libflite_cmu_us_kal \
-            libflite_cmu_us_rms libflite_cmu_us_slt libavif13 libharfbuzz-icu0 \
-            libhyphen0 libmanette0 libgles2 libx264
+          sudo apt-get install -y libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libxtst6 \
+            libappindicator3-1 libgdk-pixbuf2.0-0 libdbus-1-3 libsecret-1-0 \
+            libnss3 libxss1 libasound2 libatk-bridge2.0-0 libatk1.0-0 \
+            libcups2 libgdk-pixbuf2.0-0
 
       - name: Install Playwright and Allure Commandline via NPM
         run: |
