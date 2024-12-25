@@ -24,21 +24,14 @@ jobs:
         with:
           node-version: "18.x"
 
-      - name: Update package list
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get upgrade -y
-
-      - name: Install dependencies
-        run: |
-          npm ci
-          npm install express
-
-      - name: Install Playwright and Allure Commandline via NPM
-        run: |
-          npm install playwright
-          npm install allure-commandline --save-dev
-          npm install allure-playwright --save-dev
+          sudo apt-get install -y allure
+          npm install
+          npm install -g allure-commandline
+          npm install playwright allure-commandline allure-playwright --save-dev express
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
@@ -83,8 +76,16 @@ jobs:
             exit 1
           fi
 
+      - name: Check Allure version (to confirm it's installed)
+        run: |
+          allure --version
+
       - name: Generate Allure report
         run: |
+          if [ ! -d "./allure-results" ] || [ -z "$(ls -A ./allure-results)" ]; then
+            echo "No Allure results found. Skipping report generation."
+            exit 1
+          fi
           allure generate ./allure-results --clean
 
       - name: Upload Allure report
@@ -111,7 +112,7 @@ jobs:
         run: |
           if ! git ls-remote --exit-code origin gh-pages; then
             git checkout --orphan gh-pages
-            git rm -rf .
+            git rm -rf .  # Clean up the directory
             echo "Placeholder for GitHub Pages" > index.html
             git add index.html
             git commit -m "Initialize gh-pages branch"
@@ -126,7 +127,7 @@ jobs:
         run: |
           git fetch origin gh-pages
           git checkout gh-pages
-          rm -rf ./*  
+          rm -rf ./*  # Remove old files
           git add .
           git commit -m "Clean old Allure report"
           git push origin gh-pages
@@ -135,8 +136,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.name "github-actions[bot]"  
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"  
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
           rm -rf gh-pages/*
           cp -r ./allure-report/* gh-pages/
