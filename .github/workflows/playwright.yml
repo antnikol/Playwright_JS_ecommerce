@@ -25,7 +25,9 @@ jobs:
           node-version: "18.x"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install express
 
       - name: Install Playwright and Allure Commandline via NPM
         run: |
