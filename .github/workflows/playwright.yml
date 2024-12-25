@@ -132,12 +132,13 @@ jobs:
           git commit -m "Clean old Allure report"
           git push origin gh-pages
 
-      - name: Configure GitHub token for authentication
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Configure Git user for authentication
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone gh-pages branch and update report
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
           rm -rf gh-pages/*
           cp -r ./allure-report/* gh-pages/
@@ -145,7 +146,3 @@ jobs:
           git add .
           git commit -m "Update Allure report"
           git push origin gh-pages
-
-      - name: Apply stashed changes
-        run: |
-          git stash pop || echo "No changes to apply"
