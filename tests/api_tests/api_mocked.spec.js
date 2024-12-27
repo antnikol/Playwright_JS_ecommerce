@@ -1,5 +1,5 @@
 import { test } from './support/globalHooks'
-import { liveServerUrl, message, baseUrl, gitHubActionsServerUrl } from '../../fixtures/api.json'
+import { liveServerUrl, message, baseUrl, gitHubActionsServerUrl } from '../../fixtures/api.json' assert { type: "json" }
 
 test.describe('API tests with mocked data', () => {
   beforeEach(() => {

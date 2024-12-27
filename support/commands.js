@@ -1,4 +1,4 @@
-import { user } from '../fixtures/api.json' with { type: "json" }
+import jsonData from '../fixtures/api.json' assert { type: 'json' }
 import { expect } from '@playwright/test'
 
 import LoginPage from '../pageObjects/LoginPage'
@@ -6,6 +6,7 @@ import BasePage from '../pageObjects/BasePage'
 import SignUpPage from '../pageObjects/SignUpPage'
 import HomePage from '../pageObjects/HomaPage'
 
+const { user } = jsonData
 const USEREMAIL = user.email
 const PASSWORD = user.password
 const ErrorLoginMessageLocator = 'form[action="/login"] > p'

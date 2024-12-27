@@ -1,22 +1,24 @@
-import { test } from './support/globalHooks'
+import { test } from '../../support/globalHooks'
 import { expect } from '@playwright/test'
-import { user } from '../fixtures/api.json' with { type: "json" }
- 
+
 import HomePage from '../../pageObjects/HomaPage'
 import ContactUsPage from '../../pageObjects/ContactUsPage'
 import CartPage from '../../pageObjects/CartPage'
-import genData from "../../fixtures/genData"
-import text from "../../fixtures/text.json" with { type: "json" }
+import { newProductTestData } from '../../fixtures/genData.js'
+import text from "../../fixtures/text.json" assert { type: "json" }
+import jsonData from '../../fixtures/api.json' assert { type: 'json' }
 
 
-let contactUsPage, cartPage, homePage;
-const testData = genData.newProductTestData();
+const { user } = jsonData
+let contactUsPage, cartPage, homePage
+const testData = newProductTestData()
+
 
 test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
   test.beforeEach(async ({ page }) => {
-    homePage = new HomePage(page);
-    contactUsPage = new ContactUsPage(page);
-    cartPage = new CartPage(page);
+    homePage = new HomePage(page)
+    contactUsPage = new ContactUsPage(page)
+    cartPage = new CartPage(page)
   });
 
   test('Test Case 6: Contact Us Form', async ({ page }) => {

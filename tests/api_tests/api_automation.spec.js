@@ -1,5 +1,5 @@
 import { test } from './support/globalHooks'
-import { liveServerUrl, searchTerms, user, userUpdate, message } from '../fixtures/api.json'
+import { liveServerUrl, searchTerms, user, userUpdate, message } from '../fixtures/api.json' assert { type: "json" }
 
 test.describe('API tests for the site automationexercise.com', ()=> {
 
