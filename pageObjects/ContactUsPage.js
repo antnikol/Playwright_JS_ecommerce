@@ -20,6 +20,10 @@ getSubmitButton = () => this.page.locator('input[data-qa="submit-button"]')
 getSuccessMessage = () => this.page.locator('.status.alert.alert-success')
 getBackToHomePageButton = () => this.page.locator('a.btn.btn-success')
 
+async getGetInTouchHeaderText() {
+  return (await this.getGetInTouchHeader().textContent())
+}
+
 async typeNameTextField(name) {
   await this.getNameTextField().type(name)
   return this

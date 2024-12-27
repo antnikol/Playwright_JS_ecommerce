@@ -16,7 +16,7 @@ test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
     await page.goto('/')
     await homePage.clickContactUsButton()
     expect(await homePage.getPageUrl()).toContain(text.contactUsPage.pageUrl)
-    await expect(await contactUsPage.getGetInTouchHeader()).toContain(text.contactUsPage.getInTouchHeader)
+    await expect(await contactUsPage.getGetInTouchHeaderText()).toContain(text.contactUsPage.getInTouchHeader)
     await contactUsPage
       .typeNameTextField(user.name)
       .typeEmailTextField(user.email)

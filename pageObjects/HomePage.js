@@ -38,7 +38,7 @@ async clickAddToCartRecommendedItemCarousel(itemNumber) {
 }
 
 async getCarouselRecommendedItemName(randomCarouselNumber) {
-  return (await this.getCarouselRecommendedItemNamesList().nth(randomCarouselNumber).innerText ())
+  return (await this.getCarouselRecommendedItemNamesList().nth(randomCarouselNumber).innerText())
 }
 
 async clickCarouselRecommendedItemAddToCartButton(randomCarouselNumber) {
@@ -52,11 +52,11 @@ async scrollToCarouselRecommendedItems() {
 }
 
 async getFirstProductName() {
-  return (await this.getAllProductsNames().first().innerText ()).trim()
+  return (await this.getAllProductsNames().first().innerText()).trim()
 } 
 
 async takeFirstProductPrice() {
-  return (await this.getAllProductsPrices().first().innerText ()).trim()
+  return (await this.getAllProductsPrices().first().innerText()).trim()
 }
 
 }
