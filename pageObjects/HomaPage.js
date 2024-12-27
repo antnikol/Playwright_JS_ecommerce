@@ -29,12 +29,12 @@ async clickFirstProductAddToCartButton() {
 
 async clickViewCartModalButton() {
   await this.getViewCartModalButton().click()
-  return new CartPage()
+  return new CartPage(this.page)
 }
 
 async clickAddToCartRecommendedItemCarousel(itemNumber) {
   await this.getRecommendedItemCarouselSectionActive().nth(itemNumber).click()
-  return new CartPage()
+  return new CartPage(this.page)
 }
 
 async getCarouselRecommendedItemName(randomCarouselNumber) {

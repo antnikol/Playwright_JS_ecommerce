@@ -1,4 +1,4 @@
-import { user } from '../fixtures/api.json'
+import { user } from '../fixtures/api.json' with { type: "json" }
 import { expect } from '@playwright/test'
 
 import LoginPage from '../pageObjects/LoginPage'

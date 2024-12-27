@@ -31,7 +31,7 @@ static counterClickFirstProductAddToCartButton = 0
 
 async clickFirstViewProductButton() {
   await this.getAllViewProductButtons().first().click()
-  return new ProductDetailsPage()
+  return new ProductDetailsPage(this.page)
 }
 
 async typeSearchProductField(searchWords) {
@@ -105,7 +105,7 @@ async returnSecondProductName() {
 
 async clickViewCartModalButton() {
   await this.getViewCartModalButton().click()
-  return new CartPage()
+  return new CartPage(this.page)
 }
 
 resetCounterClickFirstProductAddToCartButton() {

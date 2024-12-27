@@ -1,5 +1,6 @@
 import BasePage from "./BasePage.js"
-import HomePage from "./HomePage"
+import HomePage from "./HomaPage.js";
+
 
 class ContactUsPage extends BasePage {
 
@@ -56,7 +57,7 @@ async clickSubmitButton() {
 
 async clickBackToHomePageButton() {
   await this.getBackToHomePageButton().click()
-  return new HomePage()
+  return new HomePage(this.page)
 }
 
 }

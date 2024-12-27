@@ -1,5 +1,6 @@
 import BasePage from "./BasePage.js"
-import HomePage from "./HomePage"
+import HomePage from "./HomaPage.js"
+
 
 class SignUpPage extends BasePage {
 
@@ -121,7 +122,7 @@ async clickCreateAccountButton() {
 
 async clickContinueButton() {
   await this.getContinueButton().click()
-  return new HomePage()
+  return new HomePage(this.page)
 }
 
 }
