@@ -1,38 +1,45 @@
-import { user } from '../fixtures/api.json';
-import HomePage from '../pageObjects/HomePage';
-import LoginPage from '../pageObjects/LoginPage';
-import BasePage from '../pageObjects/BasePage';
-import SignUpPage from '../pageObjects/SignUpPage';
+import { user } from '../fixtures/api.json'
+import { expect } from '@playwright/test'
 
-const homePage = new HomePage();
-const loginPage = new LoginPage();
-const basePage = new BasePage();
-const signupPage = new SignUpPage();
+import LoginPage from '../pageObjects/LoginPage'
+import BasePage from '../pageObjects/BasePage'
+import SignUpPage from '../pageObjects/SignUpPage'
+import HomePage from '../pageObjects/HomaPage'
 
-const USEREMAIL = user.email;
-const PASSWORD = user.password;
-const ErrorLoginMessageLocator = 'form[action="/login"] > p';
+const USEREMAIL = user.email
+const PASSWORD = user.password
+const ErrorLoginMessageLocator = 'form[action="/login"] > p'
+
 
 export async function deleteUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
-  await homePage.clickSignupLoginButton(page);
-  await loginPage.typeEmailLoginTextField(page, userEmail);
-  await loginPage.typePasswordLoginTextField(page, pass);
-  await loginPage.clickLoginButton(page);
+  const homePage = new HomePage(page)
+  const loginPage = new LoginPage(page)
+  const basePage = new BasePage(page)
+
+  await homePage.clickSignupLoginButton(page)
+  await loginPage.typeEmailLoginTextField(page, userEmail)
+  await loginPage.typePasswordLoginTextField(page, pass)
+  await loginPage.clickLoginButton(page)
 
   const errorMessageVisible = await page.locator(ErrorLoginMessageLocator).isVisible();
 
   if (errorMessageVisible) {
-    console.log('Error message found.');
-    await loginPage.getErrorLoginMessage(page).toHaveText('Your email or password is incorrect!');
+    console.log('Error message found.')
+    await loginPage.getErrorLoginMessage(page).toHaveText('Your email or password is incorrect!')
   } else {
-    console.log('Error message does not exist in the DOM.');
-    await homePage.clickDeleteAccountButton(page);
-    await basePage.getAccountDeletedConfirmMessage(page).toContainText('Account Deleted!');
+    console.log('Error message does not exist in the DOM.')
+    await homePage.clickDeleteAccountButton(page)
+    await expect( basePage.getAccountDeletedConfirmMessage(page)).toContainText('Account Deleted!')
   }
 }
 
 export async function registerUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
-  await deleteUser(page); 
+  const homePage = new HomePage(page)
+  const loginPage = new LoginPage(page)
+  const basePage = new BasePage(page)
+  const signupPage = new SignUpPage(page)
+
+  await deleteUser(page)
   await homePage.clickSignupLoginButton(page);
   
   await loginPage.typeNameSignupTextField(page, user.name);
@@ -65,6 +72,10 @@ export async function registerUser(page, userEmail = USEREMAIL, pass = PASSWORD)
 }
 
 export async function loginUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
+  const homePage = new HomePage(page)
+  const basePage = new BasePage(page)
+  const loginPage = new LoginPage(page)
+
   await basePage.clickSignupLoginButton(page);
   await loginPage.getLoginFormHeader(page).toHaveText('Login to your account');
   
@@ -76,6 +87,9 @@ export async function loginUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
 }
 
 export async function deleteUserAfterRegistration(page) {
+  const homePage = new HomePage(page)
+  const basePage = new BasePage(page)
+
   await homePage.clickDeleteAccountButton(page);
   await basePage.getAccountDeletedConfirmMessage(page).toContainText('Account Deleted!');
 }
