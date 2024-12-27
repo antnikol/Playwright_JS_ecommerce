@@ -21,7 +21,7 @@ test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
     cartPage = new CartPage(page)
   });
 
-  test('Test Case 6: Contact Us Form', async ({ page }) => {
+  test.only('Test Case 6: Contact Us Form', async ({ page }) => {
     await homePage.clickContactUsButton();
     expect(await homePage.getPageUrl()).toContain(text.contactUsPage.pageUrl);
     expect(await contactUsPage.getGetInTouchHeader()).toContain(text.contactUsPage.getInTouchHeader);
