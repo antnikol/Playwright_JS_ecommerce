@@ -1,5 +1,5 @@
-/// <reference types="cypress" />
-
+import { test } from './support/globalHooks'
+import { expect } from '@playwright/test';
 import HomePage from "../pageObjects/HomePage"
 import ProductsPage from "../pageObjects/ProductsPage"
 import ProductDetailsPage from "../pageObjects/ProductDetailsPage"
@@ -16,9 +16,9 @@ const cartPage = new CartPage()
 
 const product = genData.newProductTestData()
 
-describe('Tests for the sections: Products', ()=> {
+test.describe('Tests for the sections: Products', ()=> {
 
-  it('Test Case 8: Verify All Products and product detail page', () => {
+  test('Test Case 8: Verify All Products and product detail page', async ({ page }) => {
     homePage.clickProductsHeaderButton()
     productsPage.getAllProductsHeader().should('have.text', text.productsPage.allProductsHeader)
     productsPage.getAllProductsList().should('have.length.above', 0)
@@ -31,7 +31,7 @@ describe('Tests for the sections: Products', ()=> {
     productDetailsPage.getProductBrand().should('be.visible')
   })
 
-  it('Test Case 9: Search Product', () => {
+  test('Test Case 9: Search Product', async ({ page }) => {
     homePage.clickProductsHeaderButton()
     productsPage.getAllProductsHeader().should('have.text', text.productsPage.allProductsHeader)
     productsPage
@@ -41,7 +41,7 @@ describe('Tests for the sections: Products', ()=> {
     productsPage.checkSearchedProductsNames(searchTerms[2])
   })
 
-  it('Test Case 20: Search Products and Verify Cart After Login', () => {
+  test('Test Case 20: Search Products and Verify Cart After Login', async ({ page }) => {
     cy.registerUser()
     homePage.clickLogoutButton()
 
@@ -70,7 +70,7 @@ describe('Tests for the sections: Products', ()=> {
       .checkSearchedProductQuantityInCart(2)
   })
 
-  it('Test Case 18: View Category Products', () => {
+  test('Test Case 18: View Category Products', async ({ page }) => {
     homePage
       .clickLeftSidebarCategory(text.category[0])
       .clickLeftSidebarSubCategory(text.subCategoryWomen[0])
@@ -88,7 +88,7 @@ describe('Tests for the sections: Products', ()=> {
     productsPage.checkSearchedProductsNames(text.subCategoryMen[1])
   })
 
-  it('Test Case 21: Add review on product', () => {
+  test('Test Case 21: Add review on product', async ({ page }) => {
     homePage.clickProductsHeaderButton()
     productsPage.getAllProductsHeader().should('have.text', text.productsPage.allProductsHeader)
     productsPage.getPageUrl().should('include', text.productsPage.pageUrl)
@@ -103,7 +103,7 @@ describe('Tests for the sections: Products', ()=> {
     productDetailsPage.getReviewSuccessMessage().should('have.text', text.productDetailsPage.reviewSuccessMessage)     
   })
 
-  it('Test Case 19: View & Cart Brand Products', () => {
+  test('Test Case 19: View & Cart Brand Products', async ({ page }) => {
     homePage.clickProductsHeaderButton()
     productsPage.getLeftSidebarBrandsHeading().should('be.visible').and('have.text', text.productsPage.brandsHeading)
     productsPage.getLeftSidebarBrandsList().should('have.length.above', 0)

@@ -1,5 +1,5 @@
-/// <reference types="cypress" />
-
+import { test } from './support/globalHooks'
+import { expect } from '@playwright/test';
 import HomePage from "../pageObjects/HomePage"
 import ProductsPage from "../pageObjects/ProductsPage"
 import ProductDetailsPage from "../pageObjects/ProductDetailsPage"
@@ -12,9 +12,9 @@ const homePage = new HomePage()
 const testCasesPage = new TestCasesPage()
 
 
-describe('Tests for the sections: Other tests', ()=> {
+test.describe('Tests for the sections: Other tests', ()=> {
 
-  it('Test Case 7: Verify Test Cases Page', () => {
+  test('Test Case 7: Verify Test Cases Page', async ({ page }) => {
     homePage.clickTestCasesHeaderMenuButton()
     testCasesPage.getHeaderTestCasePage().should('have.text', text.testCasesPage.heading)
     testCasesPage.getPageTitle().should('include', text.testCasesPage.pageTitle)
@@ -22,7 +22,7 @@ describe('Tests for the sections: Other tests', ()=> {
     testCasesPage.getFeedbackForUsTitle().should('have.text', text.testCasesPage.feedbackForUsTitle)
   })
 
-  it('Test Case 25: Verify Scroll Up using "Arrow" button and Scroll Down functionality', () => {
+  test('Test Case 25: Verify Scroll Up using "Arrow" button and Scroll Down functionality', async ({ page }) => {
     homePage.scrollToBottom()
     homePage.getCopyrightText().should('be.visible')
     homePage.getCopyrightText().should('have.text', text.basePage.copyright)
@@ -41,7 +41,7 @@ describe('Tests for the sections: Other tests', ()=> {
     })
   })
 
-  it('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', () => {
+  test('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({ page }) => {
     homePage.scrollToBottom()
     homePage.getCopyrightText().should('be.visible')
     homePage.getCopyrightText().should('have.text', text.basePage.copyright)

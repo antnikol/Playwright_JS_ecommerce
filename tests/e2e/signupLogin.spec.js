@@ -1,5 +1,5 @@
-/// <reference types="cypress" />
-
+import { test } from './support/globalHooks'
+import { expect } from '@playwright/test';
 import SignUpPage from "../pageObjects/SignUpPage"
 import HomePage from "../pageObjects/HomePage"
 import LoginPage from "../pageObjects/LoginPage"
@@ -11,9 +11,9 @@ const signupPage = new SignUpPage()
 const homePage = new HomePage()
 const loginPage = new LoginPage()
 
-describe('Tests for the sections: Sign Up, Login', ()=> {
+test.describe('Tests for the sections: Sign Up, Login', ()=> {
 
-  it('Test Case 1: Register User', () => {
+  test('Test Case 1: Register User', async ({ page }) => {
     cy.deleteUser()
     homePage.clickSignupLoginButton();
     loginPage.getSignupFormHeader().should('have.text', text.loginPage.signupFormHeader);
@@ -46,7 +46,7 @@ describe('Tests for the sections: Sign Up, Login', ()=> {
     cy.deleteUserAfterRegistration()
   });
 
-  it('Test Case 2: Login User with correct email and password', () => {
+  test('Test Case 2: Login User with correct email and password', async ({ page }) => {
     cy.registerUser()
     homePage
       .clickLogoutButton()
@@ -59,7 +59,7 @@ describe('Tests for the sections: Sign Up, Login', ()=> {
     homePage.getListHeaderButtons().should('contain', `${user.name}`);
   })
 
-  it('Test Case 3: Login User with incorrect email and password', () => {
+  test('Test Case 3: Login User with incorrect email and password', async ({ page }) => {
     cy.registerUser()
     homePage
       .clickLogoutButton()
@@ -72,7 +72,7 @@ describe('Tests for the sections: Sign Up, Login', ()=> {
     loginPage.getErrorLoginMessage().should('have.text', 'Your email or password is incorrect!');
   })
 
-  it('Test Case 4: Logout User', () => {
+  test('Test Case 4: Logout User', async ({ page }) => {
     cy.registerUser()
     homePage
       .clickLogoutButton()
@@ -87,7 +87,7 @@ describe('Tests for the sections: Sign Up, Login', ()=> {
     loginPage.getLoginFormHeader().should('have.text', text.loginPage.loginFormHeader);
   })
 
-  it('Test Case 5: Register User with existing email', () => {
+  test('Test Case 5: Register User with existing email', async ({ page }) => {
     cy.registerUser()
     homePage
       .clickLogoutButton()

@@ -1,5 +1,5 @@
-/// <reference types="cypress" />
-
+import { test } from './support/globalHooks'
+import { expect } from '@playwright/test';
 import HomePage from "../pageObjects/HomePage"
 import ProductsPage from "../pageObjects/ProductsPage"
 import CartPage from "../pageObjects/CartPage"
@@ -22,9 +22,9 @@ const paymentDonePage = new PaymentDonePage()
 
 const product = genData.newProductTestData()
 
-describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
+test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
 
-  it('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', () => {
+  test('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', async ({ page }) => {
     homePage.clickProductsHeaderButton()
     productsPage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
     productsPage.takeFirstProductPrice().then((price) => { cy.wrap(price).as('firstProductPrice') })
@@ -57,7 +57,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     })
   })
 
-  it('Test Case 13: Verify product quantity in Cart by add from "Product details page"', () => {
+  test('Test Case 13: Verify product quantity in Cart by add from "Product details page"', async ({ page }) => {
     homePage.clickProductsHeaderButton()
     productsPage.clickFirstViewProductButton()
     productDetailsPage.getProductInformationSection().should('be.visible')
@@ -70,7 +70,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     cartPage.getProductQuantityList().should('have.text', product.quantity)
   }) 
 
-  it('Test Case 17: Remove Products From Cart', () => {
+  test('Test Case 17: Remove Products From Cart', async ({ page }) => {
     homePage
       .clickFirstProductAddToCartButton()
       .clickViewCartModalButton()
@@ -82,7 +82,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     cartPage.getEmptyCardSection().should('contain', text.cartPage.cardIsEmpty)
   })
 
-  it('Test Case 22: Add to cart from Recommended items', () => {
+  test('Test Case 22: Add to cart from Recommended items', async ({ page }) => {
     homePage.scrollToCarouselRecommendedItems()
     homePage.getCarouselRecommendedItemName(product.randomCarouselProductNumber)
       .then((name) => { cy.wrap(name).as('productName') })
@@ -94,7 +94,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     })
   })
 
-  it('Test Case 14: Place Order: Register while Checkout', () => {
+  test('Test Case 14: Place Order: Register while Checkout', async ({ page }) => {
     homePage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
     homePage.takeFirstProductPrice().then((price) => { cy.wrap(price).as('firstProductPrice') })
     homePage
@@ -144,7 +144,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     paymentDonePage.getOrderPlacedMessage().should('have.text', text.paymentDonePage.orderPlacedMessage)
   })
 
-  it('Test Case 15: Place Order: Register before Checkout', () => {
+  test('Test Case 15: Place Order: Register before Checkout', async ({ page }) => {
     cy.registerUser()
     homePage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
     homePage.takeFirstProductPrice().then((price) => { cy.wrap(price).as('firstProductPrice') })
@@ -191,7 +191,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     paymentDonePage.getOrderPlacedMessage().should('have.text', text.paymentDonePage.orderPlacedMessage)
   })
 
-  it('Test Case 16 + 23: Place Order: Login before Checkout + Verify address details in checkout', () => {
+  test('Test Case 16 + 23: Place Order: Login before Checkout + Verify address details in checkout', async ({ page }) => {
     cy.loginUser()
     homePage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
     homePage.takeFirstProductPrice().then((price) => { cy.wrap(price).as('firstProductPrice') })
@@ -238,7 +238,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     paymentDonePage.getOrderPlacedMessage().should('have.text', text.paymentDonePage.orderPlacedMessage)
   })
 
-  it('Test Case 24: Download Invoice after purchase order', () => {
+  test('Test Case 24: Download Invoice after purchase order', async ({ page }) => {
     cy.loginUser()
     homePage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
     homePage.takeFirstProductPrice().then((price) => { cy.wrap(price).as('firstProductPrice') })
@@ -286,7 +286,7 @@ describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
 
     cy.intercept('GET', '/download_invoice/*').as('downloadInvoice')
     paymentDonePage.clickDownloadInvoiceButton()
-    cy.wait('@downloadInvoice').its('response.statusCode').should('eq', 200)
+    cy.watest('@downloadInvoice').its('response.statusCode').should('eq', 200)
     paymentDonePage.clickContinuePlacedOrderButton()
     homePage.clickDeleteAccountButton()
     homePage.getAccountDeletedConfirmMessage().should('contain', text.homePage.accountDeleted)

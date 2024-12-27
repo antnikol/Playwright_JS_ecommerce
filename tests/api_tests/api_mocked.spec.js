@@ -1,12 +1,12 @@
-/// <reference types="cypress" />
+import { test } from './support/globalHooks'
 import { liveServerUrl, message, baseUrl, gitHubActionsServerUrl } from '../../fixtures/api.json'
 
-describe('API tests with mocked data', () => {
+test.describe('API tests with mocked data', () => {
   beforeEach(() => {
     Cypress.config('baseUrl', 'http://localhost:3000')
   })
 
-  it('API 1(3): __Mocked_DATA__ Get All Products List', () => {
+  test('API 1(3): __Mocked_DATA__ Get All Products List', async ({ page }) => {
     cy.intercept('GET', '/api/productsList', { 
       statusCode: 201, 
       body: { products: [{ name: message.mocked }] }

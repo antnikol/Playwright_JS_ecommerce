@@ -1,9 +1,9 @@
-/// <reference types="cypress" />
+import { test } from './support/globalHooks'
 import { liveServerUrl, searchTerms, user, userUpdate, message } from '../fixtures/api.json'
 
-describe('API tests for the site automationexercise.com', ()=> {
+test.describe('API tests for the site automationexercise.com', ()=> {
 
-  it('API 1: Get All Products List', () => {
+  test('API 1: Get All Products List', async ({ page }) => {
     cy.request('GET', '/api/productsList').then((response) => {
       expect(response.status).to.eq(200)
       expect(JSON.parse(response.body).responseCode).to.eq(200)
@@ -13,7 +13,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 1(2): Get All Products List (with @alias)', () => {
+  test('API 1(2): Get All Products List (with @alias)', async ({ page }) => {
     cy.request('GET', '/api/productsList').as('prodList')
     
     cy.get('@prodList').then((response) => {
@@ -21,7 +21,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })  
 
-  it('API 2: POST To All Products List', () => {
+  test('API 2: POST To All Products List', async ({ page }) => {
     cy.request('POST', '/api/productsList').then((response) => {
       expect(response.status).to.eq(200)
       expect(JSON.parse(response.body).responseCode).to.eq(405)
@@ -29,7 +29,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 3: Get All Brands List', () => {
+  test('API 3: Get All Brands List', async ({ page }) => {
     cy.request('GET', '/api/brandsList').then((response) => {
       expect(response.status).to.eq(200)
       expect(JSON.parse(response.body).responseCode).to.eq(200)
@@ -40,7 +40,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 4: PUT To All Brands List', () => {
+  test('API 4: PUT To All Brands List', async ({ page }) => {
     cy.request('PUT', '/api/brandsList').then((response) => {
       expect(response.status).to.eq(200)
       expect(JSON.parse(response.body).responseCode).to.eq(405)
@@ -49,7 +49,7 @@ describe('API tests for the site automationexercise.com', ()=> {
   })
 
   searchTerms.forEach((term) => {
-    it('API 5: POST To Search Product (Positive test + preconditions(at least one item that contain "top"-word in name is present)', () => {
+    test('API 5: POST To Search Product (Positive test + preconditions(at least one item that contain "top"-word in name is present)', async ({ page }) => {
       cy.request({
         method: 'POST',
         url: '/api/searchProduct',
@@ -65,7 +65,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 6: POST To Search Product without search_product parameter', () => {
+  test('API 6: POST To Search Product without search_product parameter', async ({ page }) => {
     cy.request({
       method: 'POST',
       url: '/api/searchProduct',
@@ -78,7 +78,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 11: POST To Create/Register User Account', () => {
+  test('API 11: POST To Create/Register User Account', async ({ page }) => {
     cy.request({
       method: 'POST',
       url: '/api/createAccount',
@@ -91,7 +91,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 7: POST To Verify Login with valid details', () => {
+  test('API 7: POST To Verify Login with valid details', async ({ page }) => {
     cy.request({
       method: 'POST',
       url: '/api/verifyLogin',
@@ -107,7 +107,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 8: POST To Verify Login without email parameter', () => {
+  test('API 8: POST To Verify Login without email parameter', async ({ page }) => {
     cy.request({
       method: 'POST',
       url: '/api/verifyLogin',
@@ -120,7 +120,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 9: DELETE To Verify Login', () => {
+  test('API 9: DELETE To Verify Login', async ({ page }) => {
     cy.request({
       method: 'DELETE',
       url: '/api/verifyLogin',
@@ -136,7 +136,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 10: POST To Verify Login with invalid details', () => {
+  test('API 10: POST To Verify Login with invalid details', async ({ page }) => {
     cy.request({
       method: 'POST',
       url: '/api/verifyLogin',
@@ -152,7 +152,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 13: PUT METHOD To Update User Account', () => {
+  test('API 13: PUT METHOD To Update User Account', async ({ page }) => {
     cy.request({
       method: 'PUT',
       url: '/api/updateAccount',
@@ -165,7 +165,7 @@ describe('API tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('API 14: GET user account detail by email', () => {
+  test('API 14: GET user account detail by email', async ({ page }) => {
     cy.request('GET', `/api/getUserDetailByEmail?email=${user.email}`)   
       .then((response) => {
         console.log(response)
@@ -175,7 +175,7 @@ describe('API tests for the site automationexercise.com', ()=> {
       })
   })
 
-  it('API 12: DELETE METHOD To Delete User Account', () => {
+  test('API 12: DELETE METHOD To Delete User Account', async ({ page }) => {
     cy.request({
       method: 'DELETE',
       url: '/api/deleteAccount',

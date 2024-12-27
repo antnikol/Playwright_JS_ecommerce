@@ -1,9 +1,8 @@
 import { test as baseTest } from '@playwright/test';
 import * as commands from './commands.js'
+import HomePage from '../pageObjects/HomaPage.js';
 
-import HomePage from '../pageObjects/HomePage';
-
-const homePage = new HomePage();
+let homePage
 
 
 export const test = baseTest.extend({
@@ -11,7 +10,9 @@ export const test = baseTest.extend({
   registerUser: commands.registerUser,
   loginUser: commands.loginUser,
   deleteUserAfterRegistration: commands.deleteUserAfterRegistration,
+
   beforeEach: async ({ page }, testInfo) => {
+    homePage = new HomePage(page)
     if (!testInfo.title.includes('api_automation')) {
       await page.goto('/');
       await expect(homePage.getPageUrl(page)).toBe('https://automationexercise.com/');

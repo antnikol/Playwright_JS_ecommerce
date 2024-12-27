@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Old tests for the site automationexercise.com', ()=> {
+test.describe('Old tests for the site automationexercise.com', ()=> {
   let new_brach = 'new_branch'
   let userName = 'test-AQA user'
   let userEmail = 'test-AQA@gmail.com'
@@ -21,11 +21,11 @@ describe('Old tests for the site automationexercise.com', ()=> {
   let birth_day = '1'
   let gender = 'Mr'
   beforeEach( () => {
-    cy.visit('/')
+    cy.vistest('/')
     this.page.locator('a[href="/login"]').as('loginButton')
   })
 
-  it('Test Case 1: Register User', () => {
+  test('Test Case 1: Register User', async ({ page }) => {
     cy.deleteUser()
     this.page.locator('@loginButton').click()
     cy.contains(/New User Signup!/i).should('be.visible')
@@ -70,7 +70,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(userName).should('be.visible')
   })
 
-  it('Test Case 2: Login User with correct email and password', () => {
+  test('Test Case 2: Login User with correct email and password', async ({ page }) => {
     this.page.locator('@loginButton').click()
     cy.contains(/Login to your account/i).should('be.visible')
     this.page.locator('input[data-qa="login-email"]').type(userEmail)
@@ -79,7 +79,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(userName).should('be.visible')
   })
 
-  it('Test Case 3: Login User with incorrect email and password', () => {
+  test('Test Case 3: Login User with incorrect email and password', async ({ page }) => {
     this.page.locator('@loginButton').click()
     cy.contains(/Login to your account/i).should('be.visible')
     this.page.locator('input[data-qa="login-email"]').type(userEmail+'1')
@@ -90,7 +90,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
       .should('have.text', 'Your email or password is incorrect!')
   })
 
-  it('Test Case 4: Logout User', () => {
+  test('Test Case 4: Logout User', async ({ page }) => {
     this.page.locator('@loginButton').click()
     cy.contains(/Login to your account/i).should('be.visible')
     this.page.locator('input[data-qa="login-email"]').type(userEmail)
@@ -101,7 +101,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(/Login to your account/i).should('be.visible')
   })
 
-  it('Test Case 5: Register User with existing email', () => {
+  test('Test Case 5: Register User with existing email', async ({ page }) => {
     this.page.locator('@loginButton').click()
     cy.contains(/New User Signup!/i).should('be.visible')
     this.page.locator('input[data-qa="signup-name"]').type(userName)
@@ -112,7 +112,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
       .should('have.text', 'Email Address already exist!')
   })
 
-  it('Test Case 6: Contact Us Form', () => {
+  test('Test Case 6: Contact Us Form', async ({ page }) => {
     this.page.locator('a[href="/contact_us"]').click()
     cy.contains(/Get In Touch/i).should('be.visible')
     this.page.locator('h2[class="title text-center"]').eq(1)
@@ -131,13 +131,13 @@ describe('Old tests for the site automationexercise.com', ()=> {
     this.page.locator('.btn.btn-success').click()
   })  
 
-  it('Test Case 7: Verify Test Cases Page', () => {
+  test('Test Case 7: Verify Test Cases Page', async ({ page }) => {
   this.page.locator('a[href="/test_cases"]').contains(' Test Cases').click()
   this.page.locator('a[href="/test_cases"]').contains(/\s*Test Cases\s*/).click()
   this.page.locator('h2.title').should('have.text', 'Test Cases')
   })
 
-  it('Test Case 8: Verify All Products and product detail page', () => {
+  test('Test Case 8: Verify All Products and product detail page', async ({ page }) => {
     this.page.locator('.shop-menu a[href="/products"]').contains(/\s*Products\s*/).click()
     this.page.locator('h2.title').should('have.text', 'All Products')
     this.page.locator('.product-overlay').should('have.length.above', 0)
@@ -145,7 +145,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     this.page.locator('.product-information').should('be.visible')
   })
 
-  it('Test Case 9: Search Product', () => {
+  test('Test Case 9: Search Product', async ({ page }) => {
     this.page.locator('.shop-menu a[href="/products"]').contains(/\s*Products\s*/).click()
     this.page.locator('h2.title').should('have.text', 'All Products')
     this.page.locator('input#search_product').type('saree')
@@ -156,7 +156,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('Test Case 10: Verify Subscription in home page', () => {
+  test('Test Case 10: Verify Subscription in home page', async ({ page }) => {
     cy.scrollTo('bottom')
     this.page.locator('.single-widget').should('include.text', 'Subscription')
     this.page.locator('#susbscribe_email').type('test@email.com')
@@ -164,7 +164,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains('You have been successfully subscribed!').should('be.visible')
   })
 
-  it('Test Case 11: Verify Subscription in Cart page', () => {
+  test('Test Case 11: Verify Subscription in Cart page', async ({ page }) => {
     this.page.locator('.shop-menu a[href="/view_cart"]').click()
     cy.window().then((win) => {
       if (win.document.body.scrollHeight > win.innerHeight) {
@@ -177,7 +177,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains('You have been successfully subscribed!').should('be.visible')
   })
 
-  it('Test Case 12: Add Products in Cart', () => {
+  test('Test Case 12: Add Products in Cart', async ({ page }) => {
     let qtyCartTrimed, totalPriceSliced
     let price1psc, price1pscNum, goodName
     this.page.locator('.shop-menu a[href="/products"]').contains(/\s*Products\s*/).click()
@@ -235,7 +235,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('Test Case 13: Verify Product quantity in Cart', () => {
+  test('Test Case 13: Verify Product quantity in Cart', async ({ page }) => {
     this.page.locator('.choose').eq(0).contains('View Product').click()
     this.page.locator('.product-information').should('be.visible')
     this.page.locator('#quantity').clear().type('4')
@@ -245,7 +245,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     this.page.locator('.disabled').first().should('have.text', '4')
   })
 
-  it('Test Case 14: Place Order: Register while Checkout', () => {
+  test('Test Case 14: Place Order: Register while Checkout', async ({ page }) => {
     let price1psc, price1pscNum, goodName
     this.page.locator('.overlay-content h2').eq(0).invoke('text')
       .then((text) => {
@@ -350,7 +350,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(/account deleted!/i).should('be.visible')
   })
 
-  it('Test Case 15: Place Order: Register before Checkout', () => {
+  test('Test Case 15: Place Order: Register before Checkout', async ({ page }) => {
     let price1psc, price1pscNum, goodName
     this.page.locator('.overlay-content h2').eq(2).invoke('text')
       .then((text) => {
@@ -445,7 +445,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(/account deleted!/i).should('be.visible')
   })
 
-  it('Test Case 16: Place Order: Login before Checkout', () => {
+  test('Test Case 16: Place Order: Login before Checkout', async ({ page }) => {
     let price1psc, price1pscNum, goodName
     this.page.locator('.overlay-content h2').eq(7).invoke('text')
       .then((text) => {
@@ -505,7 +505,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(/account deleted!/i).should('be.visible')
   })
 
-  it('Test Case 17: Remove Products From Cart', () => {
+  test('Test Case 17: Remove Products From Cart', async ({ page }) => {
     this.page.locator('a[data-product-id]').eq(1).click({force:true})
     this.page.locator('.modal-body a[href="/view_cart"]').click()
     this.page.locator('.cart_product').should('have.length', 1)
@@ -516,7 +516,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
   })
 
 
-  it('Test Case 18: View Category Products', () => {
+  test('Test Case 18: View Category Products', async ({ page }) => {
     let categoryHrefWomen, categoryHrefMen
     this.page.locator('a[href="#Women"]').click()
     this.page.locator('.panel-body a').eq(0).invoke('attr', 'href').then((hrefValue) => {
@@ -533,7 +533,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     this.page.locator('.features_items h2').should('contain', 'Men')
   })
 
-  it('Test Case 19: View & Cart Brand Products', () => {
+  test('Test Case 19: View & Cart Brand Products', async ({ page }) => {
     let brandName, brandCount, brand, categoryHrefBrand
     this.page.locator('.shop-menu a[href="/products"]').click()
     this.page.locator('.brands_products h2').should('be.visible').and('have.text','Brands')
@@ -572,7 +572,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     this.page.locator('.single-products').should('have.length.above', 0)
   })
 
-  it('Test Case 20: Search Products and Verify Cart After Login', () => {
+  test('Test Case 20: Search Products and Verify Cart After Login', async ({ page }) => {
     this.page.locator('a[href="/products"]').click()
     this.page.locator('.features_items').children().first().should('have.text', 'All Products')
     cy.url().should('include', '/products')
@@ -588,7 +588,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('Test Case 21: Add review on product', () => {
+  test('Test Case 21: Add review on product', async ({ page }) => {
     this.page.locator('a[href="/products"]').click()
     this.page.locator('.features_items').children().first().should('have.text', 'All Products')
     cy.url().should('include', '/products')
@@ -602,7 +602,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
       .should('be.visible')
   })
 
-  it('Test Case 22: Add to cart from Recommended items', () => {
+  test('Test Case 22: Add to cart from Recommended items', async ({ page }) => {
     let goodName
     cy.scrollTo('bottom')
     this.page.locator('.recommended_items').contains('recommended items')
@@ -618,7 +618,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     })
   })
 
-  it('Test Case 23: Verify address details in checkout page', () => {
+  test('Test Case 23: Verify address details in checkout page', async ({ page }) => {
     this.page.locator('@loginButton').click()
     cy.contains(/New User Signup!/i).should('be.visible')
     cy.get(".signup-form").should('contain', 'New User Signup!')
@@ -696,7 +696,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(/account deleted!/i).should('be.visible')
   })
 
-  it('Test Case 24: Download Invoice after purchase order', () => {
+  test('Test Case 24: Download Invoice after purchase order', async ({ page }) => {
     let price1psc, price1pscNum, goodName
     this.page.locator('.overlay-content h2').eq(0).invoke('text')
       .then((text) => {
@@ -814,7 +814,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
     cy.contains(/account deleted!/i).should('be.visible')
   })
   
-  it('Test Case 25: Verify Scroll Up using "Arrow" button and Scroll Down functionality', () => {
+  test('Test Case 25: Verify Scroll Up using "Arrow" button and Scroll Down functionality', async ({ page }) => {
     this.page.locator('.footer-widget .single-widget h2').scrollIntoView()
     this.page.locator('.single-widget h2').contains('Subscription').should('be.visible')
     this.page.locator('.single-widget h2')
@@ -849,7 +849,7 @@ describe('Old tests for the site automationexercise.com', ()=> {
       })
   })
 
-  it('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', () => {
+  test('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({ page }) => {
     this.page.locator('.footer-widget .single-widget h2').scrollIntoView()
     this.page.locator('.single-widget h2').contains('Subscription').should('be.visible')
     this.page.locator('.single-widget h2')
