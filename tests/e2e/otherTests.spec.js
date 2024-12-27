@@ -6,7 +6,7 @@ import ProductDetailsPage from "../pageObjects/ProductDetailsPage"
 
 import jsonData from '../../fixtures/api.json' assert { type: "json" }
 import text from "../../fixtures/text.json" assert { type: "json" }
-import HomePage from '../../pageObjects/HomaPage';
+import HomePage from '../../pageObjects/HomePage';
 import TestCasesPage from '../../pageObjects/TestCasesPage';
 
 

@@ -1,5 +1,5 @@
 import BasePage from "./BasePage.js"
-import HomePage from "./HomaPage.js";
+import HomePage from "./HomePage.js";
 
 
 class ContactUsPage extends BasePage {

@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 import genData from "../../fixtures/genData"
 import jsonData from '../../fixtures/api.json' assert { type: "json" }
 import text from "../../fixtures/text.json" assert { type: "json" }
-import HomePage from '../../pageObjects/HomaPage'
+import HomePage from '../../pageObjects/HomePage'
 import ProductsPage from '../../pageObjects/ProductsPage'
 import CartPage from '../../pageObjects/CartPage'
 import ProductDetailsPage from '../../pageObjects/ProductDetailsPage'

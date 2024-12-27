@@ -3,7 +3,7 @@ import { expect } from '@playwright/test'
 import jsonData from '../../fixtures/api.json' assert { type: "json" }
 import text from "../../fixtures/text.json" assert { type: "json" }
 import SignUpPage from '../../pageObjects/SignUpPage'
-import HomePage from '../../pageObjects/HomaPage'
+import HomePage from '../../pageObjects/HomePage'
 import LoginPage from '../../pageObjects/LoginPage'
 
 const signupPage = new SignUpPage(page)

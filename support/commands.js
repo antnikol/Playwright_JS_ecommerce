@@ -4,7 +4,7 @@ import { expect } from '@playwright/test'
 import LoginPage from '../pageObjects/LoginPage'
 import BasePage from '../pageObjects/BasePage'
 import SignUpPage from '../pageObjects/SignUpPage'
-import HomePage from '../pageObjects/HomaPage'
+import HomePage from '../pageObjects/HomePage'
 
 const { user } = jsonData
 const USEREMAIL = user.email
