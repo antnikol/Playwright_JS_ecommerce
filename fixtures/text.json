@@ -1,0 +1,118 @@
+{
+  "cartPage": {
+    "cardIsEmpty": "Cart is empty!",
+    "breadCrumbs": "Shopping Cart",
+    "pageUrl": "/view_cart",
+    "pageTitle": "Automation Exercise - Checkout"
+  },
+
+  "checkoutPage": {
+    "emptyCard": "Cart is empty!",
+    "breadCrumbs": "Checkout",
+    "deliveryAddressSection": "Your delivery address",
+    "pageTitle": "Automation Exercise - Checkout",
+    "pageUrl": "/checkout",
+    "deliveryAddress": "Your delivery address",
+    "billingAddress": "Your billing address"
+  },
+
+  "paymentPage": {
+    "breadCrumbs": "Payment",
+    "sectionHeading": "Payment",
+    "successOrderMessage": "Your order has been placed successfully!"
+  },
+
+  "paymentDonePage": {
+    "orderPlacedHeading": "Order Placed!",
+    "orderPlacedMessage": "Congratulations! Your order has been confirmed!"
+  },
+
+  "homePage": {
+    "accountDeleted": "Account Deleted!",
+    "pageTitle": "Automation Exercise",
+    "subscriptionHeading": "Subscription",
+    "sliderCarouselSection": "Full-Fledged practice website for Automation Engineers"
+  },
+
+  "basePage": {
+    "copyright": "Copyright © 2021 All rights reserved"
+  },
+
+  "contactUsPage": {
+    "pageUrl": "/contact_us",
+    "getInTouchHeader": "Get In Touch",
+    "sentLetterSuccessMessage": "Success! Your details have been submitted successfully.",
+    "fileLocation": "/text.json"
+  },
+
+  "testCasesPage": {
+    "heading": "Test Cases",
+    "pageTitle": "Test Cases",
+    "feedbackForUsTitle": "Feedback for Us"
+  },
+
+  "productsPage": {
+    "allProductsHeader": "All Products",
+    "searchedProductsHeader": "Searched Products",
+    "pageUrl": "/products",
+    "categoryPageUrl": "category_products",
+    "searchedPageUrl": "?search",
+    "brandsHeading": "Brands"
+  },
+
+  "loginPage": {
+    "signupFormHeader": "New User Signup!",
+    "createAccount": "Create Account",
+    "loginFormHeader": "Login to your account",
+    "errorSingupMessage": "Email Address already exist!"
+  },
+
+  "category": [
+    "Women",
+    "Men",
+    "Kids"
+  ],
+
+  "subCategoryWomen": [
+    "Dress",
+    "Top",
+    "Saree"
+  ],
+
+  "subCategoryMen": [
+    "Tshirts",
+    "Jeans"
+  ],
+
+  "subCategoryKids": [
+    "Dress",
+    "Tops & Shirts"
+  ],
+
+  "productDetailsPage": {
+    "writeYourReviewHeader": "Write Your Review",
+    "reviewSuccessMessage": "Thank you for your review."
+  },
+
+  "brands": [
+    "Women",
+    "Men",
+    "Kids"
+  ],
+
+  "userCardNumber": [
+    "1111222233334444"
+  ],
+
+  "userCardCvv": [
+    "111"
+  ],
+
+  "userCardExMonth": [
+    "01"
+  ],
+  
+  "userCardExYear": [
+    "2029"
+  ]
+}

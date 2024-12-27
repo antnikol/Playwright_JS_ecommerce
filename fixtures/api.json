@@ -1,0 +1,68 @@
+{
+  "liveServerUrl": "http://127.0.0.1:55514/cypress/fixtures/mockPage.html",
+  "gitHubActionsServerUrl": "http://localhost:3000",
+  "baseUrl": "https://automationexercise.com",
+
+  "searchTerms": [
+    "top",
+    "tshirt",
+    "jeans"
+  ],
+
+  "user": {
+    "name": "test_Name",
+    "email": "testUser33@gmail.com",
+    "password": "123456",
+    "title": "Mr",
+    "birth_date": "1",
+    "birth_month": "January",
+    "birth_year": "1999",
+    "firstname": "Ann",
+    "lastname": "B.",
+    "company": "company_Name",
+    "address1": "street #4, Madagaskar",
+    "address2": "none",
+    "country": "Canada",
+    "zipcode": "123123",
+    "state": "CA",
+    "city": "California",
+    "mobile_number": "+18123456789"
+  },
+
+  "userUpdate": {
+    "name": "test_Name2",
+    "email": "testUser33@gmail.com",
+    "password": "123456",
+    "title": "Mrs.",
+    "birth_date": "2",
+    "birth_month": "February",
+    "birth_year": "2000",
+    "firstname": "Anna",
+    "lastname": "C.",
+    "company": "company_Name_2",
+    "address1": "street #8, Madagaskar",
+    "address2": "flat #3",
+    "country": "Australia",
+    "zipcode": "321321 ",
+    "state": "Cucumber",
+    "city": "Port",
+    "mobile_number": "+212312312331"
+  },
+
+  "message": {
+    "mocked": "Mocked Data",
+    "methodNotSupported": "This request method is not supported.",
+    "requestNotSupported": "This request method is not supported.",
+    "badRequestSearchParametr": "Bad request, search_product parameter is missing in POST request.",
+    "userCreated": "User created!",
+    "userExist": "User exists!",
+    "badRequestEmaiOrPasswordParametr": "Bad request, email or password parameter is missing in POST request.",
+    "userNotFound": "User not found!",
+    "userUpdated": "User updated!",
+    "accountDeleted": "Account deleted!"
+  },
+
+  "incorrectPassword": [
+    "123456incorrect"
+  ]
+}
