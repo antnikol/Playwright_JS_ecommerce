@@ -17,14 +17,13 @@ test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
     await homePage.clickContactUsButton()
     expect(await homePage.getPageUrl()).toContain(text.contactUsPage.pageUrl)
     await expect(await contactUsPage.getGetInTouchHeaderText()).toContain(text.contactUsPage.getInTouchHeader)
-    await contactUsPage
-      .typeNameTextField(user.name)
-      .typeEmailTextField(user.email)
-      .typeSubjectTextField(testData.subject)
-      .typeMessageTextField(testData.message)
-      .clickAndAttachFile(text.contactUsPage.fileLocation)
-      .waitAndConfirmAlertWindow()
-      .clickSubmitButton();
+    await contactUsPage.typeNameTextField(user.name)
+    await contactUsPage.typeEmailTextField(user.email)
+    await contactUsPage.typeSubjectTextField(testData.subject)
+    await contactUsPage.typeMessageTextField(testData.message)
+    await contactUsPage.clickAndAttachFile(text.contactUsPage.fileLocation)
+    await contactUsPage.waitAndConfirmAlertWindow()
+    await contactUsPage.clickSubmitButton();
     expect(await contactUsPage.getSuccessMessage()).toHaveText(text.contactUsPage.sentLetterSuccessMessage);
     await contactUsPage.clickBackToHomePageButton();
     expect(await homePage.getPageTitle()).toContain(text.homePage.pageTitle);

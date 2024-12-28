@@ -42,7 +42,7 @@
     "pageUrl": "/contact_us",
     "getInTouchHeader": "Get In Touch",
     "sentLetterSuccessMessage": "Success! Your details have been submitted successfully.",
-    "fileLocation": "/text.json"
+    "fileLocation": "./fixtures/text.json"
   },
 
   "testCasesPage": {
