@@ -1,23 +1,17 @@
 import { test } from '../../support/globalHooks'
 import { expect } from '@playwright/test';
 
-import ProductsPage from "../pageObjects/ProductsPage"
-import ProductDetailsPage from "../pageObjects/ProductDetailsPage"
-
-import jsonData from '../../fixtures/api.json' assert { type: "json" }
 import text from "../../fixtures/text.json" assert { type: "json" }
-import HomePage from '../../pageObjects/HomePage';
-import TestCasesPage from '../../pageObjects/TestCasesPage';
+import jsonData from '../../fixtures/api.json' assert { type: 'json' }
 
 
-const homePage = new HomePage(page)
-const testCasesPage = new TestCasesPage(page)
 const { user } = jsonData
 
 
 test.describe('Tests for the sections: Other tests', ()=> {
 
-  test('Test Case 7: Verify Test Cases Page', async ({ page }) => {
+  test('Test Case 7: Verify Test Cases Page', async ({ page, homePage, testCasesPage }) => {
+    await page.goto('/')
     homePage.clickTestCasesHeaderMenuButton()
     testCasesPage.getHeaderTestCasePage().should('have.text', text.testCasesPage.heading)
     testCasesPage.getPageTitle().should('include', text.testCasesPage.pageTitle)
@@ -25,7 +19,8 @@ test.describe('Tests for the sections: Other tests', ()=> {
     testCasesPage.getFeedbackForUsTitle().should('have.text', text.testCasesPage.feedbackForUsTitle)
   })
 
-  test('Test Case 25: Verify Scroll Up using "Arrow" button and Scroll Down functionality', async ({ page }) => {
+  test('Test Case 25: Verify Scroll Up using "Arrow" button and Scroll Down functionality', async ({ page, homePage }) => {
+    await page.goto('/')
     homePage.scrollToBottom()
     homePage.getCopyrightText().should('be.visible')
     homePage.getCopyrightText().should('have.text', text.basePage.copyright)
@@ -44,7 +39,8 @@ test.describe('Tests for the sections: Other tests', ()=> {
     })
   })
 
-  test('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({ page }) => {
+  test('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({ page, homePage }) => {
+    await page.goto('/')
     homePage.scrollToBottom()
     homePage.getCopyrightText().should('be.visible')
     homePage.getCopyrightText().should('have.text', text.basePage.copyright)

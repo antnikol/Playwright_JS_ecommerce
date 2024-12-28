@@ -1,14 +1,10 @@
-import { test } from '../../support/globalHooks'
+import { test } from "../../support/globalHooks.js"
 import { expect } from '@playwright/test'
-import jsonData from '../../fixtures/api.json' assert { type: "json" }
-import text from "../../fixtures/text.json" assert { type: "json" }
-import SignUpPage from '../../pageObjects/SignUpPage'
-import HomePage from '../../pageObjects/HomePage'
-import LoginPage from '../../pageObjects/LoginPage'
 
-const signupPage = new SignUpPage(page)
-const homePage = new HomePage(page)
-const loginPage = new LoginPage(page)
+import text from "../../fixtures/text.json" assert { type: "json" }
+import jsonData from '../../fixtures/api.json' assert { type: 'json' }
+
+
 const { user, incorrectPassword } = jsonData
 
 test.describe('Tests for the sections: Sign Up, Login', ()=> {

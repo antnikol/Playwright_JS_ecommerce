@@ -34,8 +34,12 @@ class BasePage {
   getLeftSidebarBrandCountList = () => this.page.locator('.brands-name li a span')
   
 
+  async open() {
+    await this.page.goto("/");
+  }
+
   getSavedVariableAs(variable) {
-    return this.pagvariable
+    return variable
   }
 
   async getLeftSidebarRandomBrandNameAndCount(randomNumber) {

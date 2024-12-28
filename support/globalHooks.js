@@ -82,7 +82,7 @@ export const test = baseTest.extend({
   },
 
 
-  beforeEach: async ({ page, basePage }, use, testInfo) => {
+  beforeEach: async ({ page, homePage, basePage }, use, testInfo) => {
     if (!testInfo.title.includes('api_automation')) {
       await page.goto('/')
       await expect(homePage.getPageUrl(page)).toBe('https://automationexercise.com/')

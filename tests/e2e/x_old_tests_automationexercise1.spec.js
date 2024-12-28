@@ -1,4 +1,5 @@
-/// <reference types="cypress" />
+import { test } from '../../support/globalHooks'
+import { expect } from '@playwright/test'
 
 test.describe('Old tests for the site automationexercise.com', ()=> {
   let new_brach = 'new_branch'

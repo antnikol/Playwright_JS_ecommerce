@@ -1,4 +1,4 @@
-import { test } from '../../support/globalHooks'
+import { test } from "../../support/globalHooks.js"
 import { expect } from '@playwright/test'
 
 import { newProductTestData } from '../../fixtures/genData.js'
