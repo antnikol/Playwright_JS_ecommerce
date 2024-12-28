@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import { test } from './support/globalHooks';
 
 /**
  * Read environment variables from file.
@@ -29,6 +28,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   globalSetup: './support/globalSetup.js',
+  
   projects: [
     {
       name: 'chromium',

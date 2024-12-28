@@ -1,4 +1,5 @@
 import { test as baseTest } from '@playwright/test';
+import { expect } from '@playwright/test'
 import * as commands from './commands.js'
 
 import BasePage from '../pageObjects/BasePage.js';
@@ -80,18 +81,18 @@ export const test = baseTest.extend({
     const testCasesPage = new TestCasesPage(page);
     await use(testCasesPage)
   },
+})
 
+test.beforeEach( async ({ page }, testInfo) => {
+  if (!testInfo.title.includes('api_')) {
+    const homePage = new HomePage(page)
 
-  beforeEach: async ({ page, homePage, basePage }, use, testInfo) => {
-    if (!testInfo.title.includes('api_automation')) {
-      await page.goto('/')
-      await expect(homePage.getPageUrl(page)).toBe('https://automationexercise.com/')
-      await expect(homePage.getHeaderHomeIcon(page)).toHaveCSS('color', 'rgb(255, 165, 0)')
-      await expect(homePage.getSliderSection(page)).toBeVisible()
-      await expect(homePage.getLeftSideBar(page)).toBeVisible()
-      await expect(homePage.getFeaturesItemsSection(page)).toBeVisible()
-      await expect(homePage.getPageTitle(page)).toContain('Automation Exercise')
-    }
-    await use(page)
-  },
-});
+    await page.goto('/')
+    expect(await homePage.getPageUrl(page)).toBe('https://automationexercise.com/')
+    expect(await homePage.getHeaderHomeIcon(page)).toHaveCSS('color', 'rgb(255, 165, 0)')
+    expect(await homePage.getSliderSection(page)).toBeVisible()
+    expect(await homePage.getLeftSideBar(page)).toBeVisible()
+    expect(await homePage.getFeaturesItemsSection(page)).toBeVisible()
+    expect(await homePage.getPageTitle(page)).toContain('Automation Exercise')
+  } 
+})

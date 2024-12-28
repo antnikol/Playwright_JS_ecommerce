@@ -13,7 +13,6 @@ const testData = newProductTestData()
 test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
 
   test('Test Case 6: Contact Us Form', async ({ page, homePage, contactUsPage }) => {
-    await page.goto('/')
     await homePage.clickContactUsButton()
     expect(await homePage.getPageUrl()).toContain(text.contactUsPage.pageUrl)
     expect(await contactUsPage.getGetInTouchHeaderText()).toContain(text.contactUsPage.getInTouchHeader)
