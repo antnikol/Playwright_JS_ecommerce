@@ -117,7 +117,12 @@ class BasePage {
   //   await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   //   return this;
   // }
-  
+
+  async scrollToCopyright() {
+    await this.getCopyrightText().scrollIntoViewIfNeeded({ behavior: 'smooth' });
+    return this;
+  }
+   
   async scrollToTop() {
     const scrollHeight = await this.page.evaluate(() => document.body.scrollHeight);
     const innerHeight = await this.page.evaluate(() => window.innerHeight);
