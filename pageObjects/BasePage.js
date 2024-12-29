@@ -24,6 +24,7 @@ class BasePage {
   getCopyrightText = () => this.page.locator('.footer-bottom .pull-left')
   getActiveBreadcrumbs = () => this.page.locator('.breadcrumb .active')
   getRegisterLoginModalButton = () => this.page.locator('.modal-body a[href="/login"]')
+  getHeaderHomeButton = () => this.page.locator('.shop-menu a[href="/"]')
 
   //Left-Sidebar
   getLeftSidebarCategoryList = () => this.page.locator('a[data-parent="#accordian"]')
@@ -122,7 +123,12 @@ class BasePage {
     await this.getCopyrightText().scrollIntoViewIfNeeded({ behavior: 'smooth' });
     return this;
   }
-   
+  
+  async scrollToHeaderHomeButton() {
+    await this.getHeaderHomeButton().scrollIntoViewIfNeeded({ behavior: 'smooth' })
+    return this;
+  }
+
   async scrollToTop() {
     const scrollHeight = await this.page.evaluate(() => document.body.scrollHeight);
     const innerHeight = await this.page.evaluate(() => window.innerHeight);
