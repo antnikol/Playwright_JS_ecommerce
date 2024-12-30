@@ -14,8 +14,8 @@ test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
 
   test('Test Case 6: Contact Us Form', async ({ page, homePage, contactUsPage }) => {
     await homePage.clickContactUsButton()
-    expect(await homePage.getPageUrl()).toContain(text.contactUsPage.pageUrl)
-    expect(await contactUsPage.getGetInTouchHeaderText()).toContain(text.contactUsPage.getInTouchHeader)
+    await expect(await homePage.getPageUrl()).toContain(text.contactUsPage.pageUrl)
+    await expect(await contactUsPage.getGetInTouchHeaderText()).toContain(text.contactUsPage.getInTouchHeader)
     await contactUsPage.typeNameTextField(user.name)
     await contactUsPage.typeEmailTextField(user.email)
     await contactUsPage.typeSubjectTextField(testData.subject)
@@ -23,27 +23,25 @@ test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
     await contactUsPage.clickAndAttachFile(text.contactUsPage.fileLocation)
     await contactUsPage.waitAndConfirmAlertWindow()
     await contactUsPage.clickSubmitButton();
-    expect(await contactUsPage.getSuccessMessage()).toHaveText(text.contactUsPage.sentLetterSuccessMessage);
+    await expect(await contactUsPage.getSuccessMessage()).toHaveText(text.contactUsPage.sentLetterSuccessMessage);
     await contactUsPage.clickBackToHomePageButton();
-    expect(await homePage.getPageTitle()).toContain(text.homePage.pageTitle);
+    await expect(await homePage.getPageTitle()).toContain(text.homePage.pageTitle);
   });
 
   test('Test Case 10: Verify Subscription in home page', async ({ page, homePage }) => {
-    await page.goto('/')
     await homePage.scrollToBottom();
-    expect(await homePage.getSubscriptionFooterSection()).toHaveText(text.homePage.subscriptionHeading);
+    await expect(await homePage.getSubscriptionFooterSection()).toHaveText(text.homePage.subscriptionHeading);
     await homePage.typeSubscriptionFooterEmailField(user.email)
     await homePage.clickSubscribeButton();
-    expect(await homePage.getSuccessSubscribeMessage()).toBeVisible();
+    await expect(await homePage.getSuccessSubscribeMessage()).toBeVisible();
   });
 
   test('Test Case 11: Verify Subscription in Cart page', async ({ page, homePage, cartPage }) => {
-    await page.goto('/')
     await homePage.clickViewCartHeaderButton()
     await cartPage.scrollToBottom()
-    expect(await cartPage.getSubscriptionFooterSection()).toHaveText(text.homePage.subscriptionHeading);
+    await expect(await cartPage.getSubscriptionFooterSection()).toHaveText(text.homePage.subscriptionHeading);
     await cartPage.typeSubscriptionFooterEmailField(user.email)
     await cartPage.clickSubscribeButton();
-    expect(await cartPage.getSuccessSubscribeMessage()).toBeVisible();
+    await expect(await cartPage.getSuccessSubscribeMessage()).toBeVisible();
   });
 });

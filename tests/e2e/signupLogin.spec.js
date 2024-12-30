@@ -14,11 +14,11 @@ test.describe('Tests for the sections: Sign Up, Login', ()=> {
   test('Test Case 1: Register User', async ({ page, homePage, loginPage, signUpPage }) => {
     await deleteUser(page)
     await homePage.clickSignupLoginButton()
-    await expect(loginPage.getSignupFormHeader()).toHaveText(text.loginPage.signupFormHeader)
+    await expect(await loginPage.getSignupFormHeader()).toHaveText(text.loginPage.signupFormHeader)
     await loginPage.typeNameSignupTextField(user.name)
     await loginPage.typeEmailSignupTextField(user.email)
     await loginPage.clickSignupButton()
-    await expect(signUpPage.getCreateAccountButton()).toHaveText(text.loginPage.createAccount)
+    await expect(await signUpPage.getCreateAccountButton()).toHaveText(text.loginPage.createAccount)
     await signUpPage.checkTitleMrRadioButton()
     await signUpPage.typePasswordTextField(user.password)
     await signUpPage.selectBirthDay(user.birth_date)
@@ -38,7 +38,7 @@ test.describe('Tests for the sections: Sign Up, Login', ()=> {
     await signUpPage.typeMobileNumberTextField(user.mobile_number)
     await signUpPage.clickCreateAccountButton()
     await signUpPage.clickContinueButton();
-    await expect(homePage.getListHeaderButtons()).toContainText(`${user.name}`)
+    await expect(await homePage.getListHeaderButtons()).toContainText(`${user.name}`)
     await deleteUserAfterRegistration(page)
   })
 
@@ -46,46 +46,46 @@ test.describe('Tests for the sections: Sign Up, Login', ()=> {
     await registerUser(page)
     await homePage.clickLogoutButton()
     await homePage.clickSignupLoginButton()
-    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader);
+    await expect(await loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader);
     await loginPage.typeEmailLoginTextField(user.email)
     await loginPage.typePasswordLoginTextField(user.password)
     await loginPage.clickLoginButton()
-    await expect(homePage.getListHeaderButtons()).toContainText(user.name);
+    await expect(await homePage.getListHeaderButtons()).toContainText(user.name);
   })
 
   test('Test Case 3: Login User with incorrect email and password', async ({ page, homePage, loginPage }) => {
     await registerUser(page)
     await homePage.clickLogoutButton()
     await homePage.clickSignupLoginButton()
-    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
+    await expect(await loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
     await loginPage.typeEmailLoginTextField(user.email)
     await loginPage.typePasswordLoginTextField(incorrectPassword[0])
     await loginPage.clickLoginButton()
-    await expect(loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
+    await expect(await loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
   })
 
   test('Test Case 4: Logout User', async ({ page, homePage, loginPage }) => {
     await registerUser(page)
     await homePage.clickLogoutButton()
     await homePage.clickSignupLoginButton()
-    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
+    await expect(await loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
     await loginPage.typeEmailLoginTextField(user.email)
     await loginPage.typePasswordLoginTextField(user.password)
     await loginPage.clickLoginButton()
-    await expect(homePage.getListHeaderButtons()).toContainText(user.name)
+    await expect(await homePage.getListHeaderButtons()).toContainText(user.name)
     await homePage.clickLogoutButton()
-    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader);
+    await expect(await loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader);
   })
 
   test('Test Case 5: Register User with existing email', async ({ page, homePage, loginPage }) => {
     await registerUser(page)
     await homePage.clickLogoutButton()
     await homePage.clickSignupLoginButton()
-    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
+    await expect(await loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
     await loginPage.typeNameSignupTextField(user.name)
     await loginPage.typeEmailSignupTextField(user.email)
     await loginPage.clickSignupButton()
-    await expect(loginPage.getErrorSingupMessage()).toHaveText(text.loginPage.errorSingupMessage)
+    await expect(await loginPage.getErrorSingupMessage()).toHaveText(text.loginPage.errorSingupMessage)
     await deleteUser(page)
   })
 
