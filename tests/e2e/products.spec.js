@@ -76,16 +76,16 @@ test.describe('Tests for the sections: Products', ()=> {
 
   test('Test Case 21: Add review on product', async ({ page, homePage, productsPage, productDetailsPage }) => {
     await homePage.clickProductsHeaderButton()
-    await expect(productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
-    await expect(productsPage.getPageUrl()).toContain(text.productsPage.pageUrl)
+    await expect(await productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
+    expect(await productsPage.getPageUrl()).toContain(text.productsPage.pageUrl)
     await productsPage.clickFirstViewProductButton()
-    await expect(productDetailsPage.getWriteYourReviewHeader()).toHaveText(text.productDetailsPage.writeYourReviewHeader)
+    await expect(await productDetailsPage.getWriteYourReviewHeader()).toHaveText(text.productDetailsPage.writeYourReviewHeader)
     await productDetailsPage.typeYourNameField(user.name)
     await productDetailsPage.typeYourEmailField(user.email)
     await productDetailsPage.typeReviewTextField(product.review)
     await productDetailsPage.clickSubmitReviewButton()
-    await expect(productDetailsPage.getReviewSuccessMessage()).toBeVisible()
-    await expect(productDetailsPage.getReviewSuccessMessage()).toHaveText(text.productDetailsPage.reviewSuccessMessage)     
+    await expect(await productDetailsPage.getReviewSuccessMessage()).toBeVisible()
+    await expect(await productDetailsPage.getReviewSuccessMessage()).toHaveText(text.productDetailsPage.reviewSuccessMessage)     
   })
 
   test('Test Case 19: View & Cart Brand Products', async ({ page, homePage, productsPage }) => {
