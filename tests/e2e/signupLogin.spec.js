@@ -53,18 +53,16 @@ test.describe('Tests for the sections: Sign Up, Login', ()=> {
     await expect(homePage.getListHeaderButtons()).toContainText(user.name);
   })
 
-  // test('Test Case 3: Login User with incorrect email and password', async ({ page }) => {
-  //   cy.registerUser()
-  //   homePage
-  //     .clickLogoutButton()
-  //     .clickSignupLoginButton()
-  //   loginPage.getLoginFormHeader().should('have.text', text.loginPage.loginFormHeader);
-  //   loginPage
-  //     .typeEmailLoginTextField(user.email)
-  //     .typePasswordLoginTextField(incorrectPassword[0])
-  //     .clickLoginButton()
-  //   loginPage.getErrorLoginMessage().should('have.text', 'Your email or password is incorrect!');
-  // })
+  test('Test Case 3: Login User with incorrect email and password', async ({ page, homePage, loginPage }) => {
+    await registerUser(page)
+    await homePage.clickLogoutButton()
+    await homePage.clickSignupLoginButton()
+    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
+    await loginPage.typeEmailLoginTextField(user.email)
+    await loginPage.typePasswordLoginTextField(incorrectPassword[0])
+    await loginPage.clickLoginButton()
+    await expect(loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
+  })
 
   // test('Test Case 4: Logout User', async ({ page }) => {
   //   cy.registerUser()
