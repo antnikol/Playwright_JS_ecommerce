@@ -64,33 +64,29 @@ test.describe('Tests for the sections: Sign Up, Login', ()=> {
     await expect(loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
   })
 
-  // test('Test Case 4: Logout User', async ({ page }) => {
-  //   cy.registerUser()
-  //   homePage
-  //     .clickLogoutButton()
-  //     .clickSignupLoginButton()
-  //   loginPage.getLoginFormHeader().should('have.text', text.loginPage.loginFormHeader);
-  //   loginPage
-  //     .typeEmailLoginTextField(user.email)
-  //     .typePasswordLoginTextField(user.password)
-  //     .clickLoginButton()
-  //   homePage.getListHeaderButtons().should('contain', `${user.name}`);
-  //   homePage.clickLogoutButton()
-  //   loginPage.getLoginFormHeader().should('have.text', text.loginPage.loginFormHeader);
-  // })
+  test('Test Case 4: Logout User', async ({ page, homePage, loginPage }) => {
+    await registerUser(page)
+    await homePage.clickLogoutButton()
+    await homePage.clickSignupLoginButton()
+    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
+    await loginPage.typeEmailLoginTextField(user.email)
+    await loginPage.typePasswordLoginTextField(user.password)
+    await loginPage.clickLoginButton()
+    await expect(homePage.getListHeaderButtons()).toContainText(user.name)
+    await homePage.clickLogoutButton()
+    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader);
+  })
 
-  // test('Test Case 5: Register User with existing email', async ({ page }) => {
-  //   cy.registerUser()
-  //   homePage
-  //     .clickLogoutButton()
-  //     .clickSignupLoginButton()
-  //   loginPage.getLoginFormHeader().should('have.text', text.loginPage.loginFormHeader);
-  //   loginPage
-  //     .typeNameSignupTextField(user.name)
-  //     .typeEmailSignupTextField(user.email)
-  //     .clickSignupButton()
-  //   loginPage.getErrorSingupMessage().should('have.text', text.loginPage.errorSingupMessage)
-  //   cy.deleteUser()
-  // })
+  test('Test Case 5: Register User with existing email', async ({ page, homePage, loginPage }) => {
+    await registerUser(page)
+    await homePage.clickLogoutButton()
+    await homePage.clickSignupLoginButton()
+    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader)
+    await loginPage.typeNameSignupTextField(user.name)
+    await loginPage.typeEmailSignupTextField(user.email)
+    await loginPage.clickSignupButton()
+    await expect(loginPage.getErrorSingupMessage()).toHaveText(text.loginPage.errorSingupMessage)
+    await deleteUser(page)
+  })
 
 })
