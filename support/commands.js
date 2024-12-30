@@ -9,7 +9,6 @@ import HomePage from '../pageObjects/HomePage'
 const { user } = jsonData
 const USEREMAIL = user.email
 const PASSWORD = user.password
-const ErrorLoginMessageLocator = 'form[action="/login"] > p'
 
 
 export async function deleteUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
@@ -17,27 +16,26 @@ export async function deleteUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
   const loginPage = new LoginPage(page)
   const basePage = new BasePage(page)
 
-  await homePage.clickSignupLoginButton(page)
-  await loginPage.typeEmailLoginTextField(page, userEmail)
-  await loginPage.typePasswordLoginTextField(page, pass)
-  await loginPage.clickLoginButton(page)
+  await homePage.clickSignupLoginButton()
+  await loginPage.typeEmailLoginTextField(user.email)
+  await loginPage.typePasswordLoginTextField(user.password)
+  await loginPage.clickLoginButton()
 
-  const errorMessageVisible = await page.locator(ErrorLoginMessageLocator).isVisible();
+  const errorMessageVisible = await loginPage.getErrorLoginMessage()
 
   if (errorMessageVisible) {
     console.log('Error message found.')
-    await loginPage.getErrorLoginMessage(page).toHaveText('Your email or password is incorrect!')
+    await expect(loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
   } else {
     console.log('Error message does not exist in the DOM.')
-    await homePage.clickDeleteAccountButton(page)
-    await expect( basePage.getAccountDeletedConfirmMessage(page)).toContainText('Account Deleted!')
+    await homePage.clickDeleteAccountButton()
+    await expect( basePage.getAccountDeletedConfirmMessage()).toContainText('Account Deleted!')
   }
 }
 
 export async function registerUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
   const homePage = new HomePage(page)
   const loginPage = new LoginPage(page)
-  const basePage = new BasePage(page)
   const signupPage = new SignUpPage(page)
 
   await deleteUser(page)
@@ -92,6 +90,6 @@ export async function deleteUserAfterRegistration(page) {
   const basePage = new BasePage(page)
 
   await homePage.clickDeleteAccountButton(page);
-  await basePage.getAccountDeletedConfirmMessage(page).toContainText('Account Deleted!');
+  await expect(basePage.getAccountDeletedConfirmMessage(page)).toContainText('Account Deleted!');
 }
 

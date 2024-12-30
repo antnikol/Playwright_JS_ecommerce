@@ -91,7 +91,7 @@ async typeAddress2TextField(address2) {
 }
 
 async selectCountryList(country) {
-  await this.getCountryList().select(country)
+  await this.getCountryList().selectOption(country)
   return this
 }
 
