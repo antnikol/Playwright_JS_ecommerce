@@ -40,7 +40,7 @@ class BasePage {
   }
    
   async countLeftSidebarBrandsList() {
-    return await this.page.getLeftSidebarBrandsList().count()
+    return await this.getLeftSidebarBrandsList().count()
   }
 
   async open() {
@@ -52,17 +52,19 @@ class BasePage {
   }
 
   async getLeftSidebarRandomBrandNameAndCount(randomNumber) {
-    return (await this.getLeftSidebarBrandNameList().nth(randomNumber).innerText()).trim();
+    return (await this.getLeftSidebarBrandNameList().nth(randomNumber).textContent()).trim();
   }
 
   async getLeftSidebarRandomBrandCount(randomNumber) {
-    return (await this.getLeftSidebarBrandCountList().nth(randomNumber).innerText().trim())
+    return (await this.getLeftSidebarBrandCountList().nth(randomNumber).textContent())
   }
 
-  async getBrandName(brandNumber, alias) {
-    const nameAndCount = await this.getLeftSidebarRandomBrandNameAndCount(brandNumber);
-    const brandCount = await this.getSavedVariableAs(alias).innerText();
-    return nameAndCount.replace(brandCount, '').trim();
+  async getBrandName(brandNumber, brandCount) {
+    // const brandName = await this.page.locator('.brands-name ul li a').nth(brandNumber).locator(`text=${}`).evaluate(element => {
+    //   return element.textContent.replace(/\(.*\)/, '').trim();
+    // })
+    const nameAndCount = await this.getLeftSidebarRandomBrandNameAndCount(brandNumber)
+    return nameAndCount.replace(brandCount, '').trim()
   }
   
   async clickLeftSidebarRandomBrandName(randomNumber) {
