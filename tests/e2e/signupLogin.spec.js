@@ -3,7 +3,7 @@ import { expect } from '@playwright/test'
 
 import text from "../../fixtures/text.json" assert { type: "json" }
 import jsonData from '../../fixtures/api.json' assert { type: 'json' }
-import { deleteUser, deleteUserAfterRegistration } from '../../support/commands.js';
+import { deleteUser, deleteUserAfterRegistration, registerUser } from '../../support/commands.js';
 
 
 
@@ -42,18 +42,16 @@ test.describe('Tests for the sections: Sign Up, Login', ()=> {
     await deleteUserAfterRegistration(page)
   })
 
-  // test('Test Case 2: Login User with correct email and password', async ({ page }) => {
-  //   cy.registerUser()
-  //   homePage
-  //     .clickLogoutButton()
-  //     .clickSignupLoginButton()
-  //   loginPage.getLoginFormHeader().should('have.text', text.loginPage.loginFormHeader);
-  //   loginPage
-  //     .typeEmailLoginTextField(user.email)
-  //     .typePasswordLoginTextField(user.password)
-  //     .clickLoginButton()
-  //   homePage.getListHeaderButtons().should('contain', `${user.name}`);
-  // })
+  test('Test Case 2: Login User with correct email and password', async ({ page, homePage, loginPage }) => {
+    await registerUser(page)
+    await homePage.clickLogoutButton()
+    await homePage.clickSignupLoginButton()
+    await expect(loginPage.getLoginFormHeader()).toHaveText(text.loginPage.loginFormHeader);
+    await loginPage.typeEmailLoginTextField(user.email)
+    await loginPage.typePasswordLoginTextField(user.password)
+    await loginPage.clickLoginButton()
+    await expect(homePage.getListHeaderButtons()).toContainText(user.name);
+  })
 
   // test('Test Case 3: Login User with incorrect email and password', async ({ page }) => {
   //   cy.registerUser()

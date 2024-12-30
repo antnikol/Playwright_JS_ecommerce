@@ -21,9 +21,9 @@ export async function deleteUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
   await loginPage.typePasswordLoginTextField(user.password)
   await loginPage.clickLoginButton()
 
-  const errorMessageVisible = await loginPage.getErrorLoginMessage()
+  const errorMessageVisible = await loginPage.getErrorLoginMessage().count()
 
-  if (errorMessageVisible) {
+  if (errorMessageVisible > 0) {
     console.log('Error message found.')
     await expect(loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
   } else {
@@ -39,35 +39,35 @@ export async function registerUser(page, userEmail = USEREMAIL, pass = PASSWORD)
   const signupPage = new SignUpPage(page)
 
   await deleteUser(page)
-  await homePage.clickSignupLoginButton(page);
+  await homePage.clickSignupLoginButton();
   
-  await loginPage.typeNameSignupTextField(page, user.name);
-  await loginPage.typeEmailSignupTextField(page, user.email);
-  await loginPage.clickSignupButton(page);
+  await loginPage.typeNameSignupTextField(user.name);
+  await loginPage.typeEmailSignupTextField(userEmail);
+  await loginPage.clickSignupButton();
   
-  await signupPage.checkTitleMrRadioButton(page);
-  await signupPage.typePasswordTextField(page, user.password);
-  await signupPage.selectBirthDay(page, user.birth_date);
-  await signupPage.selectBirthMonth(page, user.birth_month);
-  await signupPage.selectBirthYear(page, user.birth_year);
-  await signupPage.checkNewsletterCheckbox(page);
-  await signupPage.checkSpecialOffersCheckbox(page);
+  await signupPage.checkTitleMrRadioButton();
+  await signupPage.typePasswordTextField(pass);
+  await signupPage.selectBirthDay(user.birth_date);
+  await signupPage.selectBirthMonth(user.birth_month);
+  await signupPage.selectBirthYear(user.birth_year);
+  await signupPage.checkNewsletterCheckbox();
+  await signupPage.checkSpecialOffersCheckbox();
   
-  await signupPage.typeFirstNameTextField(page, user.firstname);
-  await signupPage.typeLastNameTextField(page, user.lastname);
-  await signupPage.typeCompanyTextField(page, user.company);
-  await signupPage.typeAddressTextField(page, user.address1);
-  await signupPage.typeAddress2TextField(page, user.address2);
-  await signupPage.selectCountryList(page, user.country);
-  await signupPage.typeStateTextField(page, user.state);
-  await signupPage.typeCityTextField(page, user.city);
-  await signupPage.typeZipCodeTextField(page, user.zipcode);
-  await signupPage.typeMobileNumberTextField(page, user.mobile_number);
+  await signupPage.typeFirstNameTextField(user.firstname);
+  await signupPage.typeLastNameTextField(user.lastname);
+  await signupPage.typeCompanyTextField(user.company);
+  await signupPage.typeAddressTextField(user.address1);
+  await signupPage.typeAddress2TextField(user.address2);
+  await signupPage.selectCountryList(user.country);
+  await signupPage.typeStateTextField(user.state);
+  await signupPage.typeCityTextField(user.city);
+  await signupPage.typeZipCodeTextField(user.zipcode);
+  await signupPage.typeMobileNumberTextField(user.mobile_number);
   
-  await signupPage.clickCreateAccountButton(page);
-  await signupPage.clickContinueButton(page);
+  await signupPage.clickCreateAccountButton();
+  await signupPage.clickContinueButton();
   
-  await homePage.getListHeaderButtons(page).toContainText(user.name);
+  await expect(homePage.getListHeaderButtons()).toContainText(user.name);
 }
 
 export async function loginUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
