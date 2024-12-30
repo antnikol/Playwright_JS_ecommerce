@@ -24,10 +24,15 @@ getAllAddToCartButtons = () => this.page.locator('a[data-product-id]')
 getBrandPageSectionHeading = () => this.page.locator('div.features_items h2.title')
 
 getFirstProductItem = () => this.page.locator('.choose').eq(0)
+getNthAddToCartButton = (nth) => this.page.locator(`a[data-product-id]:nth-of-type(${nth})`)
 
 
 static counterClickFirstProductAddToCartButton = 0
 
+
+async countAllProductsList() {
+  return await this.getAllProductsList().count()
+}
 
 async clickFirstViewProductButton() {
   await this.getAllViewProductButtons().first().click()
@@ -118,10 +123,13 @@ takeCounterClickFirstProductAddToCartButton() {
 }
 
 async clickAllProductsAddToCartButton() {
-  const buttons = await this.getAllAddToCartButtons();
-  for (const button of buttons) {
-    await button.click({ force: true });
-    await this.getContinueShoppingButton().click();
+  const buttons = await this.getAllAddToCartButtons()
+  const count = await buttons.count()
+  for (let i = 0; i < count; i++) {
+    if (i % 2 === 0) { 
+      await buttons.nth(i).click({ force: true })
+      await this.getContinueShoppingButton().click()
+    }
   }
   return this;
 }

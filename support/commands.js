@@ -75,21 +75,21 @@ export async function loginUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
   const basePage = new BasePage(page)
   const loginPage = new LoginPage(page)
 
-  await basePage.clickSignupLoginButton(page);
-  await loginPage.getLoginFormHeader(page).toHaveText('Login to your account');
+  await basePage.clickSignupLoginButton();
+  await expect(loginPage.getLoginFormHeader()).toHaveText('Login to your account')
   
-  await loginPage.typeEmailLoginTextField(page, user.email);
-  await loginPage.typePasswordLoginTextField(page, user.password);
-  await loginPage.clickLoginButton(page);
+  await loginPage.typeEmailLoginTextField(user.email);
+  await loginPage.typePasswordLoginTextField(user.password);
+  await loginPage.clickLoginButton();
   
-  await homePage.getListHeaderButtons(page).toContainText(user.name);
+  await expect(homePage.getListHeaderButtons()).toContainText(user.name);
 }
 
 export async function deleteUserAfterRegistration(page) {
   const homePage = new HomePage(page)
   const basePage = new BasePage(page)
 
-  await homePage.clickDeleteAccountButton(page);
-  await expect(basePage.getAccountDeletedConfirmMessage(page)).toContainText('Account Deleted!');
+  await homePage.clickDeleteAccountButton();
+  await expect(basePage.getAccountDeletedConfirmMessage()).toContainText('Account Deleted!');
 }
 

@@ -18,7 +18,7 @@ class BasePage {
   getSuccessSubscribeMessage = () => this.page.locator('.alert-success.alert')
   getViewCartHeaderButton = () => this.page.locator('.shop-menu a[href="/view_cart"]')
   getTestCasesHeaderMenuButton = () => this.page.locator('.nav a[href="/test_cases"]')
-  getPageTitle = () => this.page.title()
+
   getPageUrl = () => this.page.url()
   getScrollUpButton = () => this.page.locator('#scrollUp')
   getCopyrightText = () => this.page.locator('.footer-bottom .pull-left')
@@ -33,7 +33,15 @@ class BasePage {
   getLeftSidebarBrandsList = () => this.page.locator('.brands-name li')
   getLeftSidebarBrandNameList = () => this.page.locator('.brands-name li a')
   getLeftSidebarBrandCountList = () => this.page.locator('.brands-name li a span')
-  
+
+
+  async getPageTitle() {
+    return await this.page.title();
+  }
+   
+  async countLeftSidebarBrandsList() {
+    return await this.page.getLeftSidebarBrandsList().count()
+  }
 
   async open() {
     await this.page.goto("/");
@@ -148,8 +156,23 @@ class BasePage {
   }
 
   async clickLeftSidebarCategory(categoryName) {
-    await this.getLeftSidebarCategoryList().filter({ hasText: categoryName }).click()
-    return this
+    await this.page.locator(`a[href="#${categoryName}"]`).click();
+    return this;
+  }
+
+  // async clickSubCategoryRopeCategory(subCategoryName, categoryName) {
+  //   const categoryLocator = this.getLeftSidebarCategoryList().locator(`#${categoryName}`)
+  //   const subCategoryLocator = categoryLocator.locator(`text=${subCategoryName}`)
+  //   await subCategoryLocator.click();
+  //   return this;
+  // }
+
+  async clickSubCategoryRopeCategory(subCategoryName, categoryName) {
+    const categoryPanelLocator = await this.page.locator(`#${categoryName}`);
+    // await categoryPanelLocator.waitFor({ state: 'visible' });
+    const subCategoryLocator = categoryPanelLocator.locator('a').locator(`text=${subCategoryName}`);
+    await subCategoryLocator.click();
+    return this;
   }
 
   async clickLeftSidebarSubCategory(subCategoryName) {
