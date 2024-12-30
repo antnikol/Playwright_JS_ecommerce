@@ -158,7 +158,7 @@ class BasePage {
   }
 
   async clickScrollUpButton() {
-    await this.getScrollUpButton().click()
+    await this.getScrollUpButton().click({force: true})
     return this
   }
 

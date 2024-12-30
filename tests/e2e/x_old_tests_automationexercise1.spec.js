@@ -821,22 +821,8 @@
 //     this.page.locator('.single-widget h2')
 //       .should(($el) => {
 //         const rect = $el[0].getBoundingClientRect()
-//         try {
 //           expect(rect.top).to.be.greaterThan(0)
 //           expect(rect.bottom).to.be.lessThan(Cypress.config('viewportHeight'))
-//         } catch (error) {
-//           Cypress.log({
-//             name: 'Visibility check',
-//             message: 'Subscription section is not visible within the viewport',
-//             consoleProps: () => {
-//                 return {
-//                     rect,
-//                     errorMessage: error.message,
-//                 };
-//             },
-//           });
-//           throw error;
-//         }
 //       })
 //     this.page.locator('#scrollUp').click()
 //     this.page.locator('div.carousel-inner div.item.active').eq(0)

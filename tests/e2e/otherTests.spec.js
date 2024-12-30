@@ -24,6 +24,16 @@ test.describe('Tests for the sections: Other tests', () => {
     const viewportHeight = page.viewportSize().height
     expect(top).toBeGreaterThan(0)
     expect(bottom).toBeLessThan(viewportHeight)
+
+    await homePage.clickScrollUpButton()
+    await expect(homePage.getSliderCarouselSection()).toBeVisible()
+    await expect(await homePage.getSliderCarouselSection()).toContainText(text.homePage.sliderCarouselSection)
+    const rectUp = await homePage.getSliderCarouselSection().boundingBox()
+    const topUp = rectUp.y
+    const bottomUp = rectUp.y + rectUp.height
+    const viewportHeightUp = page.viewportSize().height
+    expect(topUp).toBeGreaterThan(0)
+    expect(bottomUp).toBeLessThan(viewportHeightUp)
 })
 
 
