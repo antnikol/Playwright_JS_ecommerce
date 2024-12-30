@@ -1,6 +1,0 @@
-Saving the brand name and quantity of the brand to be selected
-H&M
-(5)
-Verifying user is navigated to brand page and brand products are displayed according to the selection
-Saving the brand name and quantity of the brand to be selected
-Verifying user is navigated to another brand page and brand products are displayed according to the selection
