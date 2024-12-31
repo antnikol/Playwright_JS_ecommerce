@@ -17,7 +17,7 @@ getEmptyCardSection = () => this.page.locator('#empty_cart p')
 getProductsNamesList = () => this.page.locator('h4 a')
 getProceedToCheckoutButton = () => this.page.locator('.btn.check_out')
 
-getFirstProductQuantity = () => this.page.locator('.cart_quantity button').first()
+getFirstProductQuantity = () => this.page.locator('.cart_quantity button').first().innerText()
 getLastProductQuantity = () => this.page.locator('.cart_quantity button').last()
 getFirstProductPrice = () => this.page.locator('.cart_price p').first()
 getFirstProductTotalPrice = () => this.page.locator('.cart_total_price').first()
@@ -48,7 +48,7 @@ async getLastProductPriceNumber() {
 }
 
 async calculateLastProductTotalPrice() {
-  const quantity = await this.getProductQuantityList().last().innerTex ()
+  const quantity = await this.getProductQuantityList().last().innerText()
   const price = await this.getLastProductPriceNumber()
   return parseFloat(quantity) * parseFloat(price)
 }

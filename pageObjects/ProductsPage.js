@@ -70,10 +70,18 @@ async getFirstProductName() {
   return await this.getAllProductsNames().first().innerText() 
 } 
 
-clickFirstProductAddToCartButton() {
-  this.getAllSingleProductsSection().first().scrollIntoView()
-  .realHover().find('.product-overlay a.btn')
-  .click({ animationDistanceThreshold: 40 })
+// clickFirstProductAddToCartButton() {
+//   this.getAllSingleProductsSection().first().scrollIntoView()
+//   .realHover().find('.product-overlay a.btn')
+//   .click({ animationDistanceThreshold: 40 })
+//   this.counterClickFirstProductAddToCartButton += 1
+//   return this
+// }
+async clickFirstProductAddToCartButton() {
+  const firstProduct = this.getAllSingleProductsSection().first()
+  await firstProduct.scrollIntoViewIfNeeded()
+  await firstProduct.hover()
+  await firstProduct.locator('.product-overlay a.btn').click()
   this.counterClickFirstProductAddToCartButton += 1
   return this
 }
@@ -84,9 +92,11 @@ async clickContinueShoppingButton() {
 }
 
 async clickSecondProductAddToCartButton() {
-  const button = await this.getAllSingleProductsSection().nth(1).locator('.product-overlay a.btn');
-  await button.scrollIntoViewIfNeeded().click({ force: true });
-  return this;
+  const secondProduct = this.getAllSingleProductsSection().nth(1)
+  await secondProduct.scrollIntoViewIfNeeded()
+  await secondProduct.hover()
+  await secondProduct.locator('.product-overlay a.btn').click()
+  return this
 }
 
 

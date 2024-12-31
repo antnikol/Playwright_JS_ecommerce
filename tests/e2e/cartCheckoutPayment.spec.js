@@ -1,48 +1,41 @@
-// import { test } from '../../support/globalHooks.js'
-// import { expect } from '@playwright/test';
+import { test } from '../../support/globalHooks.js'
+import { expect } from '@playwright/test';
 
-// import genData from "../../fixtures/genData.js"
-// import text from "../../fixtures/text.json" assert { type: "json" }
-// import jsonData from '../../fixtures/api.json' assert { type: 'json' }
+import { newProductTestData } from '../../fixtures/genData.js'
+import text from "../../fixtures/text.json" assert { type: "json" }
+import jsonData from '../../fixtures/api.json' assert { type: 'json' }
 
 
-// const product = genData.newProductTestData()
-// const { user } = jsonData
+const product = newProductTestData()
+const { user } = jsonData
 
-// test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
+test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
 
-//   test('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', async ({ page }) => {
-//     homePage.clickProductsHeaderButton()
-//     productsPage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
-//     productsPage.takeFirstProductPrice().then((price) => { cy.wrap(price).as('firstProductPrice') })
-//     productsPage
-//       .resetCounterClickFirstProductAddToCartButton()
-//       .clickFirstProductAddToCartButton()
-//       .clickContinueShoppingButton()
-//       .clickFirstProductAddToCartButton()
-//       .clickContinueShoppingButton()
-//       .clickSecondProductAddToCartButton()
-//       .clickViewCartModalButton()
-//     cartPage.getCartProductsList().should('have.length', 2)
-//     cartPage.getFirstProductQuantity().should('have.text', productsPage.takeCounterClickFirstProductAddToCartButton())
-//     cartPage.getLastProductQuantity().should('have.text', '1')
+  test('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', async ({ page, homePage, productsPage, cartPage }) => {
+    await homePage.clickProductsHeaderButton()
+    const firstProductName = await productsPage.getFirstProductName()
+    const firstProductPrice = await productsPage.takeFirstProductPrice()
+    await productsPage.resetCounterClickFirstProductAddToCartButton()
+    await productsPage.clickFirstProductAddToCartButton()
+    await productsPage.clickContinueShoppingButton()
+    await productsPage.clickFirstProductAddToCartButton()
+    await productsPage.clickContinueShoppingButton()
+    await productsPage.clickSecondProductAddToCartButton()
+    await productsPage.clickViewCartModalButton()
+    await expect(await cartPage.getCartProductsList().count()).toBe(2)
+    await expect(await cartPage.getFirstProductQuantity()).toBe(String(await productsPage.takeCounterClickFirstProductAddToCartButton()))
+    await expect(await cartPage.getLastProductQuantity()).toHaveText('1')
 
-//     cy.log('Checking that multiply quantity by price function in Cart works correctly for both items')
-//     cartPage.calculateFirstProductTotalPrice().then((totalPrice) => {
-//       cartPage.getFirstProductTotalPriceNumber().should('equal', totalPrice)
-//     })
-//     cartPage.calculateLastProductTotalPrice().then((totalPrice) => {
-//       cartPage.getLastProductTotalPriceNumber().should('equal', totalPrice)
-//     })
+    console.log('Checking that multiply quantity by price function in Cart works correctly for both items')
+    const totalPriceFirst = await cartPage.calculateFirstProductTotalPrice()
+    await expect(await cartPage.getFirstProductTotalPriceNumber()).toBe(totalPriceFirst)
+    const totalPriceLast = await cartPage.calculateLastProductTotalPrice()
+    await expect(await cartPage.getLastProductTotalPriceNumber()).toBe(totalPriceLast)
 
-//     cy.log('Checking that the name, price of the product in the cart matches the previously added one')
-//     cy.get('@firstProductName').then((firstProductName) => {
-//       cartPage.getFirstProductName().should('have.text', firstProductName)
-//     })
-//     cy.get('@firstProductPrice').then((firstProductPrice) => {
-//       cartPage.getFirstProductPrice().should('have.text', firstProductPrice)
-//     })
-//   })
+    console.log('Checking that the name, price of the product in the cart matches the previously added one')
+    await expect(await cartPage.getFirstProductName()).toHaveText(firstProductName)
+    await expect(await cartPage.getFirstProductPrice()).toHaveText(firstProductPrice)
+  })
 
 //   test('Test Case 13: Verify product quantity in Cart by add from "Product details page"', async ({ page }) => {
 //     homePage.clickProductsHeaderButton()
@@ -278,4 +271,4 @@
 //     homePage.clickDeleteAccountButton()
 //     homePage.getAccountDeletedConfirmMessage().should('contain', text.homePage.accountDeleted)
 //   })
-// })
+})
