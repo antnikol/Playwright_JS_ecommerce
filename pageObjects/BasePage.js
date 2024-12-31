@@ -7,7 +7,7 @@ class BasePage {
   getSignupLoginButton = () => this.page.locator('.nav a[href="/login"]')
   getListHeaderButtons = () => this.page.locator('.nav.navbar-nav')
   getDeleteAccountButton = () => this.page.locator('a[href="/delete_account"]')
-  getAccountDeletedConfirmMessage = () => this.page.locator('h2[data-qa="account-deleted"]')
+  getAccountDeletedConfirmMessage = () => this.page.locator('h2[data-qa="account-deleted"] b')
   getLogoutButton = () => this.page.locator('a[href="/logout"]')
   getHeaderHomeIcon = () => this.page.locator(".fa-home")
   getContactUsButton = () => this.page.locator('a[href="/contact_us"]')
@@ -34,6 +34,9 @@ class BasePage {
   getLeftSidebarBrandNameList = () => this.page.locator('.brands-name li a')
   getLeftSidebarBrandCountList = () => this.page.locator('.brands-name li a span')
 
+  async getAccountDeletedConfirmMessageText(){
+    return this.getAccountDeletedConfirmMessage().innerText()
+  }
 
   async getPageTitle() {
     return await this.page.title();
