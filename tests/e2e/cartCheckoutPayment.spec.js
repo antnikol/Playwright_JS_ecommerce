@@ -49,17 +49,16 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await cartPage.getProductQuantityList()).toHaveText(String(product.quantity))
   }) 
 
-//   test('Test Case 17: Remove Products From Cart', async ({ page }) => {
-//     homePage
-//       .clickFirstProductAddToCartButton()
-//       .clickViewCartModalButton()
-//     cartPage.getCartProductsList().should('have.length', 1)
-//     cartPage.getPageUrl().should('include', text.cartPage.pageUrl)
-//     cartPage.getPageTitle().should('equal', text.cartPage.pageTitle)
-//     cartPage.getActiveBreadcrumbs().should('have.text', text.cartPage.breadCrumbs)
-//     cartPage.clickDeleteProductFromCartButton()
-//     cartPage.getEmptyCardSection().should('contain', text.cartPage.cardIsEmpty)
-//   })
+  test('Test Case 17: Remove Products From Cart', async ({ homePage, cartPage }) => {
+    await homePage.clickFirstProductAddToCartButton()
+    await homePage.clickViewCartModalButton()
+    await expect(await cartPage.getCartProductsList()).toHaveCount(1)
+    await expect(await cartPage.getPageUrl()).toContain(text.cartPage.pageUrl)
+    await expect(await cartPage.getPageTitle()).toBe(text.cartPage.pageTitle)
+    await expect(await cartPage.getActiveBreadcrumbs()).toHaveText(text.cartPage.breadCrumbs)
+    await cartPage.clickDeleteProductFromCartButton()
+    await expect(await cartPage.getEmptyCardSectionText()).toContain(text.cartPage.cardIsEmpty)
+  })
 
 //   test('Test Case 22: Add to cart from Recommended items', async ({ page }) => {
 //     homePage.scrollToCarouselRecommendedItems()

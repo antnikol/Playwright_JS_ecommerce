@@ -25,6 +25,9 @@ getLastProductPrice = () => this.page.locator('.cart_price p').last()
 getLastProductTotalPrice = () => this.page.locator('.cart_total_price').last()
 getFirstProductName = () => this.page.locator('.cart_description a').first()
 
+async getEmptyCardSectionText() {
+  return this.getEmptyCardSection().innerText()
+}
 
 async getFirstProductPriceNumber() {
   const text = await this.getProductPricesList().first().innerText()
