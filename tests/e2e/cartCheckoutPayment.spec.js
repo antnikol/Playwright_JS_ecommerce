@@ -11,7 +11,7 @@ const { user } = jsonData
 
 test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
 
-  test('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', async ({ page, homePage, productsPage, cartPage }) => {
+  test('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', async ({ homePage, productsPage, cartPage }) => {
     await homePage.clickProductsHeaderButton()
     const firstProductName = await productsPage.getFirstProductName()
     const firstProductPrice = await productsPage.takeFirstProductPrice()
@@ -37,18 +37,17 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await cartPage.getFirstProductPrice()).toHaveText(firstProductPrice)
   })
 
-//   test('Test Case 13: Verify product quantity in Cart by add from "Product details page"', async ({ page }) => {
-//     homePage.clickProductsHeaderButton()
-//     productsPage.clickFirstViewProductButton()
-//     productDetailsPage.getProductInformationSection().should('be.visible')
-//     productDetailsPage
-//       .clearProductQuantityField()
-//       .typeProductQuantityField(product.quantity)
-//       .clickAddToCartButton()
-//       .clickViewCartModalButton()
-//     cartPage.getCartProductsList().should('have.length', 1)
-//     cartPage.getProductQuantityList().should('have.text', product.quantity)
-//   }) 
+  test('Test Case 13: Verify product quantity in Cart by add from "Product details page"', async ({ homePage, productsPage, productDetailsPage, cartPage  }) => {
+    await homePage.clickProductsHeaderButton()
+    await productsPage.clickFirstViewProductButton()
+    await expect(await productDetailsPage.getProductInformationSection()).toBeVisible()
+    await productDetailsPage.clearProductQuantityField()
+    await productDetailsPage.typeProductQuantityField(`${product.quantity}`)
+    await productDetailsPage.clickAddToCartButton()
+    await productDetailsPage.clickViewCartModalButton()
+    await expect(await cartPage.getCartProductsList()).toHaveCount(1)
+    await expect(await cartPage.getProductQuantityList()).toHaveText(String(product.quantity))
+  }) 
 
 //   test('Test Case 17: Remove Products From Cart', async ({ page }) => {
 //     homePage
