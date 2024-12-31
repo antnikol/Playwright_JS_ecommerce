@@ -1,2 +1,0 @@
-Checking that multiply quantity by price function in Cart works correctly for both items
-Checking that the name, price of the product in the cart matches the previously added one
