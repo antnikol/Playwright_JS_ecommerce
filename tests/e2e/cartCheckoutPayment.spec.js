@@ -60,17 +60,13 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await cartPage.getEmptyCardSectionText()).toContain(text.cartPage.cardIsEmpty)
   })
 
-//   test('Test Case 22: Add to cart from Recommended items', async ({ page }) => {
-//     homePage.scrollToCarouselRecommendedItems()
-//     homePage.getCarouselRecommendedItemName(product.randomCarouselProductNumber)
-//       .then((name) => { cy.wrap(name).as('productName') })
-//     homePage
-//       .clickCarouselRecommendedItemAddToCartButton(product.randomCarouselProductNumber)
-//       .clickViewCartModalButton()
-//     cartPage.getSavedVariableAs('productName').then((productName) => {
-//       cartPage.getFirstProductName().should('have.text', productName)
-//     })
-//   })
+  test('Test Case 22: Add to cart from Recommended items', async ({ homePage, cartPage }) => {
+    await homePage.scrollToCarouselRecommendedItems()
+    const productName = await homePage.getCarouselRecommendedItemName(product.randomCarouselProductNumber)
+    await homePage.clickCarouselRecommendedItemAddToCartButton(product.randomCarouselProductNumber)
+    await homePage.clickViewCartModalButton()
+    await expect(await cartPage.getFirstProductName()).toHaveText(productName)
+  })
 
 //   test('Test Case 14: Place Order: Register while Checkout', async ({ page }) => {
 //     homePage.getFirstProductName().then((name) => { cy.wrap(name).as('firstProductName') })
