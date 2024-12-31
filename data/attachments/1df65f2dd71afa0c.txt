@@ -1,4 +1,0 @@
-Saving the brand name and quantity of the brand to be selected
-Madame
-(5)
-Verifying user is navigated to brand page and brand products are displayed according to the selection
