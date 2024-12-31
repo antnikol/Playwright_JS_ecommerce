@@ -23,6 +23,8 @@ getAllCartProductPriceList = () => this.page.locator('.cart_price p')
 getCommentOrderTextField = () => this.page.locator('textarea[class="form-control"]')
 getPlaceOrderButton = () => this.page.locator('a[href="/payment"]')
 getToCartTableSection = () => this.page.locator('.cart_menu')
+getAddressDeliverySectionHeading = () => this.page.locator('#address_delivery h3').textContent()
+getAddressBillingSectionHeading = () => this.page.locator('#address_invoice h3').textContent()
 
 
 async clickRegisterLoginModalButton() {

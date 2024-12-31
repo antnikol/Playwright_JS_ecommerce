@@ -3,7 +3,7 @@ import { expect } from '@playwright/test'
 
 import text from "../../fixtures/text.json" assert { type: "json" }
 import jsonData from '../../fixtures/api.json' assert { type: 'json' }
-import { deleteUser, deleteUserAfterRegistration, registerUser } from '../../support/commands.js';
+import { deleteUser, deleteUserAfterRegistration, registerUser } from '../../support/commands.js'
 
 
 
