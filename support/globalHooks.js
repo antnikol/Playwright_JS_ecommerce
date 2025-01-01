@@ -84,7 +84,7 @@ export const test = baseTest.extend({
 })
 
 test.beforeEach( async ({ page }, testInfo) => {
-  if (!testInfo.title.includes('api_')) {
+  if (!testInfo.title.includes('API_')) {
     const homePage = new HomePage(page)
 
     await page.goto('/')
