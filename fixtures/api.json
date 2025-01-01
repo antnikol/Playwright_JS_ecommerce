@@ -30,7 +30,7 @@
   },
 
   "userUpdate": {
-    "name": "test_Name2",
+    "name": "test_Name_Updated",
     "email": "testUser33@gmail.com",
     "password": "123456",
     "title": "Mrs.",

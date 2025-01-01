@@ -4,6 +4,7 @@ import jsonData from '../../fixtures/api.json' assert { type: "json" }
 const { message } = jsonData
 const { searchTerms } = jsonData
 const { user } = jsonData
+const { userUpdate } = jsonData
 
 test.describe('API tests for the site automationexercise.com', ()=> {
 
@@ -71,8 +72,8 @@ test.describe('API tests for the site automationexercise.com', ()=> {
   })
 
   test('API_ 11: POST To Create/Register User Account', async ({ request }) => {
-    const formData = new URLSearchParams();
-    for (const key in user) {
+    let formData = new URLSearchParams();
+    for (let key in user) {
       if (user.hasOwnProperty(key)) {
         formData.append(key, user[key]);
       }
@@ -88,7 +89,7 @@ test.describe('API tests for the site automationexercise.com', ()=> {
   })
 
   test('API_ 7: POST To Verify Login with valid details', async ({ request }) => {
-    const formData = new URLSearchParams()
+    let formData = new URLSearchParams()
     formData.append('email', user.email)
     formData.append('password', user.password)
     const response = await request.post('/api/verifyLogin', {
@@ -102,21 +103,20 @@ test.describe('API tests for the site automationexercise.com', ()=> {
 	})
 
   test('API_ 8: POST To Verify Login without email parameter', async ({ request }) => {
-    const formData = new URLSearchParams()
+    let formData = new URLSearchParams()
     formData.append('password', user.password)
     const response = await request.post('/api/verifyLogin', {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
       data: formData.toString()
     })
     const responseBody = await response.json()
-    console.log(responseBody)
     expect(response.status()).toBe(200)
     expect(responseBody.responseCode).toBe(400)
     expect(responseBody.message).toBe(message.badRequestEmaiOrPasswordParametr)
   })
 
   test('API_ 9: DELETE To Verify Login', async ({ request }) => {
-    const formData = new URLSearchParams()
+    let formData = new URLSearchParams()
     formData.append('email', user.email)
     formData.append('password', user.password)
     const response = await request.delete('/api/verifyLogin', {
@@ -130,7 +130,7 @@ test.describe('API tests for the site automationexercise.com', ()=> {
   })
 
   test('API_ 10: POST To Verify Login with invalid details', async ({ request }) => {
-    const formData = new URLSearchParams()
+    let formData = new URLSearchParams()
     formData.append('email', user.email)
     formData.append('password', "")
     const response = await request.post('/api/verifyLogin', {
@@ -143,42 +143,44 @@ test.describe('API tests for the site automationexercise.com', ()=> {
     expect(responseBody.message).toBe(message.userNotFound)
   })
 
-  // test('API_ 13: PUT METHOD To Update User Account', async ({ page }) => {
-  //   cy.request({
-  //     method: 'PUT',
-  //     url: '/api/updateAccount',
-  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-  //     body: userUpdate
-  //   }).then((response) => {
-  //     expect(response.status).to.eq(200)
-  //     expect(JSON.parse(response.body).responseCode).to.eq(200)
-  //     expect(JSON.parse(response.body).message).to.eq(message.userUpdated)
-  //   })
-  // })
+  test('API_ 13: PUT METHOD To Update User Account', async ({ page, request }) => {
+    let formData = new URLSearchParams();
+    for (const key in userUpdate) {
+      if (userUpdate.hasOwnProperty(key)) {
+        formData.append(key, userUpdate[key]);
+      }
+    }
+    const response = await request.put('/api/updateAccount', {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      data: formData.toString(),
+    })
+    console.log(formData.toString())
+    const responseBody = await response.json()
+    console.log(responseBody)
+    expect(response.status()).toBe(200)
+    expect(responseBody.responseCode).toBe(200)
+    expect(responseBody.message).toBe(message.userUpdated)
+  })
 
-  // test('API_ 14: GET user account detail by email', async ({ page }) => {
-  //   cy.request('GET', `/api/getUserDetailByEmail?email=${user.email}`)   
-  //     .then((response) => {
-  //       console.log(response)
-  //       expect(response.status).to.eq(200)
-  //       expect(JSON.parse(response.body).responseCode).to.eq(200)
-  //       expect(JSON.parse(response.body).user.name).to.eq(userUpdate.name)
-  //     })
-  // })
+  test('API_ 14: GET user account detail by email', async ({ request }) => {
+    const response = await request.get(`/api/getUserDetailByEmail?email=${user.email}`)
+    const responseBody = await response.json()
+    expect(response.status()).toBe(200)
+    expect(responseBody.responseCode).toBe(200)
+    expect(responseBody.user.name).toBe(userUpdate.name)
+  })
 
-  // test('API_ 12: DELETE METHOD To Delete User Account', async ({ page }) => {
-  //   cy.request({
-  //     method: 'DELETE',
-  //     url: '/api/deleteAccount',
-  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-  //     body: {
-  //       email: user.email,
-  //       password: user.password,
-  //     } 
-  //   }).then((response) => {
-  //     expect(response.status).to.eq(200)
-  //     expect(JSON.parse(response.body).responseCode).to.eq(200)
-  //     expect(JSON.parse(response.body).message).to.eq(message.accountDeleted)
-  //   })
-  // })
+  test('API_ 12: DELETE METHOD To Delete User Account', async ({ request }) => {
+    let formData = new URLSearchParams()
+    formData.append('email', user.email)
+    formData.append('password', user.password)
+    const response = await request.delete('/api/deleteAccount', {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      data: formData.toString()
+    })
+    const responseBody = await response.json()
+    expect(response.status()).toBe(200)
+    expect(responseBody.responseCode).toBe(200)
+    expect(responseBody.message).toBe(message.accountDeleted)
+  })
 })
