@@ -69,7 +69,7 @@ jobs:
 
       - name: Run Playwright tests (including the one with mock server)
         run: |
-          npx playwright test --reporter=dot,allure-playwright
+          npx playwright test --reporter=list,allure-playwright
 
       - name: Generate Allure report
         run: |
