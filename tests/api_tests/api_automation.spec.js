@@ -1,10 +1,8 @@
 import { test } from '../../support/globalHooks.js'
 import { expect } from '@playwright/test'
 import jsonData from '../../fixtures/api.json' assert { type: "json" }
-const { message } = jsonData
-const { searchTerms } = jsonData
-const { user } = jsonData
-const { userUpdate } = jsonData
+const { message, searchTerms, user, userUpdate } = jsonData
+// const { message, searchTerms, user, userUpdate } = require('../../fixtures/api.json')
 
 test.describe('API tests for the site automationexercise.com', ()=> {
 
@@ -154,9 +152,7 @@ test.describe('API tests for the site automationexercise.com', ()=> {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
       data: formData.toString(),
     })
-    console.log(formData.toString())
     const responseBody = await response.json()
-    console.log(responseBody)
     expect(response.status()).toBe(200)
     expect(responseBody.responseCode).toBe(200)
     expect(responseBody.message).toBe(message.userUpdated)
