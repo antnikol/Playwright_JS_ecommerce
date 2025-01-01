@@ -27,13 +27,13 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await cartPage.getFirstProductQuantity()).toBe(String(await productsPage.takeCounterClickFirstProductAddToCartButton()))
     await expect(await cartPage.getLastProductQuantity()).toHaveText('1')
 
-    console.log('Checking that multiply quantity by price function in Cart works correctly for both items')
+    //'Checking that multiply quantity by price function in Cart works correctly for both items'
     const totalPriceFirst = await cartPage.calculateFirstProductTotalPrice()
     await expect(await cartPage.getFirstProductTotalPriceNumber()).toBe(totalPriceFirst)
     const totalPriceLast = await cartPage.calculateLastProductTotalPrice()
     await expect(await cartPage.getLastProductTotalPriceNumber()).toBe(totalPriceLast)
 
-    console.log('Checking that the name, price of the product in the cart matches the previously added one')
+    //'Checking that the name, price of the product in the cart matches the previously added one'
     await expect(await cartPage.getFirstProductName()).toHaveText(firstProductName)
     await expect(await cartPage.getFirstProductPrice()).toHaveText(firstProductPrice)
   })

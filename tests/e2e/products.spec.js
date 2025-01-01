@@ -94,24 +94,22 @@ test.describe('Tests for the sections: Products', ()=> {
     await expect(await productsPage.getLeftSidebarBrandsHeading()).toHaveText(text.productsPage.brandsHeading)
     await expect(await productsPage.countLeftSidebarBrandsList()).toBeGreaterThan(0)
     
-    console.log('Saving the brand name and quantity of the brand to be selected')
+    //'Saving the brand name and quantity of the brand to be selected'
     let brandCount = await homePage.getLeftSidebarRandomBrandCount(product.randomLeftSidebarBrandNumber)
     let brandName = await homePage.getBrandName(product.randomLeftSidebarBrandNumber, brandCount)
-    console.log(brandName)
-    console.log(brandCount)
 
-    console.log('Verifying user is navigated to brand page and brand products are displayed according to the selection')
+    //'Verifying user is navigated to brand page and brand products are displayed according to the selection'
     await homePage.clickLeftSidebarRandomBrandName(product.randomLeftSidebarBrandNumber)
     const hrefValue = await productsPage.getLeftSidebarRandomBrandHref(product.randomLeftSidebarBrandNumber)  
     await expect(await productsPage.getPageUrl()).toContain(hrefValue.replace(/ /g, '%20')) 
     await expect(await productsPage.getBrandPageSectionHeading()).toHaveText(`Brand - ${brandName} Products`)
     await expect(await productsPage.getAllSingleProductsSection().count()).toBe(parseInt(brandCount.replace(/[()]/g, ''), 10))
 
-    console.log('Saving the brand name and quantity of the brand to be selected')
+    //'Saving the brand name and quantity of the brand to be selected'
     let brandCount2 = await homePage.getLeftSidebarRandomBrandCount(product.anotherRandomLeftSidebarBrandNumber)
     let brandName2 = await homePage.getBrandName(product.anotherRandomLeftSidebarBrandNumber, brandCount2)
   
-    console.log('Verifying user is navigated to another brand page and brand products are displayed according to the selection')
+    //'Verifying user is navigated to another brand page and brand products are displayed according to the selection'
     await productsPage.clickLeftSidebarRandomBrandName(product.anotherRandomLeftSidebarBrandNumber)
     const hrefValue2 = await productsPage.getLeftSidebarRandomBrandHref(product.anotherRandomLeftSidebarBrandNumber)  
     await expect(await productsPage.getPageUrl()).toContain(hrefValue2.replace(/ /g, '%20')) 

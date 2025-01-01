@@ -24,10 +24,8 @@ export async function deleteUser(page, userEmail = USEREMAIL, pass = PASSWORD) {
   const errorMessageVisible = await loginPage.getErrorLoginMessage().count()
 
   if (errorMessageVisible > 0) {
-    console.log('Error message found.')
     await expect(loginPage.getErrorLoginMessage()).toHaveText('Your email or password is incorrect!')
   } else {
-    console.log('Error message does not exist in the DOM.')
     await homePage.clickDeleteAccountButton()
     await expect( basePage.getAccountDeletedConfirmMessage()).toContainText('Account Deleted!')
   }
