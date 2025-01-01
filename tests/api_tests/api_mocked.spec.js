@@ -13,7 +13,7 @@ test.describe('API tests with mocked data', () => {
       });
     });
 
-    await page.goto('http://127.0.0.1:55547/mockPage.html');
+    await page.goto('http://localhost:3000/mockPage.html');
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/productsList')
     )
