@@ -97,6 +97,8 @@ jobs:
           path: ./playwright/screenshots
 
       - name: Configure GitHub token for authentication
+        if: always()
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -106,11 +108,6 @@ jobs:
           rm -rf gh-pages/*
           cp -r ./allure-report/* gh-pages/
           cd gh-pages
-
-      - name: Commit and push Allure report
-        if: always()
-        continue-on-error: true
-        run: |
           git add .
           git commit -m "Update Allure report"
           git push
