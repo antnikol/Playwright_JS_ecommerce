@@ -1,4 +1,0 @@
-Test is running...
-Intercepted request: http://localhost:3000/api/productsList
-Response URL: http://localhost:3000/api/productsList
-Response status: 201
