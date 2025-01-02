@@ -17,7 +17,7 @@ test.describe('API tests with mocked data', () => {
       });
     });
 
-    await page.goto('http://127.0.0.1:56352/mockPage.html');
+    await page.goto('http://localhost:3000/mockPage.html');
     const response = await page.waitForResponse((response) => {
       console.log('Response URL:', response.url());
       console.log('Response status:', response.status());
