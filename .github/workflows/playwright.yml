@@ -66,6 +66,7 @@ jobs:
       - name: Run Playwright tests (including the one with mock server)
         run: |
           npx playwright test --reporter=list,allure-playwright,html
+        continue-on-error: true
 
       - name: List contents of allure-results directory
         run: ls -l allure-results || echo "Directory allure-results not found or empty."

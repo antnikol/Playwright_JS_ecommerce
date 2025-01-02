@@ -85,6 +85,9 @@ export const test = baseTest.extend({
 
 test.beforeEach( async ({ page }, testInfo) => {
   if (!testInfo.title.includes('API_')) {
+    const browserName = process.env.BROWSER_NAME || 'unknown-browser'
+    testInfo.annotations.push({ type: 'browser', description: browserName })
+
     const homePage = new HomePage(page)
 
     await page.goto('/')
