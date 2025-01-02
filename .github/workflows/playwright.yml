@@ -11,13 +11,14 @@ jobs:
     name: "Run Playwright tests"
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Clean up previous test results
+        run: |
+          rm -rf allure-results
+          rm -rf allure-report
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -72,8 +73,8 @@ jobs:
           npx playwright test --reporter=list,allure-playwright
 
       - name: Generate Allure report
-        run: |
-          allure generate ./allure-results --clean
+        run: allure generate ./allure-results --clean
+        continue-on-error: true
 
       - name: Upload Allure report
         uses: actions/upload-artifact@v4
@@ -105,6 +106,19 @@ jobs:
           rm -rf gh-pages/*
           cp -r ./allure-report/* gh-pages/
           cd gh-pages
+
+      - name: Commit and push Allure report
+        if: always()
+        continue-on-error: true
+        run: |
           git add .
           git commit -m "Update Allure report"
           git push
+
+      - name: Stop Express server
+        run: |
+          if pgrep -f "server.js"; then
+            pkill -f server.js
+          else
+            echo "Server is stopped and not running"
+          fi
