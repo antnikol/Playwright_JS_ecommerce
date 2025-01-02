@@ -187,6 +187,7 @@ class BasePage {
 
   async clickScrollUpButton() {
     await this.getScrollUpButton().click({force: true})
+    await this.page.waitForTimeout(3000)
     return this
   }
 
