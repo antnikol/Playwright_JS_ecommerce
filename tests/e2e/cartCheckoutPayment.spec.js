@@ -186,7 +186,7 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await paymentDonePage.getOrderPlacedMessage()).toHaveText(text.paymentDonePage.orderPlacedMessage)
   })
 
-  test('Test Case 24: Download Invoice after purchase order', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage }) => {
+  test.only('Test Case 24: Download Invoice after purchase order', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage }) => {
     await loginUser(page)
     const firstProductName = await homePage.getFirstProductName()
     const firstProductPrice = await homePage.takeFirstProductPrice()

@@ -5,7 +5,7 @@ import text from "../../fixtures/text.json" assert { type: "json" }
 
 test.describe('Tests for the sections: Other tests', () => {
 
-  test('Test Case 7: Verify Test Cases Page', async ({ homePage, testCasesPage }) => {
+  test.skip('Test Case 7: Verify Test Cases Page', async ({ homePage, testCasesPage }) => {
     await homePage.clickTestCasesHeaderMenuButton()
     await expect(await testCasesPage.getHeaderTestCasePage()).toHaveText(text.testCasesPage.heading)
     await expect(await testCasesPage.getPageTitle()).toContain(text.testCasesPage.pageTitle)

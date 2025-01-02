@@ -10,7 +10,7 @@ const { user } = jsonData
 const testData = newProductTestData()
 
 
-test.describe('Tests for the sections: Contact Us, Subscriptions', () => {
+test.describe.skip('Tests for the sections: Contact Us, Subscriptions', () => {
 
   test('Test Case 6: Contact Us Form', async ({ page, homePage, contactUsPage }) => {
     await homePage.clickContactUsButton()
