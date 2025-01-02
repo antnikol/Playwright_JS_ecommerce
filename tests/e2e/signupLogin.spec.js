@@ -9,7 +9,7 @@ import { deleteUser, deleteUserAfterRegistration, registerUser } from '../../sup
 
 const { user, incorrectPassword } = jsonData
 
-test.describe.skip('Tests for the sections: Sign Up, Login', ()=> {
+test.describe('Tests for the sections: Sign Up, Login', ()=> {
 
   test('Test Case 1: Register User', async ({ page, homePage, loginPage, signUpPage }) => {
     await deleteUser(page)
