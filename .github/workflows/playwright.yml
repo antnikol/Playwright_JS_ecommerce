@@ -68,7 +68,12 @@ jobs:
           npx playwright test --reporter=list,allure-playwright,html
 
       - name: Generate Allure report
-        run: allure generate ./allure-results --clean
+        run: |
+          if [ -d "./allure-results" ]; then
+            allure generate ./allure-results --clean
+          else
+            echo "No allure-results directory found, skipping report generation."
+          fi
         continue-on-error: true
 
       - name: Upload Allure report
@@ -107,11 +112,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
           rm -rf gh-pages/*
-          cp -r ./allure-report/* gh-pages/
+          if [ -d "./allure-report" ]; then cp -r ./allure-report/* gh-pages/; fi
           cd gh-pages
           git add .
           git commit -m "Update Allure report"
-          git push
+          git push --force
 
       - name: Stop Express server
         run: |
