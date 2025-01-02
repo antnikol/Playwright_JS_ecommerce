@@ -31,11 +31,6 @@ jobs:
           npm install -g allure-commandline
           npm install --save-dev allure-commandline allure-playwright playwright express
 
-      # - name: Install dependencies
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get upgrade -y
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
