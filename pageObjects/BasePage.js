@@ -133,12 +133,12 @@ class BasePage {
   // }
 
   async scrollToCopyright() {
-    await this.getCopyrightText().scrollIntoViewIfNeeded({ behavior: 'smooth' });
+    await this.getCopyrightText().scrollIntoViewIfNeeded();
     return this;
   }
   
   async scrollToHeaderHomeButton() {
-    await this.getHeaderHomeButton().scrollIntoViewIfNeeded({ behavior: 'smooth' })
+    await this.getHeaderHomeButton().scrollIntoViewIfNeeded()
     return this;
   }
 

@@ -47,7 +47,7 @@ async clickCarouselRecommendedItemAddToCartButton(randomCarouselNumber) {
 }
 
 async scrollToCarouselRecommendedItems() {
-  await this.getRecommendedItemCarouselSection().scrollIntoViewIfNeeded({ behavior: 'smooth' });
+  await this.getRecommendedItemCarouselSection().scrollIntoViewIfNeeded();
   return this;
 }
 
