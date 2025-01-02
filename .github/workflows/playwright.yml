@@ -70,7 +70,7 @@ jobs:
 
       - name: Run Playwright tests (including the one with mock server)
         run: |
-          npx playwright test --reporter=list,allure-playwright
+          npx playwright test --reporter=list,allure-playwright,html
 
       - name: Generate Allure report
         run: allure generate ./allure-results --clean
@@ -95,6 +95,12 @@ jobs:
         with:
           name: playwright-screenshots
           path: ./playwright/screenshots
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
 
       - name: Configure GitHub token for authentication
         if: always()
