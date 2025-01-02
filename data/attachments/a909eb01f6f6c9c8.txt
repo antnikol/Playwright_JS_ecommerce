@@ -1,2 +1,0 @@
-name=test_Name_Updated&email=testUser33%40gmail.com&password=123456&title=Mrs.&birth_date=2&birth_month=February&birth_year=2000&firstname=Anna&lastname=C.&company=company_Name_2&address1=street+%238%2C+Madagaskar&address2=flat+%233&country=Australia&zipcode=321321+&state=Cucumber&city=Port&mobile_number=%2B212312312331
-{ responseCode: 200, message: 'User updated!' }
