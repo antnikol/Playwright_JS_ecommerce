@@ -13,12 +13,14 @@ test.describe('API tests with mocked data', () => {
       });
     });
 
-    await page.goto('http://localhost:3000/mockPage.html');
+    await page.goto('http://localhost:3000/mockPage.html')
+    console.log(await page.content())
+
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/productsList')
     )
+
     const responseBody = await response.json()
-    
     expect(response.status()).toBe(201)
     expect(responseBody.products[0].name).toBe('mocked')
   })
