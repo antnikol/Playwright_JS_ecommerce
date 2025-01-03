@@ -22,7 +22,7 @@ export default defineConfig({
   
   projects: [
     {
-      name: 'chromium',
+      name: 'Chromium',
       use: {
         ...devices['Desktop Chrome'],
         timeout: 15000, 
@@ -34,7 +34,7 @@ export default defineConfig({
 
     },
     {
-      name: 'firefox',
+      name: 'Firefox',
       use: {
         ...devices['Desktop Firefox'],
         timeout: 60000, 
