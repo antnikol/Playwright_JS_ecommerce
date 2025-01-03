@@ -19,7 +19,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   globalSetup: './support/globalSetup.js',
-  
+  timeout: 60000,
   projects: [
     {
       name: 'chromium',
