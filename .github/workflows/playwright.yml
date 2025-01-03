@@ -120,6 +120,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
+          rm -rf ./*
           [ -d "./allure-report" ] && cp -r ./allure-report/* gh-pages/ || echo "Allure report not found, skipping upload"
           cd gh-pages
           git add .
@@ -133,3 +134,5 @@ jobs:
           else
             echo "Server is stopped and not running"
           fi
+
+#          # rm -rf gh-pages/*
