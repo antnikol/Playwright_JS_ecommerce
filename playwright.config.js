@@ -55,17 +55,17 @@ export default defineConfig({
         },
       },
     },
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { 
-    //    ...devices['Desktop Edge'], channel: 'msedge',
-          // timeout: 90000, 
-          // actionTimeout: 40000,
-          // expect: {
-          //   timeout: 15000,
-          // },
-    //   },
-    // },
+    {
+      name: 'Microsoft Edge',
+      use: { 
+       ...devices['Desktop Edge'], channel: 'msedge',
+          timeout: 90000, 
+          actionTimeout: 40000,
+          expect: {
+            timeout: 15000,
+          },
+      },
+    },
     // {
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
