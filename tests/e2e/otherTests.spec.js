@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 
 import text from "../../fixtures/text.json" assert { type: "json" }
 
-test.describe.skip('Tests for the sections: Other tests', () => {
+test.describe('Tests for the sections: Other tests', () => {
 
   test('Test Case 7: Verify Test Cases Page', async ({ homePage, testCasesPage }) => {
     await homePage.clickTestCasesHeaderMenuButton()
