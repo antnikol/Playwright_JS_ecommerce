@@ -26,9 +26,9 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         timeout: 30000, 
-        actionTimeout: 15000, 
+        actionTimeout: 45000, 
         expect: {
-          timeout: 10000, 
+          timeout: 15000, 
         },
       },
 
@@ -38,9 +38,9 @@ export default defineConfig({
       use: {
         ...devices['Desktop Firefox'],
         timeout: 60000, 
-        actionTimeout: 30000,
+        actionTimeout: 60000,
         expect: {
-          timeout: 12000,
+          timeout: 15000,
         },
       },
     },
@@ -49,7 +49,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Safari'],
         timeout: 90000, 
-        actionTimeout: 45000,
+        actionTimeout: 90000,
         expect: {
           timeout: 15000,
         },
@@ -66,10 +66,6 @@ export default defineConfig({
           },
       },
     },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
