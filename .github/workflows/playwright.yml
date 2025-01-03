@@ -7,18 +7,13 @@ on:
     branches: [main]
 
 jobs:
-  run-test:
-    name: "Run Playwright tests"
+  run-tests:
+    name: "Run Playwright Tests and Generate Allure Report"
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # - name: Clean up previous test results
-      #   run: |
-      #     rm -rf allure-results
-      #     rm -rf allure-report
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -27,68 +22,68 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get install -y allure
           npm install -g allure-commandline
           npm install --save-dev allure-commandline allure-playwright playwright express
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Start Express server for mock test
+      - name: Start mock server for tests
         run: |
           echo "
           import express from 'express';
           const app = express();
           const port = 3000;
 
-          app.use(express.static('.'))
+          app.use(express.static('.'));
 
           app.get('/api/productsList', (req, res) => {
             res.json({ products: [{ name: 'Mocked Product' }] });
           });
 
           app.listen(port, () => {
-            console.log('Mock server is running at http://localhost:' + port);
+            console.log('Mock server running at http://localhost:' + port);
           });
           " > server.js
 
           nohup node server.js &
 
-      - name: Wait for the server to be ready
+      - name: Wait for server to start
         run: |
-          echo "Waiting for the mock server to start..."
           until curl --silent --head --fail http://localhost:3000/api/productsList; do
             echo "Waiting for server..."
             sleep 1
           done
-          echo "Mock server is up!"
+          echo "Mock server is running."
 
-      - name: Run Playwright tests (including the one with mock server)
-        run: |
-          npx playwright test --reporter=list,allure-playwright,html
+      - name: Run Playwright tests
+        run: npx playwright test --reporter=list,allure-playwright,html
+
+      - name: Load test report history
+        uses: actions/checkout@v4
+        if: always()
         continue-on-error: true
+        with:
+          ref: gh-pages
+          path: allure-history
 
-      - name: List contents of allure-results directory
-        run: ls -l allure-results || echo "Directory allure-results not found or empty."
-
-      - name: Generate Allure report
-        run: |
-          if [ -d "./allure-results" ]; then
-            allure generate ./allure-results --clean || echo "Failed to generate Allure report."
-          else
-            echo "No allure-results directory found, skipping report generation."
-          fi
-        continue-on-error: true
-
-      - name: Upload Allure report
-        uses: actions/upload-artifact@v4
+      - name: Build Allure report
+        uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          name: allure-report
-          path: ./allure-report
-          if-no-files-found: warn
+          gh_pages: allure-history
+          allure_results: allure-results
+          allure_history: allure-history
 
-      - name: Publish Allure results
+      - name: Publish Allure report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+
+      - name: Upload Allure results
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -102,47 +97,17 @@ jobs:
           name: playwright-screenshots
           path: ./playwright/screenshots
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
 
-      - name: List contents of allure-results directory
-        run: ls -l allure-results
-
-      - name: Configure GitHub token for authentication
-        if: always()
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          if git ls-remote --exit-code --heads https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages; then
-            git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
-          else
-            git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
-            cd gh-pages
-            git checkout --orphan gh-pages
-            git rm -rf .
-            echo "Initializing gh-pages branch" > README.md
-            git add README.md
-            git commit -m "Initialize gh-pages branch"
-            git push -u origin gh-pages
-            cd ..
-          fi
-          cd gh-pages
-          rm -rf ./*
-          [ -d "../allure-report" ] && cp -r ../allure-report/* . || echo "Allure report not found, skipping upload"
-          git add .
-          git commit -m "Update Allure report" || echo "No changes to commit"
-          git push --force
-
-      - name: Stop Express server
+      - name: Stop mock server
         run: |
           if pgrep -f "server.js"; then
             pkill -f server.js
           else
-            echo "Server is stopped and not running"
+            echo "Mock server already stopped."
           fi
