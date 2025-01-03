@@ -4,7 +4,7 @@ import jsonData from '../../fixtures/api.json' assert { type: "json" }
 const { message, searchTerms, user, userUpdate } = jsonData
 // const { message, searchTerms, user, userUpdate } = require('../../fixtures/api.json')
 
-test.describe.skip('API tests for the site automationexercise.com', ()=> {
+test.describe('API tests for the site automationexercise.com', ()=> {
 
   test('API_ 1: Get All Products List', async ({ request }) => {
     const response = await request.get('/api/productsList')
