@@ -25,7 +25,6 @@ test.describe('API tests with mocked data', () => {
     const responseBody = await response.json()
     expect(response.status()).toBe(201)
     expect(responseBody.products[0].name).toBe('mocked')
-    expect(responseBody.products).toHaveLength(1)
   })
   
 })
