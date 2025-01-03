@@ -15,11 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # - name: Clean up previous test results
-      #   run: |
-      #     rm -rf allure-results
-      #     rm -rf allure-report
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -119,27 +114,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          if git ls-remote --exit-code --heads https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages; then
-            git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
-          else
-            git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
-            cd gh-pages
-            git checkout --orphan gh-pages
-            git rm -rf . 
-            echo "Initializing gh-pages branch" > README.md
-            git add README.md
-            git commit -m "Initialize gh-pages branch"
-            git push -u origin gh-pages
-            cd .. 
-          fi
-
-          # Копіюємо звіт Allure в папку docs
-          cd gh-pages
-          rm -rf ./*
-          [ -d "../allure-report" ] && cp -r ../allure-report/* ./docs/ || echo "Allure report not found, skipping upload"
-          git add ./docs/*
-          git commit -m "Update Allure report" || echo "No changes to commit"
-          git push --force
+          cp -r ./allure-report/* ./docs/
 
       - name: Stop Express server
         run: |
