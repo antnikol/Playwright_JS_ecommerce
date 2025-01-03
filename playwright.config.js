@@ -1,22 +1,15 @@
 // @ts-check
+// @see https://playwright.dev/docs/test-configuration
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+const extraBaseURL = process.env.CI ? 'http://localhost:3000' : 'http://127.0.0.1:5500'
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 5 : 0,
   workers: process.env.CI ? 1 : 1,
-  timeout: 15000,
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }], 
     ['list'],
@@ -26,25 +19,57 @@ export default defineConfig({
     headless: true,
     baseURL: 'https://automationexercise.com',
     trace: 'on-first-retry',
+    // extraHTTPHeaders: {
+    //   'x-extra-base-url': extraBaseURL,
+    // },
   },
   globalSetup: './support/globalSetup.js',
   
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        timeout: 15000, 
+        actionTimeout: 15000, 
+        expect: {
+          timeout: 10000, 
+        },
+      },
+
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        timeout: 60000, 
+        actionTimeout: 30000,
+        expect: {
+          timeout: 12000,
+        },
+      },
     },
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: {
+        ...devices['Desktop Safari'],
+        timeout: 90000, 
+        actionTimeout: 40000,
+        expect: {
+          timeout: 15000,
+        },
+      },
     },
     // {
     //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //   use: { 
+    //    ...devices['Desktop Edge'], channel: 'msedge',
+          // timeout: 90000, 
+          // actionTimeout: 40000,
+          // expect: {
+          //   timeout: 15000,
+          // },
+    //   },
     // },
     // {
     //   name: 'Google Chrome',

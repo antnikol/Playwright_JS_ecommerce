@@ -35,7 +35,7 @@ class BasePage {
   getLeftSidebarBrandCountList = () => this.page.locator('.brands-name li a span')
 
   async getAccountDeletedConfirmMessageText(){
-    return this.getAccountDeletedConfirmMessage().innerText()
+    return this.getAccountDeletedConfirmMessage().textContent()
   }
 
   async getPageTitle() {
