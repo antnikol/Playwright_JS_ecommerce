@@ -17,7 +17,7 @@ test.describe('API tests with mocked data', () => {
       });
     });
 
-    await page.goto(`1${extraBaseURL}/mockPage.html`)
+    await page.goto(`${extraBaseURL}/mockPage.html`)
     const response = await page.waitForResponse((response) => {
       return response.url().includes('/api/productsList')
     });

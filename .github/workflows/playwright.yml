@@ -80,9 +80,6 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: Log errors
-        run: dmesg | tail -n 20
-
       - name: Upload Allure report
         uses: actions/upload-artifact@v4
         if: always()
@@ -123,7 +120,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages --single-branch https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} gh-pages
-          rm -rf gh-pages/*
           [ -d "./allure-report" ] && cp -r ./allure-report/* gh-pages/ || echo "Allure report not found, skipping upload"
           cd gh-pages
           git add .
