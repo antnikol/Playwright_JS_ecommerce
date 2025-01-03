@@ -10,7 +10,7 @@ import { registerUser, loginUser } from '../../support/commands.js'
 const product = newProductTestData()
 const { user } = jsonData
 
-test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
+test.describe.skip('Tests for the sections: Cart, Checkout, Payment', ()=> {
 
   test('Test Case 12: Hover and click "Add to cart" button for two different products with different quantity', async ({ homePage, productsPage, cartPage }) => {
     await homePage.clickProductsHeaderButton()

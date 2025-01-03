@@ -2,8 +2,6 @@
 // @see https://playwright.dev/docs/test-configuration
 import { defineConfig, devices } from '@playwright/test';
 
-const extraBaseURL = process.env.CI ? 'http://localhost:3000' : 'http://127.0.0.1:5500'
-
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -19,9 +17,6 @@ export default defineConfig({
     headless: true,
     baseURL: 'https://automationexercise.com',
     trace: 'on-first-retry',
-    // extraHTTPHeaders: {
-    //   'x-extra-base-url': extraBaseURL,
-    // },
   },
   globalSetup: './support/globalSetup.js',
   

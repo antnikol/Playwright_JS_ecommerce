@@ -15,10 +15,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Clean up previous test results
-        run: |
-          rm -rf allure-results
-          rm -rf allure-report
+      # - name: Clean up previous test results
+      #   run: |
+      #     rm -rf allure-results
+      #     rm -rf allure-report
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

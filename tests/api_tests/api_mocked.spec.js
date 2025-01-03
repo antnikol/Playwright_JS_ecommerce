@@ -6,9 +6,7 @@ const { message, searchTerms, user, userUpdate } = jsonData
 test.describe('API tests with mocked data', () => {
 
   test('API_ 1(3): __Mocked_DATA__ Get All Products List', async ({ page, request }) => {
-    // const extraBaseURL = process.env.EXTRA_BASE_URL || 'http://127.0.0.1:5500'
     const extraBaseURL = process.env.EXTRA_BASE_URL
-    console.log(`Test is running at ${extraBaseURL} ...`)
 
     await page.route('**/api/productsList', (route) => {
       console.log('Intercepted request:', route.request().url())
@@ -21,14 +19,13 @@ test.describe('API tests with mocked data', () => {
 
     await page.goto(`${extraBaseURL}/mockPage.html`)
     const response = await page.waitForResponse((response) => {
-      console.log('Response URL:', response.url())
-      console.log('Response status:', response.status())
       return response.url().includes('/api/productsList')
     });
 
     const responseBody = await response.json()
     expect(response.status()).toBe(201)
     expect(responseBody.products[0].name).toBe('mocked')
+    expect(responseBody.products).toHaveLength(1)
   })
   
 })

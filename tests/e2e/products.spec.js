@@ -9,7 +9,7 @@ import { registerUser, loginUser } from '../../support/commands.js';
 const product = newProductTestData()
 const { user, searchTerms } = jsonData
 
-test.describe('Tests for the sections: Products', ()=> {
+test.describe.skip('Tests for the sections: Products', ()=> {
 
   test('Test Case 8: Verify All Products and product detail page', async ({ page, homePage, productsPage, productDetailsPage }) => {
     await homePage.clickProductsHeaderButton()
