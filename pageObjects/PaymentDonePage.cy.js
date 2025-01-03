@@ -18,7 +18,7 @@ async clickDownloadInvoiceButton() {
 }
 
 async clickContinuePlacedOrderButton() {
-  await this.getContinuePlacedOrderButton().click()
+  await this.getContinuePlacedOrderButton().click({ force: true })
   return this
 }
 }

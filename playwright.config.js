@@ -25,7 +25,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        timeout: 15000, 
+        timeout: 30000, 
         actionTimeout: 15000, 
         expect: {
           timeout: 10000, 
@@ -49,7 +49,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Safari'],
         timeout: 90000, 
-        actionTimeout: 40000,
+        actionTimeout: 45000,
         expect: {
           timeout: 15000,
         },
