@@ -26,6 +26,8 @@ getBrandPageSectionHeading = () => this.page.locator('div.features_items h2.titl
 getFirstProductItem = () => this.page.locator('.choose').eq(0)
 getNthAddToCartButton = (nth) => this.page.locator(`a[data-product-id]:nth-of-type(${nth})`)
 
+//other locators:
+//getSearchProductField = () => this.page.getByPlaceholder('Search Product')
 
 static counterClickFirstProductAddToCartButton = 0
 

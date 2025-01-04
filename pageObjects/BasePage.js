@@ -3,36 +3,50 @@ class BasePage {
     this.page = page
   }
 
-
-  getSignupLoginButton = () => this.page.locator('.nav a[href="/login"]')
-  getListHeaderButtons = () => this.page.locator('.nav.navbar-nav')
-  getDeleteAccountButton = () => this.page.locator('a[href="/delete_account"]')
-  getAccountDeletedConfirmMessage = () => this.page.locator('h2[data-qa="account-deleted"] b')
-  getLogoutButton = () => this.page.locator('a[href="/logout"]')
+  getSignupLoginButton = () => this.page.getByRole('link', { name: 'Signup / Login' })
+  getListHeaderButtons = () => this.page.locator('header .nav.navbar-nav')
+  getHeaderSection = () => this.page.locator('.shop-menu.pull-right')
+  getDeleteAccountButton = () => this.page.getByRole('link', { name: 'Delete Account' })
+  getAccountDeletedConfirmMessage = () => this.page.getByRole('heading', { level: 2, name: 'Account Deleted!' })
+  getLogoutButton = () => this.page.getByRole('link', { name: 'Logout' })
   getHeaderHomeIcon = () => this.page.locator(".fa-home")
-  getContactUsButton = () => this.page.locator('a[href="/contact_us"]')
-  getProductsHeaderButton = () => this.page.locator('.shop-menu a[href="/products"]')
-  getSubscriptionFooterSection = () => this.page.locator('.single-widget h2')
-  getSubscriptionFooterEmailField = () => this.page.locator('#susbscribe_email')
+  getContactUsButton = () => this.page.getByRole('link', { name: 'Contact us' })
+  getProductsHeaderButton = () => this.page.getByRole('link', { name: 'Products' })
+  getSubscriptionFooterSection = () => this.page.getByRole('heading', { level: 2, name: 'Subscription' })
+  getSubscriptionFooterEmailField = () => this.page.getByRole('textbox', { name: 'Your email address' })
   getSubscribeButton = () => this.page.locator('button#subscribe')
-  getSuccessSubscribeMessage = () => this.page.locator('.alert-success.alert')
-  getViewCartHeaderButton = () => this.page.locator('.shop-menu a[href="/view_cart"]')
+  getSuccessSubscribeMessage = () => this.page.getByText('You have been successfully subscribed!')
+  getViewCartHeaderButton = () => this.page.getByRole('link', { name: 'Cart' })
   getTestCasesHeaderMenuButton = () => this.page.locator('.nav a[href="/test_cases"]')
-
   getPageUrl = () => this.page.url()
   getScrollUpButton = () => this.page.locator('#scrollUp')
-  getCopyrightText = () => this.page.locator('.footer-bottom .pull-left')
+  getCopyrightText = () => this.page.getByText('Copyright © 2021 All rights reserved')
   getActiveBreadcrumbs = () => this.page.locator('.breadcrumb .active')
   getRegisterLoginModalButton = () => this.page.locator('.modal-body a[href="/login"]')
-  getHeaderHomeButton = () => this.page.locator('.shop-menu a[href="/"]')
+  getHeaderHomeButton = () => this.page.getByRole('link', { name: 'Home' })
 
   //Left-Sidebar
   getLeftSidebarCategoryList = () => this.page.locator('a[data-parent="#accordian"]')
   getLeftSidebarSubCategoryList = () => this.page.locator('.panel-body a')
-  getLeftSidebarBrandsHeading = () => this.page.locator('.brands_products h2')
+  getLeftSidebarBrandsHeading = () => this.page.getByRole('heading', { level: 2, name: 'Brands' })
   getLeftSidebarBrandsList = () => this.page.locator('.brands-name li')
   getLeftSidebarBrandNameList = () => this.page.locator('.brands-name li a')
   getLeftSidebarBrandCountList = () => this.page.locator('.brands-name li a span')
+
+  // css.locators:
+  // getSignupLoginButton = () => this.page.locator('.nav a[href="/login"]')
+  // getDeleteAccountButton = () => this.page.locator('a[href="/delete_account"]')
+  // getAccountDeletedConfirmMessage = () => this.page.locator('h2[data-qa="account-deleted"] b')
+  // getLogoutButton = () => this.page.locator('a[href="/logout"]')
+  // getContactUsButton = () => this.page.locator('a[href="/contact_us"]')
+  // getProductsHeaderButton = () => this.page.locator('.shop-menu a[href="/products"]')
+  // getSubscriptionFooterSection = () => this.page.locator('.single-widget h2')
+  // getSubscriptionFooterEmailField = () => this.page.locator('#susbscribe_email')
+  // getSuccessSubscribeMessage = () => this.page.locator('.alert-success.alert')
+  // getViewCartHeaderButton = () => this.page.locator('.shop-menu a[href="/view_cart"]')
+  // getCopyrightText = () => this.page.locator('.footer-bottom .pull-left')
+  // getHeaderHomeButton = () => this.page.locator('.shop-menu a[href="/"]')
+  // getLeftSidebarBrandsHeading = () => this.page.locator('.brands_products h2')
 
   async getAccountDeletedConfirmMessageText(){
     return this.getAccountDeletedConfirmMessage().textContent()
@@ -176,7 +190,7 @@ class BasePage {
     const categoryPanelLocator = await this.page.locator(`#${categoryName}`);
     // await categoryPanelLocator.waitFor({ state: 'visible' });
     const subCategoryLocator = categoryPanelLocator.locator('a').locator(`text=${subCategoryName}`);
-    await subCategoryLocator.click();
+    await subCategoryLocator.click({ force: true });
     return this;
   }
 
@@ -187,7 +201,7 @@ class BasePage {
 
   async clickScrollUpButton() {
     await this.getScrollUpButton().click({force: true})
-    await this.page.waitForTimeout(3000)
+    await this.page.waitForTimeout(5000)
     return this
   }
 

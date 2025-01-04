@@ -15,14 +15,23 @@ getProductCondition = () => this.page.locator('.product-information p', { hasTex
 getProductBrand = () => this.page.locator('.product-information p', { hasText: 'Brand' })
 getProductPrice = () => this.page.locator('.product-information span span')
 getProductQuantityField = () => this.page.locator('#quantity')
-getAddToCartButton = () => this.page.locator('button.btn.btn-default.cart')
+getAddToCartButton = () => this.page.getByRole('button', { name: 'Add to cart' })
 getViewCartModalButton = () => this.page.locator('.modal-body a[href="/view_cart"]')
-getWriteYourReviewHeader = () => this.page.locator('li.active a')
-getYourNameField = () => this.page.locator('input#name')
-getYourEmailField = () => this.page.locator('input#email')
-getReviewTextField = () => this.page.locator('textarea#review')
-getSubmitReviewButton = () => this.page.locator('#button-review')
-getReviewSuccessMessage = () => this.page.locator('#review-form .alert-success span')
+getWriteYourReviewHeader = () => this.page.getByRole('link', { name: 'Write Your Review' })
+getYourNameField = () => this.page.getByPlaceholder('Your Name')
+getYourEmailField = () => this.page.getByPlaceholder('Email Address', { exact: true })
+getReviewTextField = () => this.page.getByPlaceholder('Add Review Here!')
+getSubmitReviewButton = () => this.page.getByRole('button', { name: 'Submit' })
+getReviewSuccessMessage = () => this.page.getByText('Thank you for your review.')
+
+// other locators:
+// getAddToCartButton = () => this.page.locator('button.btn.btn-default.cart')
+// getWriteYourReviewHeader = () => this.page.locator('li.active a')
+// getYourNameField = () => this.page.locator('input#name')
+// getYourEmailField = () => this.page.locator('input#email')
+// getReviewTextField = () => this.page.locator('textarea#review')
+// getSubmitReviewButton = () => this.page.locator('#button-review')
+// getReviewSuccessMessage = () => this.page.locator('#review-form .alert-success span')
 
 
 async clearProductQuantityField() {

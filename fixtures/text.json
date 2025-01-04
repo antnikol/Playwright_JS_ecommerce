@@ -31,7 +31,8 @@
     "accountDeleted": "Account Deleted!",
     "pageTitle": "Automation Exercise",
     "subscriptionHeading": "Subscription",
-    "sliderCarouselSection": "Full-Fledged practice website for Automation Engineers"
+    "sliderCarouselSection": "Full-Fledged practice website for Automation Engineers",
+    "headerSection": "Home"
   },
 
   "basePage": {

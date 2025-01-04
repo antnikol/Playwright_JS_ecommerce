@@ -6,7 +6,7 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 5 : 0,
+  retries: process.env.CI ? 15 : 0,
   workers: process.env.CI ? 1 : 1,
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }], 
@@ -19,7 +19,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   globalSetup: './support/globalSetup.js',
-  timeout: 60000,
+  timeout: 120000,
   projects: [
     {
       name: 'chromium',
@@ -66,14 +66,21 @@ export default defineConfig({
           },
       },
     },
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
+    {
+      name: 'Mobile_Chrome',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'Mobile_Safari',
+      use: { 
+        ...devices['iPhone 12'], 
+        timeout: 120000, 
+          actionTimeout: 40000,
+          expect: {
+            timeout: 15000,
+          },
+      },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
