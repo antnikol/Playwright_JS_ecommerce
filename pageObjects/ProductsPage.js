@@ -60,7 +60,7 @@ async checkSearchedProductsNames(searchWords) {
   return this;
 }
 
-async takeFirstProductPrice() {
+async getFirstProductPrice() {
   return await this.getAllProductsPrices().first().innerText()
 }
 

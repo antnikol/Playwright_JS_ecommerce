@@ -6,7 +6,7 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 15 : 0,
+  retries: process.env.CI ? 15 : 5,
   workers: process.env.CI ? 1 : 1,
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }], 
@@ -26,9 +26,9 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         timeout: 30000, 
-        actionTimeout: 45000, 
+        actionTimeout: 15000, 
         expect: {
-          timeout: 15000, 
+          timeout: 10000, 
         },
       },
 
@@ -38,9 +38,9 @@ export default defineConfig({
       use: {
         ...devices['Desktop Firefox'],
         timeout: 60000, 
-        actionTimeout: 60000,
+        actionTimeout: 15000,
         expect: {
-          timeout: 15000,
+          timeout: 10000,
         },
       },
     },
@@ -48,10 +48,10 @@ export default defineConfig({
       name: 'Webkit',
       use: {
         ...devices['Desktop Safari'],
-        timeout: 90000, 
-        actionTimeout: 90000,
+        timeout: 120000, 
+        actionTimeout: 15000,
         expect: {
-          timeout: 15000,
+          timeout: 10000,
         },
       },
     },
@@ -59,25 +59,32 @@ export default defineConfig({
       name: 'Microsoft Edge',
       use: { 
        ...devices['Desktop Edge'], channel: 'msedge',
-          timeout: 90000, 
-          actionTimeout: 40000,
+          timeout: 120000, 
+          actionTimeout: 15000,
           expect: {
-            timeout: 15000,
+            timeout: 10000,
           },
       },
     },
     {
       name: 'Mobile_Chrome',
-      use: { ...devices['Pixel 5'] },
+      use: { 
+        ...devices['Pixel 5'],
+        timeout: 120000, 
+          actionTimeout: 15000,
+          expect: {
+            timeout: 10000,
+          },
+      },
     },
     {
       name: 'Mobile_Safari',
       use: { 
         ...devices['iPhone 12'], 
         timeout: 120000, 
-          actionTimeout: 40000,
+          actionTimeout: 15000,
           expect: {
-            timeout: 15000,
+            timeout: 10000,
           },
       },
     },

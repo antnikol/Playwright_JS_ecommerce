@@ -64,5 +64,26 @@
 
   "incorrectPassword": [
     "123456incorrect"
-  ]
+  ],
+
+  "registeredUser": {
+    "name": "ALREADY Registerd User",
+    "email": "registered.user.from.database@gmail.com",
+    "password": "123456",
+    "incorrectPassword": "123456incorrect",
+    "title": "Mr",
+    "birth_date": "1",
+    "birth_month": "January",
+    "birth_year": "1999",
+    "firstname": "User",
+    "lastname": "Registered",
+    "company": "database",
+    "address1": "mySQL 1st base",
+    "address2": "table#7",
+    "country": "Israel",
+    "zipcode": "112233",
+    "state": "AE",
+    "city": "Jerusalem",
+    "mobile_number": "+380670001122"
+  }
 }

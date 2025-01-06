@@ -65,7 +65,8 @@
     "signupFormHeader": "New User Signup!",
     "createAccount": "Create Account",
     "loginFormHeader": "Login to your account",
-    "errorSingupMessage": "Email Address already exist!"
+    "errorSingupMessage": "Email Address already exist!",
+    "errorLoginMessage": "Your email or password is incorrect!"
   },
 
   "category": [

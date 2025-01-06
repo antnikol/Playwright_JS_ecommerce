@@ -56,7 +56,7 @@ async getFirstProductName() {
   return (await this.getAllProductsNames().first().innerText()).trim()
 } 
 
-async takeFirstProductPrice() {
+async getFirstProductPrice() {
   return (await this.getAllProductsPrices().first().innerText()).trim()
 }
 

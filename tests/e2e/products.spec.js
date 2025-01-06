@@ -3,11 +3,11 @@ import { expect } from '@playwright/test';
 import { newProductTestData } from '../../fixtures/genData.js'
 import text from "../../fixtures/text.json" assert { type: "json" }
 import jsonData from '../../fixtures/api.json' assert { type: 'json' }
-import { registerUser, loginUser } from '../../support/commands.js';
+import { loginUser, deleteUser, loguotUser } from '../../support/commands.js';
 
 
 const product = newProductTestData()
-const { user, searchTerms } = jsonData
+const { user, searchTerms, registeredUser } = jsonData
 
 test.describe('Tests for the sections: Products', ()=> {
 
@@ -34,9 +34,6 @@ test.describe('Tests for the sections: Products', ()=> {
   })
 
   test('Test Case 20: Search Products and Verify Cart After Login', async ({ page, homePage, productsPage, cartPage }) => {
-    await registerUser(page)
-    await homePage.clickLogoutButton()
-
     await homePage.clickProductsHeaderButton()
     await expect(await productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
     await expect(await productsPage.getPageUrl()).toContain(text.productsPage.pageUrl)
@@ -51,11 +48,12 @@ test.describe('Tests for the sections: Products', ()=> {
     await cartPage.checkSearchedProductNamesInCart(searchTerms[2])
     await cartPage.checkSearchedProductQuantityInCart(1)
 
-    await loginUser(page)
+    await loginUser(page, registeredUser.email, registeredUser.password)
     await homePage.clickViewCartHeaderButton()
     await expect(await cartPage.getActiveBreadcrumbs()).toHaveText(text.cartPage.breadCrumbs)
     await cartPage.checkSearchedProductNamesInCart(searchTerms[2])
     await cartPage.checkSearchedProductQuantityInCart(1)
+    await loguotUser(page, registeredUser.name)
   })
 
   test('Test Case 18: View Category Products', async ({ page, homePage, productsPage }) => {
@@ -82,7 +80,7 @@ test.describe('Tests for the sections: Products', ()=> {
     await expect(await productDetailsPage.getWriteYourReviewHeader()).toHaveText(text.productDetailsPage.writeYourReviewHeader)
     await productDetailsPage.typeYourNameField(user.name)
     await productDetailsPage.typeYourEmailField(user.email)
-    await productDetailsPage.typeReviewTextField(product.review)
+    await productDetailsPage.typeReviewTextField(product.productReview)
     await productDetailsPage.clickSubmitReviewButton()
     await expect(await productDetailsPage.getReviewSuccessMessage()).toBeVisible()
     await expect(await productDetailsPage.getReviewSuccessMessage()).toHaveText(text.productDetailsPage.reviewSuccessMessage)     

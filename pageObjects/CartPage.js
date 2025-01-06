@@ -15,6 +15,7 @@ getDeleteProductFromCartButton = () => this.page.locator('.cart_quantity_delete'
 getEmptyCardSection = () => this.page.locator('#empty_cart p')
 getProductsNamesList = () => this.page.locator('h4 a')
 getProceedToCheckoutButton = () => this.page.locator('.btn.check_out')
+getRegisterLoginModalButton = () => this.page.getByRole('link', { name: 'Register / Login' })
 
 getFirstProductQuantity = () => this.page.locator('.cart_quantity button').first().innerText()
 getLastProductQuantity = () => this.page.locator('.cart_quantity button').last()
@@ -23,6 +24,11 @@ getFirstProductTotalPrice = () => this.page.locator('.cart_total_price').first()
 getLastProductPrice = () => this.page.locator('.cart_price p').last()
 getLastProductTotalPrice = () => this.page.locator('.cart_total_price').last()
 getFirstProductName = () => this.page.locator('.cart_description a').first()
+
+async clickRegisterLoginModalButton() {
+  await this.getRegisterLoginModalButton().click()
+  return this
+}
 
 async getEmptyCardSectionText() {
   return this.getEmptyCardSection().innerText()
