@@ -1,0 +1,1 @@
+Intercepted request: http://localhost:3000/api/productsList
