@@ -1,5 +1,5 @@
 import { test } from '../../support/globalHooks.js'
-import { expect } from '@playwright/test';
+import { expect } from '@playwright/test'
 
 import text from "../../fixtures/text.json" assert { type: "json" }
 

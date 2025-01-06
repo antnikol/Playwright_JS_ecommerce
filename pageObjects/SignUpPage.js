@@ -144,4 +144,4 @@ async clickContinueButton() {
 
 }
 
-export default SignUpPage;
+export default SignUpPage

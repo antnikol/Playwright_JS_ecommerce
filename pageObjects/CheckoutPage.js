@@ -6,7 +6,7 @@ class CheckoutPage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getCartInfoSection = () => this.page.locator('#cart_info')
@@ -47,9 +47,9 @@ async clickPlaceOrderButton() {
 }
 
 async scrollToCartTableSection() {
-  await this.getToCartTableSection().scrollIntoViewIfNeeded();
-  return this;
+  await this.getToCartTableSection().scrollIntoViewIfNeeded()
+  return this
 }
 }
 
-export default CheckoutPage;
+export default CheckoutPage

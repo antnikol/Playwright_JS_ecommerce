@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect } from '@playwright/test'
 import BasePage from "./BasePage.js"
 import ProductDetailsPage from "./ProductDetailsPage"
 import CartPage from "./CartPage.js"
@@ -52,12 +52,12 @@ async clickSearchButton() {
 }
 
 async checkSearchedProductsNames(searchWords) {
-  const elements = await this.getAllProductsNames().all();
+  const elements = await this.getAllProductsNames().all()
   for (const element of elements) {
-    const text = await element.innerText();
-    expect(text).toMatch(new RegExp(searchWords, 'i'));
+    const text = await element.innerText()
+    expect(text).toMatch(new RegExp(searchWords, 'i'))
   }
-  return this;
+  return this
 }
 
 async getFirstProductPrice() {
@@ -103,20 +103,20 @@ async clickSecondProductAddToCartButton() {
 
 
 async returnSecondProductPriceAllText() {
-  const text = await this.getAllProductsPrices().nth(1).innerText();
-  return text.trim();
+  const text = await this.getAllProductsPrices().nth(1).innerText()
+  return text.trim()
 }
 
 
 async returnSecondProductPriceOnlyNumber() {
-  const text = await this.getAllProductsPrices().nth(1).innerText();
-  return parseFloat(text.slice(4));
+  const text = await this.getAllProductsPrices().nth(1).innerText()
+  return parseFloat(text.slice(4))
 }
 
 
 async returnSecondProductName() {
-  const text = await this.getAllProductsNames().nth(1).innerText();
-  return text.trim();
+  const text = await this.getAllProductsNames().nth(1).innerText()
+  return text.trim()
 }
 
 
@@ -131,7 +131,7 @@ resetCounterClickFirstProductAddToCartButton() {
 }
 
 takeCounterClickFirstProductAddToCartButton() {
-  return this.counterClickFirstProductAddToCartButton;
+  return this.counterClickFirstProductAddToCartButton
 }
 
 async clickAllProductsAddToCartButton() {
@@ -143,9 +143,9 @@ async clickAllProductsAddToCartButton() {
       await this.getContinueShoppingButton().click()
     }
   }
-  return this;
+  return this
 }
 
 }
 
-export default ProductsPage;
+export default ProductsPage

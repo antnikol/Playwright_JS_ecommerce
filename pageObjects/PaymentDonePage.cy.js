@@ -1,10 +1,10 @@
-import BasePage from "./BasePage.js";
+import BasePage from "./BasePage.js"
 
 class PaymentDonePage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getOrderPlacedHeading = () => this.page.getByRole('heading', { level: 2, name: 'Order Placed!' })
@@ -29,4 +29,4 @@ async clickContinuePlacedOrderButton() {
 }
 }
 
-export default PaymentDonePage;
+export default PaymentDonePage

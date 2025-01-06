@@ -1,11 +1,11 @@
 import BasePage from "./BasePage.js"
-import SignUpPage from "./SignUpPage.js";
+import SignUpPage from "./SignUpPage.js"
 
 class LoginPage extends BasePage {
  
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getSignupFormHeader = () => this.page.getByRole('heading', { level: 2, name: 'New User Signup!' })
@@ -61,4 +61,4 @@ async clickLoginButton() {
 
 }
 
-export default LoginPage;
+export default LoginPage

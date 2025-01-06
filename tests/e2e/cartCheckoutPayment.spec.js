@@ -1,10 +1,10 @@
 import { test } from '../../support/globalHooks.js'
-import { expect } from '@playwright/test';
+import { expect } from '@playwright/test'
 
 import { newProductTestData } from '../../fixtures/genData.js'
 import text from "../../fixtures/text.json" assert { type: "json" }
 import jsonData from '../../fixtures/api.json' assert { type: 'json' }
-import { registerUser, loginUser, loguotUser, registerUserFromLoginPage, deleteUser, deleteUserByAPI, deleteUserAfterRegistration } from '../../support/commands.js'
+import { registerUser, loginUser, loguotUser, deleteUserAfterRegistration, apiDeleteUser } from '../../support/commands.js'
 
 
 const product = newProductTestData()
@@ -69,17 +69,16 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await cartPage.getFirstProductName()).toHaveText(productName)
   })
 
-  test('Test Case 14: Place Order: Register while Checkout', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage }) => {
-    const userEmail = product.userEmail
+  test('Test Case 14: Place Order: Register while Checkout', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage, randomUser, request }) => {
     const firstProductName = await homePage.getFirstProductName()
     const firstProductPrice = await homePage.getFirstProductPrice()
-    // await deleteUser(page)
+    await apiDeleteUser(page, randomUser)
     await homePage.clickFirstProductAddToCartButton()
     await homePage.clickViewCartModalButton()
     await expect(await cartPage.getCartProductsList()).toHaveCount(1) 
     await cartPage.clickProceedToCheckoutButton()
     await cartPage.clickRegisterLoginModalButton()
-    await registerUser(page, userEmail)
+    await registerUser(page, randomUser)
     await homePage.clickViewCartHeaderButton()
     await cartPage.clickProceedToCheckoutButton()
     await expect(await checkoutPage.getActiveBreadcrumbs()).toHaveText(text.checkoutPage.breadCrumbs)
@@ -90,10 +89,10 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await checkoutPage.getAddressDeliverySectionHeading()).toContain(text.checkoutPage.deliveryAddress)
     await expect(await checkoutPage.getAddressBillingSectionHeading()).toContain(text.checkoutPage.billingAddress)
     await checkoutPage.scrollToCartTableSection()
-    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${user.title}. ${user.firstname} ${user.lastname}`)
-    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(user.company)
-    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(user.address1)
-    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText(user.address2)
+    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${randomUser.title}. ${randomUser.firstname} ${randomUser.lastname}`)
+    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(randomUser.company)
+    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(randomUser.address1)
+    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText(randomUser.address2)
     await expect(await checkoutPage.getAllCartProductNameList()).toHaveText(firstProductName)
     await expect(await checkoutPage.getAllCartProductPriceList()).toHaveText(firstProductPrice)
     await checkoutPage.typeCommentOrderTextField(product.commentToOrder)
@@ -101,7 +100,7 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await paymentPage.getActiveBreadcrumbs()).toHaveText(text.paymentPage.breadCrumbs)
     await expect(await paymentPage.getHeadingOfSection()).toHaveText(text.paymentPage.sectionHeading)
     await expect(await paymentPage.getPaymentInformation()).toBeVisible()
-    await paymentPage.typeNameOnCardTextField(user.name, user.lastname)
+    await paymentPage.typeNameOnCardTextField(randomUser.name, randomUser.lastname)
     await paymentPage.typeCardNumberTextField(text.userCardNumber[0])
     await paymentPage.typeCardCvvTextField(text.userCardCvv[0])
     await paymentPage.typeCardExpiryMonthTextField(text.userCardExMonth[0])
@@ -110,14 +109,14 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     // paymentPage.getSuccessOrderMessage().should('include.text', text.paymentPage.successOrderMessage)
     await expect(await paymentDonePage.getOrderPlacedHeading()).toHaveText(text.paymentDonePage.orderPlacedHeading)
     await expect(await paymentDonePage.getOrderPlacedMessage()).toHaveText(text.paymentDonePage.orderPlacedMessage)
-    await deleteUserAfterRegistration(page, userEmail)
+    await deleteUserAfterRegistration(page)
   })
 
-  test('Test Case 15: Place Order: Register before Checkout', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage }) => {
-    const userEmail = product.userEmail
+  test('Test Case 15: Place Order: Register before Checkout', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage, randomUser }) => {
     const firstProductName = await homePage.getFirstProductName()
     const firstProductPrice = await homePage.getFirstProductPrice()
-    await registerUser(page, userEmail)
+    await apiDeleteUser(page, randomUser)
+    await registerUser(page, randomUser)
     await homePage.clickFirstProductAddToCartButton()
     await homePage.clickViewCartModalButton()
     await expect(await cartPage.getCartProductsList()).toHaveCount(1) 
@@ -130,10 +129,10 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await checkoutPage.getAddressDeliverySectionHeading()).toContain(text.checkoutPage.deliveryAddress)
     await expect(await checkoutPage.getAddressBillingSectionHeading()).toContain(text.checkoutPage.billingAddress)
     await checkoutPage.scrollToCartTableSection()
-    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${user.title}. ${user.firstname} ${user.lastname}`)
-    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(user.company)
-    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(user.address1)
-    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText( user.address2)
+    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${randomUser.title}. ${randomUser.firstname} ${randomUser.lastname}`)
+    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(randomUser.company)
+    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(randomUser.address1)
+    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText( randomUser.address2)
     await expect(await checkoutPage.getAllCartProductNameList()).toHaveText(firstProductName)
     await expect(await checkoutPage.getAllCartProductPriceList()).toHaveText(firstProductPrice)
     await checkoutPage.typeCommentOrderTextField(product.commentToOrder)
@@ -141,7 +140,7 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await paymentPage.getActiveBreadcrumbs()).toHaveText(text.paymentPage.breadCrumbs)
     await expect(await paymentPage.getHeadingOfSection()).toHaveText(text.paymentPage.sectionHeading)
     await expect(await paymentPage.getPaymentInformation()).toBeVisible()
-    await paymentPage.typeNameOnCardTextField(user.name, user.lastname)
+    await paymentPage.typeNameOnCardTextField(randomUser.name, randomUser.lastname)
     await paymentPage.typeCardNumberTextField(text.userCardNumber[0])
     await paymentPage.typeCardCvvTextField(text.userCardCvv[0])
     await paymentPage.typeCardExpiryMonthTextField(text.userCardExMonth[0])
@@ -150,11 +149,11 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     // paymentPage.getSuccessOrderMessage().should('include.text', text.paymentPage.successOrderMessage)
     await expect(await paymentDonePage.getOrderPlacedHeading()).toHaveText(text.paymentDonePage.orderPlacedHeading)
     await expect(await paymentDonePage.getOrderPlacedMessage()).toHaveText(text.paymentDonePage.orderPlacedMessage)
-    await deleteUserAfterRegistration(page, userEmail)
+    await deleteUserAfterRegistration(page)
   })
 
-  test('Test Case 16 + 23: Place Order: Login before Checkout + Verify address details in checkout', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage }) => {
-    await loginUser(page, registeredUser.email, registeredUser.password)
+  test('Test Case 16 + 23: Place Order: Login before Checkout + Verify address details in checkout', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage, randomUser }) => {
+    await loginUser(page, randomUser.email, randomUser.password)
     const firstProductName = await homePage.getFirstProductName()
     const firstProductPrice = await homePage.getFirstProductPrice()
     await homePage.clickFirstProductAddToCartButton()
@@ -169,10 +168,10 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await checkoutPage.getAddressDeliverySectionHeading()).toContain(text.checkoutPage.deliveryAddress)
     await expect(await checkoutPage.getAddressBillingSectionHeading()).toContain(text.checkoutPage.billingAddress)
     await checkoutPage.scrollToCartTableSection()
-    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${registeredUser.title}. ${registeredUser.firstname} ${registeredUser.lastname}`)
-    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(registeredUser.company)
-    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(registeredUser.address1)
-    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText(registeredUser.address2)
+    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${randomUser.title}. ${randomUser.firstname} ${randomUser.lastname}`)
+    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(randomUser.company)
+    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(randomUser.address1)
+    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText(randomUser.address2)
     await expect(await checkoutPage.getAllCartProductNameList()).toHaveText(firstProductName)
     await expect(await checkoutPage.getAllCartProductPriceList()).toHaveText(firstProductPrice)
     await checkoutPage.typeCommentOrderTextField(product.commentToOrder)
@@ -180,21 +179,20 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await paymentPage.getActiveBreadcrumbs()).toHaveText(text.paymentPage.breadCrumbs)
     await expect(await paymentPage.getHeadingOfSection()).toHaveText(text.paymentPage.sectionHeading)
     await expect(await paymentPage.getPaymentInformation()).toBeVisible()
-    await paymentPage.typeNameOnCardTextField(registeredUser.name, registeredUser.lastname)
+    await paymentPage.typeNameOnCardTextField(randomUser.name, randomUser.lastname)
     await paymentPage.typeCardNumberTextField(text.userCardNumber[0])
     await paymentPage.typeCardCvvTextField(text.userCardCvv[0])
     await paymentPage.typeCardExpiryMonthTextField(text.userCardExMonth[0])
     await paymentPage.typeCardExpiryYearTextField(text.userCardExYear[0])
     await paymentPage.clickPayAndConfirmOrderButton()
-    // paymentPage.getSuccessOrderMessage().should('include.text', text.paymentPage.successOrderMessage)
     await expect(await paymentDonePage.getOrderPlacedHeading()).toHaveText(text.paymentDonePage.orderPlacedHeading)
     await expect(await paymentDonePage.getOrderPlacedMessage()).toHaveText(text.paymentDonePage.orderPlacedMessage)
-    await loguotUser(page)
+    await loguotUser(page, randomUser.name)
   })
 
   test.setTimeout(180000)
-  test('Test Case 24: Download Invoice after purchase order', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage }) => {
-    await deleteUser(page)
+  test('Test Case 24: Download Invoice after purchase order', async ({ page, homePage, cartPage, checkoutPage, paymentPage, paymentDonePage, randomUser }) => {
+    await apiDeleteUser(page, randomUser)
     const firstProductName = await homePage.getFirstProductName()
     const firstProductPrice = await homePage.getFirstProductPrice()
     await homePage.clickFirstProductAddToCartButton()
@@ -202,7 +200,7 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await cartPage.getCartProductsList()).toHaveCount(1) 
     await cartPage.clickProceedToCheckoutButton()
     await cartPage.clickRegisterLoginModalButton()
-    await registerUserFromLoginPage(page, product.userEmail)
+    await registerUser(page, randomUser)
     await homePage.clickViewCartHeaderButton()
     await cartPage.clickProceedToCheckoutButton()
     await expect(await checkoutPage.getActiveBreadcrumbs()).toHaveText(text.checkoutPage.breadCrumbs)
@@ -213,10 +211,10 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await checkoutPage.getAddressDeliverySectionHeading()).toContain(text.checkoutPage.deliveryAddress)
     await expect(await checkoutPage.getAddressBillingSectionHeading()).toContain(text.checkoutPage.billingAddress)
     await checkoutPage.scrollToCartTableSection()
-    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${user.title}. ${user.firstname} ${user.lastname}`)
-    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(user.company)
-    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(user.address1)
-    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText(user.address2)
+    await expect(await checkoutPage.getDeliveryGenderFirstNameLastName()).toContain(`${randomUser.title}. ${randomUser.firstname} ${randomUser.lastname}`)
+    await expect(await checkoutPage.getDeliveryCompany()).toHaveText(randomUser.company)
+    await expect(await checkoutPage.getDeliveryAddress()).toHaveText(randomUser.address1)
+    await expect(await checkoutPage.getDeliveryAddress2()).toHaveText(randomUser.address2)
     await expect(await checkoutPage.getAllCartProductNameList()).toHaveText(firstProductName)
     await expect(await checkoutPage.getAllCartProductPriceList()).toHaveText(firstProductPrice)
     await checkoutPage.typeCommentOrderTextField(product.commentToOrder)
@@ -224,13 +222,12 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     await expect(await paymentPage.getActiveBreadcrumbs()).toHaveText(text.paymentPage.breadCrumbs)
     await expect(await paymentPage.getHeadingOfSection()).toHaveText(text.paymentPage.sectionHeading)
     await expect(await paymentPage.getPaymentInformation()).toBeVisible()
-    await paymentPage.typeNameOnCardTextField(user.name, user.lastname)
+    await paymentPage.typeNameOnCardTextField(randomUser.name, randomUser.lastname)
     await paymentPage.typeCardNumberTextField(text.userCardNumber[0])
     await paymentPage.typeCardCvvTextField(text.userCardCvv[0])
     await paymentPage.typeCardExpiryMonthTextField(text.userCardExMonth[0])
     await paymentPage.typeCardExpiryYearTextField(text.userCardExYear[0])
     await paymentPage.clickPayAndConfirmOrderButton()
-    // paymentPage.getSuccessOrderMessage().should('include.text', text.paymentPage.successOrderMessage)
     await expect(await paymentDonePage.getOrderPlacedHeading()).toHaveText(text.paymentDonePage.orderPlacedHeading)
     await expect(await paymentDonePage.getOrderPlacedMessage()).toHaveText(text.paymentDonePage.orderPlacedMessage)
 
@@ -242,8 +239,8 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     // homePage.getAccountDeletedConfirmMessage().toContain(text.homePage.accountDeleted)
 
     await page.route('**/download_invoice/*', (route) => { 
-      console.log('Intercepted request:', route.request().url());
-      route.continue();
+      console.log('Intercepted request:', route.request().url())
+      route.continue()
     })
     const [response] = await Promise.all([
       page.waitForResponse((response) =>
@@ -255,6 +252,6 @@ test.describe('Tests for the sections: Cart, Checkout, Payment', ()=> {
     
     await paymentDonePage.clickContinuePlacedOrderButton()
     await homePage.clickDeleteAccountButton()
-    await expect(await homePage.getAccountDeletedConfirmMessageText()).toContain(text.homePage.accountDeleted);
+    await expect(await homePage.getAccountDeletedConfirmMessageText()).toContain(text.homePage.accountDeleted)
   })
 })

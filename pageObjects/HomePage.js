@@ -1,11 +1,11 @@
-import BasePage from "./BasePage";
-import CartPage from "./CartPage";
+import BasePage from "./BasePage"
+import CartPage from "./CartPage"
 
 class HomePage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getSliderSection = () => this.page.locator('section#slider')
@@ -48,8 +48,8 @@ async clickCarouselRecommendedItemAddToCartButton(randomCarouselNumber) {
 }
 
 async scrollToCarouselRecommendedItems() {
-  await this.getRecommendedItemCarouselSection().scrollIntoViewIfNeeded();
-  return this;
+  await this.getRecommendedItemCarouselSection().scrollIntoViewIfNeeded()
+  return this
 }
 
 async getFirstProductName() {
@@ -62,4 +62,4 @@ async getFirstProductPrice() {
 
 }
 
-export default HomePage;
+export default HomePage

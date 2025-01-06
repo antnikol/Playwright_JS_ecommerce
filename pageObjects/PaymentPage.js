@@ -1,4 +1,4 @@
-import BasePage from "./BasePage.js";
+import BasePage from "./BasePage.js"
 
 class PaymentPage extends BasePage {
 
@@ -20,6 +20,11 @@ getSuccessOrderMessage = () => this.page.locator('#success_message > .alert-succ
 // other locators:
 // getHeadingOfSection = () => this.page.locator('.step-one h2')
 // getPayAndConfirmOrderButton = () => this.page.locator('button[data-qa="pay-button"]')
+
+
+async getSuccessOrderMessageText() {
+  return await this.getSuccessOrderMessage().innerText()
+}
 
 async typeNameOnCardTextField(name, lastname) {
   await this.getNameOnCardTextField().type(`${name} ${lastname}`)
@@ -52,4 +57,4 @@ async clickPayAndConfirmOrderButton() {
 }
 }
 
-export default PaymentPage;
+export default PaymentPage

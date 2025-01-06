@@ -4,7 +4,7 @@ class CartPage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getCartProductsList = () => this.page.locator('.cart_product')
@@ -51,7 +51,7 @@ async getFirstProductTotalPriceNumber() {
 }
 
 async getLastProductPriceNumber() {
-  const text = await this.getProductPricesList().last().innerText();
+  const text = await this.getProductPricesList().last().innerText()
   return parseFloat(text.slice(4))
 }
 
@@ -62,34 +62,34 @@ async calculateLastProductTotalPrice() {
 }
 
 async getLastProductTotalPriceNumber() {
-  const text = await this.getProductTotalPriceList().last().innerText();
-  return parseFloat(text.slice(4));
+  const text = await this.getProductTotalPriceList().last().innerText()
+  return parseFloat(text.slice(4))
 }
 
 async getExpectedFirstProductTotalPrice(quantity) {
-  const price = await this.getFirstProductPrice().innerText();
-  return parseFloat(price) * quantity;
+  const price = await this.getFirstProductPrice().innerText()
+  return parseFloat(price) * quantity
 }
 
 async clickDeleteProductFromCartButton() {
-  await this.getDeleteProductFromCartButton().click();
-  return this;
+  await this.getDeleteProductFromCartButton().click()
+  return this
 }
 
 async checkSearchedProductNamesInCart(searchWords) {
-  const productNames = await this.getProductsNamesList().allTextContents();
+  const productNames = await this.getProductsNamesList().allTextContents()
   productNames.forEach(text => {
-    if (!new RegExp(searchWords, 'i').test(text)) throw new Error(`Mismatch: ${text}`);
-  });
-  return this;
+    if (!new RegExp(searchWords, 'i').test(text)) throw new Error(`Mismatch: ${text}`)
+  })
+  return this
 }
 
 async checkSearchedProductQuantityInCart(quantity) {
-  const quantities = await this.getProductQuantityList().allTextContents();
+  const quantities = await this.getProductQuantityList().allTextContents()
   quantities.forEach(text => {
-    if (!new RegExp(quantity, 'i').test(text)) throw new Error(`Quantity mismatch: ${text}`);
-  });
-  return this;
+    if (!new RegExp(quantity, 'i').test(text)) throw new Error(`Quantity mismatch: ${text}`)
+  })
+  return this
 }
 
 async getSavedVariableAs(variable) {
@@ -103,4 +103,4 @@ async clickProceedToCheckoutButton() {
 
 }
 
-export default CartPage;
+export default CartPage

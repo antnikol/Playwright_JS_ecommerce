@@ -1,12 +1,12 @@
 import BasePage from "./BasePage.js"
-import HomePage from "./HomePage.js";
+import HomePage from "./HomePage.js"
 
 
 class ContactUsPage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getGetInTouchHeader = () => this.page.getByRole('heading', { level: 2, name: 'Get In Touch' })
@@ -52,8 +52,8 @@ async typeMessageTextField(message) {
 }
 
 async clickAndAttachFile(fileName) {
-  await this.getAttachFileField().setInputFiles(fileName);
-  return this;
+  await this.getAttachFileField().setInputFiles(fileName)
+  return this
 }
 
 async waitAndConfirmAlertWindow() {
@@ -73,4 +73,4 @@ async clickBackToHomePageButton() {
 
 }
 
-export default ContactUsPage;
+export default ContactUsPage

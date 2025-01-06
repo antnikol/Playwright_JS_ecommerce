@@ -76,4 +76,4 @@ async clickSubmitReviewButton() {
   
 }
 
-export default ProductDetailsPage;
+export default ProductDetailsPage

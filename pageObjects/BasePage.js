@@ -53,7 +53,7 @@ class BasePage {
   }
 
   async getPageTitle() {
-    return await this.page.title();
+    return await this.page.title()
   }
    
   async countLeftSidebarBrandsList() {
@@ -61,7 +61,7 @@ class BasePage {
   }
 
   async open() {
-    await this.page.goto("/");
+    await this.page.goto("/")
   }
 
   getSavedVariableAs(variable) {
@@ -69,7 +69,7 @@ class BasePage {
   }
 
   async getLeftSidebarRandomBrandNameAndCount(randomNumber) {
-    return (await this.getLeftSidebarBrandNameList().nth(randomNumber).textContent()).trim();
+    return (await this.getLeftSidebarBrandNameList().nth(randomNumber).textContent()).trim()
   }
 
   async getLeftSidebarRandomBrandCount(randomNumber) {
@@ -78,7 +78,7 @@ class BasePage {
 
   async getBrandName(brandNumber, brandCount) {
     // const brandName = await this.page.locator('.brands-name ul li a').nth(brandNumber).locator(`text=${}`).evaluate(element => {
-    //   return element.textContent.replace(/\(.*\)/, '').trim();
+    //   return element.textContent.replace(/\(.*\)/, '').trim()
     // })
     const nameAndCount = await this.getLeftSidebarRandomBrandNameAndCount(brandNumber)
     return nameAndCount.replace(brandCount, '').trim()
@@ -90,12 +90,12 @@ class BasePage {
   }
 
   async getLeftSidebarRandomBrandHref(randomNumber) {
-    return await this.getLeftSidebarBrandNameList().nth(randomNumber).getAttribute('href');
+    return await this.getLeftSidebarBrandNameList().nth(randomNumber).getAttribute('href')
   }
 
   async clickSignupLoginButton() {
-    await this.getSignupLoginButton().click();
-    return this;
+    await this.getSignupLoginButton().click()
+    return this
   }
 
   async clickDeleteAccountButton() {
@@ -119,8 +119,8 @@ class BasePage {
   }
 
   async typeSubscriptionFooterEmailField(subscriptionEmail) {
-    await this.getSubscriptionFooterEmailField().type(subscriptionEmail);
-    return this;
+    await this.getSubscriptionFooterEmailField().type(subscriptionEmail)
+    return this
   }  
 
   async clickSubscribeButton() {
@@ -134,39 +134,39 @@ class BasePage {
   }
 
   async scrollToBottom() {
-    const scrollHeight = await this.page.evaluate(() => document.body.scrollHeight);
-    const innerHeight = await this.page.evaluate(() => window.innerHeight);
+    const scrollHeight = await this.page.evaluate(() => document.body.scrollHeight)
+    const innerHeight = await this.page.evaluate(() => window.innerHeight)
     if (scrollHeight > innerHeight) {
-      await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
     }
-    return this;
+    return this
   }
   // async scrollToBottom() {
-  //   await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  //   return this;
+  //   await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+  //   return this
   // }
 
   async scrollToCopyright() {
-    await this.getCopyrightText().scrollIntoViewIfNeeded();
-    return this;
+    await this.getCopyrightText().scrollIntoViewIfNeeded()
+    return this
   }
   
   async scrollToHeaderHomeButton() {
     await this.getHeaderHomeButton().scrollIntoViewIfNeeded()
-    return this;
+    return this
   }
 
   async scrollToTop() {
-    const scrollHeight = await this.page.evaluate(() => document.body.scrollHeight);
-    const innerHeight = await this.page.evaluate(() => window.innerHeight);
+    const scrollHeight = await this.page.evaluate(() => document.body.scrollHeight)
+    const innerHeight = await this.page.evaluate(() => window.innerHeight)
     if (scrollHeight > innerHeight) {
-      await this.page.evaluate(() => window.scrollTo(0, 0));
+      await this.page.evaluate(() => window.scrollTo(0, 0))
     }
-    return this;
+    return this
   }
   // async scrollToTop() {
-  //   await this.page.evaluate(() => window.scrollTo(0, 0));
-  //   return this;
+  //   await this.page.evaluate(() => window.scrollTo(0, 0))
+  //   return this
   // }
   
   async clickTestCasesHeaderMenuButton() {
@@ -175,23 +175,23 @@ class BasePage {
   }
 
   async clickLeftSidebarCategory(categoryName) {
-    await this.page.locator(`a[href="#${categoryName}"]`).click();
-    return this;
+    await this.page.locator(`a[href="#${categoryName}"]`).click()
+    return this
   }
 
   // async clickSubCategoryRopeCategory(subCategoryName, categoryName) {
   //   const categoryLocator = this.getLeftSidebarCategoryList().locator(`#${categoryName}`)
   //   const subCategoryLocator = categoryLocator.locator(`text=${subCategoryName}`)
-  //   await subCategoryLocator.click();
-  //   return this;
+  //   await subCategoryLocator.click()
+  //   return this
   // }
 
   async clickSubCategoryRopeCategory(subCategoryName, categoryName) {
-    const categoryPanelLocator = await this.page.locator(`#${categoryName}`);
-    // await categoryPanelLocator.waitFor({ state: 'visible' });
-    const subCategoryLocator = categoryPanelLocator.locator('a').locator(`text=${subCategoryName}`);
-    await subCategoryLocator.click({ force: true });
-    return this;
+    const categoryPanelLocator = await this.page.locator(`#${categoryName}`)
+    // await categoryPanelLocator.waitFor({ state: 'visible' })
+    const subCategoryLocator = categoryPanelLocator.locator('a').locator(`text=${subCategoryName}`)
+    await subCategoryLocator.click({ force: true })
+    return this
   }
 
   async clickLeftSidebarSubCategory(subCategoryName) {
@@ -212,4 +212,4 @@ class BasePage {
 
 }
 
-export default BasePage;
+export default BasePage
