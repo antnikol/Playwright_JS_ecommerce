@@ -18,7 +18,6 @@ import HomePage from '../pageObjects/HomePage.js'
 
 
 export const test = baseTest.extend({
-  // deleteUser: async ({}, use) => { await use(commands.deleteUser) },
   registerUser: async ({}, use) => { await use(commands.registerUser) },
   loginUser: async ({}, use) => { await use(commands.loginUser) },
   deleteUserAfterRegistration: async ({}, use) => { await use(commands.deleteUserAfterRegistration) },
