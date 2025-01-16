@@ -1,17 +1,18 @@
 import { test } from '../../support/globalHooks.js'
-import { expect } from '@playwright/test';
+import { expect } from '@playwright/test'
+
 import { newProductTestData } from '../../fixtures/genData.js'
 import text from "../../fixtures/text.json" assert { type: "json" }
 import jsonData from '../../fixtures/api.json' assert { type: 'json' }
-import { registerUser, loginUser } from '../../support/commands.js';
-
+import { loginUser, loguotUser } from '../../support/commands.js'
 
 const product = newProductTestData()
-const { user, searchTerms } = jsonData
+const { searchTerms } = jsonData
+
 
 test.describe('Tests for the sections: Products', ()=> {
 
-  test('Test Case 8: Verify All Products and product detail page', async ({ page, homePage, productsPage, productDetailsPage }) => {
+  test('Test Case 8: Verify All Products and product detail page', async ({ homePage, productsPage, productDetailsPage }) => {
     await homePage.clickProductsHeaderButton()
     await expect(await productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
     await expect(await productsPage.countAllProductsList()).toBeGreaterThan(0)
@@ -24,7 +25,7 @@ test.describe('Tests for the sections: Products', ()=> {
     await expect(await productDetailsPage.getProductBrand()).toBeVisible()
   })
 
-  test('Test Case 9: Search Product', async ({ page, homePage, productsPage }) => {
+  test('Test Case 9: Search Product', async ({ homePage, productsPage }) => {
     await homePage.clickProductsHeaderButton()
     await expect(await productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
     await productsPage.typeSearchProductField(searchTerms[2])
@@ -33,10 +34,7 @@ test.describe('Tests for the sections: Products', ()=> {
     await productsPage.checkSearchedProductsNames(searchTerms[2])
   })
 
-  test('Test Case 20: Search Products and Verify Cart After Login', async ({ page, homePage, productsPage, cartPage }) => {
-    await registerUser(page)
-    await homePage.clickLogoutButton()
-
+  test('Test Case 20: Search Products and Verify Cart After Login', async ({ page, homePage, productsPage, cartPage, randomUser }) => {
     await homePage.clickProductsHeaderButton()
     await expect(await productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
     await expect(await productsPage.getPageUrl()).toContain(text.productsPage.pageUrl)
@@ -51,14 +49,15 @@ test.describe('Tests for the sections: Products', ()=> {
     await cartPage.checkSearchedProductNamesInCart(searchTerms[2])
     await cartPage.checkSearchedProductQuantityInCart(1)
 
-    await loginUser(page)
+    await loginUser(page, randomUser.email, randomUser.password)
     await homePage.clickViewCartHeaderButton()
     await expect(await cartPage.getActiveBreadcrumbs()).toHaveText(text.cartPage.breadCrumbs)
     await cartPage.checkSearchedProductNamesInCart(searchTerms[2])
     await cartPage.checkSearchedProductQuantityInCart(1)
+    await loguotUser(page, randomUser.name)
   })
 
-  test('Test Case 18: View Category Products', async ({ page, homePage, productsPage }) => {
+  test('Test Case 18: View Category Products', async ({ homePage, productsPage }) => {
     await homePage.clickLeftSidebarCategory(text.category[0])
     await homePage.clickSubCategoryRopeCategory(text.subCategoryWomen[0], text.category[0])
     await expect(await productsPage.getAllProductsHeader()).toHaveText(`${text.category[0]} - ${text.subCategoryWomen[0]} Products`)
@@ -74,21 +73,21 @@ test.describe('Tests for the sections: Products', ()=> {
     await productsPage.checkSearchedProductsNames(text.subCategoryMen[1])
   })
 
-  test('Test Case 21: Add review on product', async ({ page, homePage, productsPage, productDetailsPage }) => {
+  test('Test Case 21: Add review on product', async ({ homePage, productsPage, productDetailsPage, randomUser }) => {
     await homePage.clickProductsHeaderButton()
     await expect(await productsPage.getAllProductsHeader()).toHaveText(text.productsPage.allProductsHeader)
     await expect(await productsPage.getPageUrl()).toContain(text.productsPage.pageUrl)
     await productsPage.clickFirstViewProductButton()
     await expect(await productDetailsPage.getWriteYourReviewHeader()).toHaveText(text.productDetailsPage.writeYourReviewHeader)
-    await productDetailsPage.typeYourNameField(user.name)
-    await productDetailsPage.typeYourEmailField(user.email)
-    await productDetailsPage.typeReviewTextField(product.review)
+    await productDetailsPage.typeYourNameField(randomUser.name)
+    await productDetailsPage.typeYourEmailField(randomUser.email)
+    await productDetailsPage.typeReviewTextField(product.productReview)
     await productDetailsPage.clickSubmitReviewButton()
     await expect(await productDetailsPage.getReviewSuccessMessage()).toBeVisible()
     await expect(await productDetailsPage.getReviewSuccessMessage()).toHaveText(text.productDetailsPage.reviewSuccessMessage)     
   })
 
-  test('Test Case 19: View & Cart Brand Products', async ({ page, homePage, productsPage }) => {
+  test('Test Case 19: View & Cart Brand Products', async ({ homePage, productsPage }) => {
     await homePage.clickProductsHeaderButton()
     await expect(await productsPage.getLeftSidebarBrandsHeading()).toBeVisible()
     await expect(await productsPage.getLeftSidebarBrandsHeading()).toHaveText(text.productsPage.brandsHeading)

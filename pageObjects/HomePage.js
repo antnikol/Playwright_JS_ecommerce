@@ -1,20 +1,21 @@
-import BasePage from "./BasePage";
-import CartPage from "./CartPage";
+import BasePage from "./BasePage"
+import CartPage from "./CartPage"
 
 class HomePage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
-getSliderSection = () => this.page.locator('section[id="slider"]')
+getSliderSection = () => this.page.locator('section#slider')
 getLeftSideBar = () => this.page.locator('.left-sidebar')
 getFeaturesItemsSection = () => this.page.locator('.features_items')
 getPageTitle = () => this.page.title()
 getAllAddToCartButtons = () => this.page.locator('a[data-product-id]')
 getViewCartModalButton = () => this.page.locator('.modal-body a[href="/view_cart"]')
 getSliderCarouselSection = () => this.page.locator('#slider-carousel div.carousel-inner')
+
 getRecommendedItemCarouselSection = () => this.page.locator('#recommended-item-carousel div.carousel-inner')
 getRecommendedItemCarouselSectionActive = () => this.page.locator('#recommended-item-carousel .item.active')
 getCarouselRecommendedItemNamesList = () => this.page.locator('#recommended-item-carousel .item.active p')
@@ -47,18 +48,18 @@ async clickCarouselRecommendedItemAddToCartButton(randomCarouselNumber) {
 }
 
 async scrollToCarouselRecommendedItems() {
-  await this.getRecommendedItemCarouselSection().scrollIntoViewIfNeeded();
-  return this;
+  await this.getRecommendedItemCarouselSection().scrollIntoViewIfNeeded()
+  return this
 }
 
 async getFirstProductName() {
   return (await this.getAllProductsNames().first().innerText()).trim()
 } 
 
-async takeFirstProductPrice() {
+async getFirstProductPrice() {
   return (await this.getAllProductsPrices().first().innerText()).trim()
 }
 
 }
 
-export default HomePage;
+export default HomePage

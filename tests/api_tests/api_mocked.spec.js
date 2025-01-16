@@ -14,13 +14,13 @@ test.describe('API tests with mocked data', () => {
         status: 201,
         contentType: 'application/json',
         body: JSON.stringify({ products: [{ name: 'mocked' }] }),
-      });
-    });
+      })
+    })
 
     await page.goto(`${extraBaseURL}/mockPage.html`)
     const response = await page.waitForResponse((response) => {
       return response.url().includes('/api/productsList')
-    });
+    })
 
     const responseBody = await response.json()
     expect(response.status()).toBe(201)

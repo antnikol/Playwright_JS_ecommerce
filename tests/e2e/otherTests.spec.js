@@ -1,7 +1,8 @@
 import { test } from '../../support/globalHooks.js'
-import { expect } from '@playwright/test';
+import { expect } from '@playwright/test'
 
 import text from "../../fixtures/text.json" assert { type: "json" }
+
 
 test.describe('Tests for the sections: Other tests', () => {
 
@@ -26,9 +27,9 @@ test.describe('Tests for the sections: Other tests', () => {
     expect(bottom).toBeLessThan(viewportHeight)
 
     await homePage.clickScrollUpButton()
-    await expect(await homePage.getSliderCarouselSection()).toBeVisible()
-    await expect(await homePage.getSliderCarouselSection()).toContainText(text.homePage.sliderCarouselSection)
-    const rectUp = await homePage.getSliderCarouselSection().boundingBox()
+    await expect(await homePage.getHeaderSection()).toBeVisible()
+    await expect(await homePage.getHeaderSection()).toContainText(text.homePage.headerSection)
+    const rectUp = await homePage.getHeaderSection().boundingBox()
     const topUp = rectUp.y
     const bottomUp = rectUp.y + rectUp.height
     const viewportHeightUp = page.viewportSize().height
@@ -49,9 +50,9 @@ test.describe('Tests for the sections: Other tests', () => {
     expect(bottom).toBeLessThan(viewportHeight)
 
     await homePage.scrollToTop()
-    await expect(await homePage.getSliderCarouselSection()).toBeVisible()
-    await expect(await homePage.getSliderCarouselSection()).toContainText(text.homePage.sliderCarouselSection)
-    const rectUp = await homePage.getSliderCarouselSection().boundingBox()
+    await expect(await homePage.getHeaderSection()).toBeVisible()
+    await expect(await homePage.getHeaderSection()).toContainText(text.homePage.headerSection)
+    const rectUp = await homePage.getHeaderSection().boundingBox()
     const topUp = rectUp.y
     const bottomUp = rectUp.y + rectUp.height
     const viewportHeightUp = page.viewportSize().height

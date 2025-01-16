@@ -31,7 +31,8 @@
     "accountDeleted": "Account Deleted!",
     "pageTitle": "Automation Exercise",
     "subscriptionHeading": "Subscription",
-    "sliderCarouselSection": "Full-Fledged practice website for Automation Engineers"
+    "sliderCarouselSection": "Full-Fledged practice website for Automation Engineers",
+    "headerSection": "Home"
   },
 
   "basePage": {
@@ -64,7 +65,8 @@
     "signupFormHeader": "New User Signup!",
     "createAccount": "Create Account",
     "loginFormHeader": "Login to your account",
-    "errorSingupMessage": "Email Address already exist!"
+    "errorSingupMessage": "Email Address already exist!",
+    "errorLoginMessage": "Your email or password is incorrect!"
   },
 
   "category": [

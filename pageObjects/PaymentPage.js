@@ -1,4 +1,4 @@
-import BasePage from "./BasePage.js";
+import BasePage from "./BasePage.js"
 
 class PaymentPage extends BasePage {
 
@@ -7,16 +7,24 @@ constructor(page) {
   this.page = page
 }
 
-getHeadingOfSection = () => this.page.locator('.step-one h2')
+getHeadingOfSection = () => this.page.getByRole('heading', { level: 2, name: 'Payment' })
 getPaymentInformation = () => this.page.locator('.payment-information')
 getNameOnCardTextField = () => this.page.locator('input[data-qa="name-on-card"]')
 getCardNumberTextField = () => this.page.locator('input[data-qa="card-number"]')
 getCardCvvTextField = () => this.page.locator('input[data-qa="cvc"]')
 getCardExpiryMonthTextField = () => this.page.locator('input[data-qa="expiry-month"]')
 getCardExpiryYearTextField = () => this.page.locator('input[data-qa="expiry-year"]')
-getPayAndConfirmOrderButton = () => this.page.locator('button[data-qa="pay-button"]')
+getPayAndConfirmOrderButton = () => this.page.getByRole('button', { name: 'Pay and Confirm Order' })
 getSuccessOrderMessage = () => this.page.locator('#success_message > .alert-success')
 
+// other locators:
+// getHeadingOfSection = () => this.page.locator('.step-one h2')
+// getPayAndConfirmOrderButton = () => this.page.locator('button[data-qa="pay-button"]')
+
+
+async getSuccessOrderMessageText() {
+  return await this.getSuccessOrderMessage().innerText()
+}
 
 async typeNameOnCardTextField(name, lastname) {
   await this.getNameOnCardTextField().type(`${name} ${lastname}`)
@@ -49,4 +57,4 @@ async clickPayAndConfirmOrderButton() {
 }
 }
 
-export default PaymentPage;
+export default PaymentPage

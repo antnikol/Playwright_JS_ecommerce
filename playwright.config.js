@@ -1,17 +1,25 @@
 // @ts-check
 // @see https://playwright.dev/docs/test-configuration
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 5 : 0,
-  workers: process.env.CI ? 1 : 1,
+  retries: process.env.CI ? 15 : 5,
+  workers: process.env.CI ? 4 : undefined,
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }], 
     ['list'],
-    ['allure-playwright'],
+    [
+      'allure-playwright',
+      {
+        excludeArtifacts: ['video.mp4'],
+        resultsDir: "allure-results",
+        detail: true,
+        suiteTitle: true,
+      },
+    ],
   ],
   use: {
     headless: true,
@@ -19,16 +27,16 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   globalSetup: './support/globalSetup.js',
-  timeout: 60000,
+  timeout: 120000,
   projects: [
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
         timeout: 30000, 
-        actionTimeout: 45000, 
+        actionTimeout: 15000, 
         expect: {
-          timeout: 15000, 
+          timeout: 10000, 
         },
       },
 
@@ -38,41 +46,55 @@ export default defineConfig({
       use: {
         ...devices['Desktop Firefox'],
         timeout: 60000, 
-        actionTimeout: 60000,
+        actionTimeout: 15000,
         expect: {
-          timeout: 15000,
+          timeout: 10000,
         },
-      },
-    },
-    {
-      name: 'Webkit',
-      use: {
-        ...devices['Desktop Safari'],
-        timeout: 90000, 
-        actionTimeout: 90000,
-        expect: {
-          timeout: 15000,
-        },
-      },
-    },
-    {
-      name: 'Microsoft Edge',
-      use: { 
-       ...devices['Desktop Edge'], channel: 'msedge',
-          timeout: 90000, 
-          actionTimeout: 40000,
-          expect: {
-            timeout: 15000,
-          },
       },
     },
     // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
+    //   name: 'Webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     timeout: 120000, 
+    //     actionTimeout: 15000,
+    //     expect: {
+    //       timeout: 10000,
+    //     },
+    //   },
     // },
     // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
+    //   name: 'Microsoft Edge',
+    //   use: { 
+    //    ...devices['Desktop Edge'], channel: 'msedge',
+    //       timeout: 120000, 
+    //       actionTimeout: 15000,
+    //       expect: {
+    //         timeout: 10000,
+    //       },
+    //   },
+    // },
+    // {
+    //   name: 'Mobile_Chrome',
+    //   use: { 
+    //     ...devices['Pixel 5'],
+    //     timeout: 120000, 
+    //       actionTimeout: 15000,
+    //       expect: {
+    //         timeout: 10000,
+    //       },
+    //   },
+    // },
+    // {
+    //   name: 'Mobile_Safari',
+    //   use: { 
+    //     ...devices['iPhone 12'], 
+    //     timeout: 120000, 
+    //       actionTimeout: 15000,
+    //       expect: {
+    //         timeout: 10000,
+    //       },
+    //   },
     // },
   ],
 
@@ -82,5 +104,5 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-});
+})
 

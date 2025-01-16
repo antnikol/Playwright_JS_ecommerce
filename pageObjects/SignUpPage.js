@@ -9,25 +9,42 @@ constructor(page) {
   this.page = page
 }
 
-getTitleMrRadioButton = () => this.page.locator('input[id="id_gender1"]')
-getPasswordTextField = () => this.page.locator('input[data-qa="password"]')
+getTitleMrRadioButton = () => this.page.getByRole('radio', { name: 'Mr.'})
+getPasswordTextField = () => this.page.getByRole('textbox', { name: 'Password' })
 getAllBirthDays = () => this.page.locator('select[data-qa="days"]')
 getAllBirthMonths = () => this.page.locator('select[data-qa="months"]')
 getAllBirthYears = () => this.page.locator('select[data-qa="years"]')
-getNewsletterCheckbox = () => this.page.locator('#newsletter')
-getSpecialOffersCheckbox = () => this.page.locator('#newsletter')
-getFirstNameTextField = () => this.page.locator('input[data-qa="first_name"]')
-getLastNameTextField = () => this.page.locator('input[data-qa="last_name"]')
-getCompanyTextField = () => this.page.locator('input[data-qa="company"]')
-getAddressTextField = () => this.page.locator('input[data-qa="address"]')
-getAddress2TextField = () => this.page.locator('input[data-qa="address2"]')
-getCountryList = () => this.page.locator('select[data-qa="country"]')
-getStateTextField = () => this.page.locator('input[data-qa="state"]')
-getCityTextField = () => this.page.locator('input[data-qa="city"]')
+getNewsletterCheckbox = () => this.page.getByRole('checkbox', { name: 'Sign up for our newsletter!' })
+getSpecialOffersCheckbox = () => this.page.getByRole('checkbox', { name: 'Receive special offers from our partners!' })
+getFirstNameTextField = () => this.page.getByLabel('First name')
+getLastNameTextField = () => this.page.getByLabel('Last name')
+getCompanyTextField = () => this.page.getByLabel('Company', { exact: true })
+getAddressTextField = () => this.page.getByLabel('Address * (Street address, P.O. Box, Company name, etc.)')
+getAddress2TextField = () => this.page.getByLabel('Address 2')
+getCountryList = () => this.page.getByRole('combobox', { name: 'country' })
+getStateTextField = () => this.page.getByLabel('State')
+getCityTextField = () => this.page.getByLabel('City')
 getZipCodeTextField = () => this.page.locator('input[data-qa="zipcode"]')
-getMobileNumberTextField = () => this.page.locator('input[data-qa="mobile_number"]')
-getCreateAccountButton = () => this.page.locator('button[data-qa="create-account"]')
-getContinueButton = () => this.page.locator('a[data-qa="continue-button"]')
+getMobileNumberTextField = () => this.page.getByLabel('Mobile Number')
+getCreateAccountButton = () => this.page.getByRole('button', {name: 'Create Account'})
+getContinueButton=  () => this.page.getByText('Continue', { exact: true })
+
+// css.locators:
+// getTitleMrRadioButton = () => this.page.locator('input#id_gender1')
+// getPasswordTextField = () => this.page.locator('input[data-qa="password"]')
+// getNewsletterCheckbox = () => this.page.locator('#newsletter')
+// getSpecialOffersCheckbox = () => this.page.locator('#optin')
+// getFirstNameTextField = () => this.page.locator('input[data-qa="first_name"]')
+// getLastNameTextField = () => this.page.locator('input[data-qa="last_name"]')
+// getCompanyTextField = () => this.page.locator('input[data-qa="company"]')
+// getAddressTextField = () => this.page.locator('input[data-qa="address"]')
+// getAddress2TextField = () => this.page.locator('input[data-qa="address2"]')
+// getCountryList = () => this.page.locator('select[data-qa="country"]')
+// getStateTextField = () => this.page.locator('input[data-qa="state"]')
+// getCityTextField = () => this.page.locator('input[data-qa="city"]')
+// getMobileNumberTextField = () => this.page.locator('input[data-qa="mobile_number"]')
+// getCreateAccountButton = () => this.page.locator('button[data-qa="create-account"]')
+// getContinueButton = () => this.page.locator('a[data-qa="continue-button"]')
 
 
 async checkTitleMrRadioButton() {
@@ -127,4 +144,4 @@ async clickContinueButton() {
 
 }
 
-export default SignUpPage;
+export default SignUpPage

@@ -7,11 +7,11 @@
   <script>
     fetch('/api/productsList')
       .then(response => {
-        console.log('Fetch status:', response.status);
-        return response.json();
+        console.log('Fetch status:', response.status)
+        return response.json()
       })
       .then(data => console.log('Fetch data:', data))
-      .catch(error => console.error('Fetch error:', error));
+      .catch(error => console.error('Fetch error:', error))
   </script>
 </body>
 </html>

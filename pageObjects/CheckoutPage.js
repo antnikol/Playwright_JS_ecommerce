@@ -6,7 +6,7 @@ class CheckoutPage extends BasePage {
 
 constructor(page) {
   super(page)
-  this.page = page;
+  this.page = page
 }
 
 getCartInfoSection = () => this.page.locator('#cart_info')
@@ -21,7 +21,8 @@ getDeliveryAddress2 = () => this.page.locator('#address_delivery .address_addres
 getAllCartProductNameList = () => this.page.locator('.cart_description a')
 getAllCartProductPriceList = () => this.page.locator('.cart_price p')
 getCommentOrderTextField = () => this.page.locator('textarea[class="form-control"]')
-getPlaceOrderButton = () => this.page.locator('a[href="/payment"]')
+// getPlaceOrderButton = () => this.page.locator('a[href="/payment"]')
+getPlaceOrderButton = () => this.page.getByRole('link', { name: /place order/i })
 getToCartTableSection = () => this.page.locator('.cart_menu')
 getAddressDeliverySectionHeading = () => this.page.locator('#address_delivery h3').textContent()
 getAddressBillingSectionHeading = () => this.page.locator('#address_invoice h3').textContent()
@@ -46,9 +47,9 @@ async clickPlaceOrderButton() {
 }
 
 async scrollToCartTableSection() {
-  await this.getToCartTableSection().scrollIntoViewIfNeeded();
-  return this;
+  await this.getToCartTableSection().scrollIntoViewIfNeeded()
+  return this
 }
 }
 
-export default CheckoutPage;
+export default CheckoutPage

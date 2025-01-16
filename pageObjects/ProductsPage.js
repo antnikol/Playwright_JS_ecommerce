@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect } from '@playwright/test'
 import BasePage from "./BasePage.js"
 import ProductDetailsPage from "./ProductDetailsPage"
 import CartPage from "./CartPage.js"
@@ -26,6 +26,8 @@ getBrandPageSectionHeading = () => this.page.locator('div.features_items h2.titl
 getFirstProductItem = () => this.page.locator('.choose').eq(0)
 getNthAddToCartButton = (nth) => this.page.locator(`a[data-product-id]:nth-of-type(${nth})`)
 
+//other locators:
+//getSearchProductField = () => this.page.getByPlaceholder('Search Product')
 
 static counterClickFirstProductAddToCartButton = 0
 
@@ -50,15 +52,15 @@ async clickSearchButton() {
 }
 
 async checkSearchedProductsNames(searchWords) {
-  const elements = await this.getAllProductsNames().all();
+  const elements = await this.getAllProductsNames().all()
   for (const element of elements) {
-    const text = await element.innerText();
-    expect(text).toMatch(new RegExp(searchWords, 'i'));
+    const text = await element.innerText()
+    expect(text).toMatch(new RegExp(searchWords, 'i'))
   }
-  return this;
+  return this
 }
 
-async takeFirstProductPrice() {
+async getFirstProductPrice() {
   return await this.getAllProductsPrices().first().innerText()
 }
 
@@ -101,20 +103,20 @@ async clickSecondProductAddToCartButton() {
 
 
 async returnSecondProductPriceAllText() {
-  const text = await this.getAllProductsPrices().nth(1).innerText();
-  return text.trim();
+  const text = await this.getAllProductsPrices().nth(1).innerText()
+  return text.trim()
 }
 
 
 async returnSecondProductPriceOnlyNumber() {
-  const text = await this.getAllProductsPrices().nth(1).innerText();
-  return parseFloat(text.slice(4));
+  const text = await this.getAllProductsPrices().nth(1).innerText()
+  return parseFloat(text.slice(4))
 }
 
 
 async returnSecondProductName() {
-  const text = await this.getAllProductsNames().nth(1).innerText();
-  return text.trim();
+  const text = await this.getAllProductsNames().nth(1).innerText()
+  return text.trim()
 }
 
 
@@ -129,7 +131,7 @@ resetCounterClickFirstProductAddToCartButton() {
 }
 
 takeCounterClickFirstProductAddToCartButton() {
-  return this.counterClickFirstProductAddToCartButton;
+  return this.counterClickFirstProductAddToCartButton
 }
 
 async clickAllProductsAddToCartButton() {
@@ -141,9 +143,9 @@ async clickAllProductsAddToCartButton() {
       await this.getContinueShoppingButton().click()
     }
   }
-  return this;
+  return this
 }
 
 }
 
-export default ProductsPage;
+export default ProductsPage
