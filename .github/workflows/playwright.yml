@@ -59,25 +59,6 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --reporter=list,allure-playwright,html
 
-      - name: Reset and clean gh-pages branch
-        run: |
-          echo "Resetting and cleaning gh-pages branch..."
-          git init
-          if git remote | grep -q origin; then
-            echo "Remote origin already exists. Updating its URL..."
-            git remote set-url origin https://github.com/antnikol/Playwright_JS_ecommerce
-          else
-            echo "Adding remote origin..."
-            git remote add origin https://github.com/antnikol/Playwright_JS_ecommerce
-          fi
-          git fetch origin gh-pages || echo "No existing gh-pages branch found."
-          git checkout gh-pages || git checkout -b gh-pages
-          git rm -rf . # Remove all files in the branch
-          echo "Allure Report" > README.md
-          git add README.md
-          git commit -m "Reset gh-pages branch to clean history"
-          git push origin gh-pages --force
-
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
@@ -125,12 +106,12 @@ jobs:
       #     name: allure-results
       #     path: ./allure-results
 
-      - name: Upload Playwright screenshots (on failure)
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-screenshots
-          path: ./playwright/screenshots
+      # - name: Upload Playwright screenshots (on failure)
+      #   uses: actions/upload-artifact@v4
+      #   if: failure()
+      #   with:
+      #     name: playwright-screenshots
+      #     path: ./playwright/screenshots
 
       # - name: Upload Playwright report
       #   uses: actions/upload-artifact@v4
