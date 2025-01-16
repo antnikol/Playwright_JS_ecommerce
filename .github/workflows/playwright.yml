@@ -59,6 +59,14 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --reporter=list,allure-playwright,html
 
+      - name: Reset gh-pages branch (optional)
+        run: |
+          echo "Resetting gh-pages branch to reduce size..."
+          git checkout gh-pages || git checkout -b gh-pages
+          git rm -rf .
+          git commit -m "Reset gh-pages to clean history"
+          git push origin gh-pages --force
+
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
@@ -76,14 +84,6 @@ jobs:
       #     else
       #       echo "No previous history to clean."
       #     fi
-
-      - name: Reset gh-pages branch (optional)
-        run: |
-          echo "Resetting gh-pages branch to reduce size..."
-          git checkout gh-pages || git checkout -b gh-pages
-          git rm -rf .
-          git commit -m "Reset gh-pages to clean history"
-          git push origin gh-pages --force
 
       - name: Build Allure report
         uses: simple-elf/allure-report-action@v1.7
