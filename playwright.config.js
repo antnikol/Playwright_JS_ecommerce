@@ -11,7 +11,12 @@ export default defineConfig({
   reporter: [
     ['html', { outputFolder: 'playwright-report', open: 'never' }], 
     ['list'],
-    ['allure-playwright'],
+    [
+      'allure-playwright',
+      {
+        excludeArtifacts: ['screenshot.png', 'video.mp4'],
+      },
+    ],
   ],
   use: {
     headless: true,

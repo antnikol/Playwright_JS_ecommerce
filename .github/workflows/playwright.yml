@@ -67,6 +67,16 @@ jobs:
           ref: gh-pages
           path: allure-history
 
+      # - name: Clean old Allure history (keep last 10)
+      #   run: |
+      #     if [ -d allure-history ]; then
+      #       cd allure-history
+      #       ls -1t | tail -n +11 | xargs rm -rf
+      #       cd ..
+      #     else
+      #       echo "No previous history to clean."
+      #     fi
+
       - name: Build Allure report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
@@ -83,12 +93,18 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
 
-      - name: Upload Allure results
+      - name: Upload Allure report
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: allure-results
-          path: ./allure-results
+          name: allure-report
+          path: ./allure-report
+
+      # - name: Upload Allure results
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: allure-results
+      #     path: ./allure-results
 
       - name: Upload Playwright screenshots (on failure)
         uses: actions/upload-artifact@v4
@@ -97,12 +113,12 @@ jobs:
           name: playwright-screenshots
           path: ./playwright/screenshots
 
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
+      # - name: Upload Playwright report
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: playwright-report
+      #     path: playwright-report/
 
       - name: Stop mock server
         run: |
