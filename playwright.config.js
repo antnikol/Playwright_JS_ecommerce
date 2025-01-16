@@ -14,7 +14,7 @@ export default defineConfig({
     [
       'allure-playwright',
       {
-        excludeArtifacts: ['screenshot.png', 'video.mp4'],
+        excludeArtifacts: ['video.mp4'],
         resultsDir: "allure-results",
         detail: true,
         suiteTitle: true,
