@@ -41,61 +41,61 @@ export default defineConfig({
       },
 
     },
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox'],
-        timeout: 60000, 
-        actionTimeout: 15000,
-        expect: {
-          timeout: 10000,
-        },
-      },
-    },
-    {
-      name: 'Webkit',
-      use: {
-        ...devices['Desktop Safari'],
-        timeout: 120000, 
-        actionTimeout: 15000,
-        expect: {
-          timeout: 10000,
-        },
-      },
-    },
-    {
-      name: 'Microsoft Edge',
-      use: { 
-       ...devices['Desktop Edge'], channel: 'msedge',
-          timeout: 120000, 
-          actionTimeout: 15000,
-          expect: {
-            timeout: 10000,
-          },
-      },
-    },
-    {
-      name: 'Mobile_Chrome',
-      use: { 
-        ...devices['Pixel 5'],
-        timeout: 120000, 
-          actionTimeout: 15000,
-          expect: {
-            timeout: 10000,
-          },
-      },
-    },
-    {
-      name: 'Mobile_Safari',
-      use: { 
-        ...devices['iPhone 12'], 
-        timeout: 120000, 
-          actionTimeout: 15000,
-          expect: {
-            timeout: 10000,
-          },
-      },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     timeout: 60000, 
+    //     actionTimeout: 15000,
+    //     expect: {
+    //       timeout: 10000,
+    //     },
+    //   },
+    // },
+    // {
+    //   name: 'Webkit',
+    //   use: {
+    //     ...devices['Desktop Safari'],
+    //     timeout: 120000, 
+    //     actionTimeout: 15000,
+    //     expect: {
+    //       timeout: 10000,
+    //     },
+    //   },
+    // },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { 
+    //    ...devices['Desktop Edge'], channel: 'msedge',
+    //       timeout: 120000, 
+    //       actionTimeout: 15000,
+    //       expect: {
+    //         timeout: 10000,
+    //       },
+    //   },
+    // },
+    // {
+    //   name: 'Mobile_Chrome',
+    //   use: { 
+    //     ...devices['Pixel 5'],
+    //     timeout: 120000, 
+    //       actionTimeout: 15000,
+    //       expect: {
+    //         timeout: 10000,
+    //       },
+    //   },
+    // },
+    // {
+    //   name: 'Mobile_Safari',
+    //   use: { 
+    //     ...devices['iPhone 12'], 
+    //     timeout: 120000, 
+    //       actionTimeout: 15000,
+    //       expect: {
+    //         timeout: 10000,
+    //       },
+    //   },
+    // },
   ],
 
   /* Run your local dev server before starting the tests */

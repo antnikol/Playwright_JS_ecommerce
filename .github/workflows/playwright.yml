@@ -59,12 +59,17 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --reporter=list,allure-playwright,html
 
-      - name: Reset gh-pages branch (optional)
+      - name: Reset and clean gh-pages branch
         run: |
-          echo "Resetting gh-pages branch to reduce size..."
+          echo "Resetting and cleaning gh-pages branch..."
+          git init
+          git remote add origin https://github.com/${{ github.repository }}
+          git fetch origin gh-pages || echo "No existing gh-pages branch found."
           git checkout gh-pages || git checkout -b gh-pages
-          git rm -rf .
-          git commit -m "Reset gh-pages to clean history"
+          git rm -rf . # Remove all files in the branch
+          echo "Allure Report" > README.md
+          git add README.md
+          git commit -m "Reset gh-pages branch to clean history"
           git push origin gh-pages --force
 
       - name: Load test report history
