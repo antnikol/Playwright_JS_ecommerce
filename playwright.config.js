@@ -41,17 +41,17 @@ export default defineConfig({
       },
 
     },
-    // {
-    //   name: 'firefox',
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //     timeout: 60000, 
-    //     actionTimeout: 15000,
-    //     expect: {
-    //       timeout: 10000,
-    //     },
-    //   },
-    // },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        timeout: 60000, 
+        actionTimeout: 15000,
+        expect: {
+          timeout: 10000,
+        },
+      },
+    },
     // {
     //   name: 'Webkit',
     //   use: {
