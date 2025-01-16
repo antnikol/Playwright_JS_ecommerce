@@ -67,15 +67,15 @@ jobs:
           ref: gh-pages
           path: allure-history
 
-      # - name: Clean old Allure history (keep last 10)
-      #   run: |
-      #     if [ -d allure-history ]; then
-      #       cd allure-history
-      #       ls -1t | tail -n +11 | xargs rm -rf
-      #       cd ..
-      #     else
-      #       echo "No previous history to clean."
-      #     fi
+      - name: Clean old Allure history (keep last 10)
+        run: |
+          if [ -d allure-history ]; then
+            cd allure-history
+            ls -1t | tail -n +11 | xargs rm -rf
+            cd ..
+          else
+            echo "No previous history to clean."
+          fi
 
       - name: Build Allure report
         uses: simple-elf/allure-report-action@v1.7
